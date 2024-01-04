@@ -1,10 +1,13 @@
 import 'package:carnotautomart/ui/utils/app_colors.dart';
+import 'package:carnotautomart/ui/utils/text_font_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'ui/splash/splash_screen.dart';
+import 'ui/widget/all_chomphonent.dart';
 
 void main() async {
   await GetStorage.init();
@@ -19,17 +22,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const GetCupertinoApp(
+    return  GetMaterialApp(
       title: 'Carnotautomart',
       locale: Locale('en','US'),
       debugShowCheckedModeBanner: false,
-      theme: CupertinoThemeData(
-        primaryColor: coloDeeprOrange
+      builder: FToastBuilder(),
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+        textTheme: AppTextTheme().lightTextTheme,
+        fontFamily: 'Averta Standard'
       ),
-      home:SplashScreen() ,
+      home:AllChomphonent() //SplashScreen() ,
 
 
     );
