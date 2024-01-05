@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
       builder: FToastBuilder(),
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
+        scaffoldBackgroundColor: scaffoldBAckground,
         textTheme: AppTextTheme().lightTextTheme,
         fontFamily: 'Averta Standard'
       ),
