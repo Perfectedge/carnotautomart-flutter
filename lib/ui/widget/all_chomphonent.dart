@@ -48,7 +48,7 @@ class _AllChomphonentState extends State<AllChomphonent> {
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              color: colorDeeprOrange),
+              color: colorDeepOrange),
           child: Image.asset('assets/images/ic_flame.png'),
         ),
         SpaceHelper.horizontalSpaceSmall,
@@ -103,7 +103,7 @@ class _AllChomphonentState extends State<AllChomphonent> {
               clipper: MyAppBarClipper(),
               child: Container(
                 height: 60,
-                decoration: BoxDecoration(color: colorDeeprOrange),
+                decoration: BoxDecoration(color: colorDeepOrange),
               ),
             ),
             ElevatedButton(
