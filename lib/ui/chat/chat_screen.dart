@@ -1,13 +1,13 @@
 import 'dart:developer';
 
-import 'package:carnotautomart/data/helper/spacing_helper.dart';
+import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/chat/chat_controller.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 
-import '../../data/helper/helper_functions.dart';
+import '../utils/helper/helper_functions.dart';
 import 'chat_message_widget.dart';
 
 class ChatScreen extends StatefulWidget {

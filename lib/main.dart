@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         textTheme: AppTextTheme().lightTextTheme,
         fontFamily: 'Averta Standard'
       ),
-      home: BottomBarScreen() //AllChomphonent() //SplashScreen() ,
+      home:SliderDrawerAndBottomNavigation() //BottomBarScreen() //AllChomphonent() //SplashScreen() ,
 
 
     );

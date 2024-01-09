@@ -1,61 +1,139 @@
-import 'package:carnotautomart/ui/bottom_navigation%20/bottom_screen_controller.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-
-import '../../data/helper/image_helper.dart';
 import '../drawer/app_drawer.dart';
+import 'favourite/favourite_screen.dart';
+import 'home/home_screen.dart';
+import 'service/service_screen.dart';
+import 'slider_drawer/slider.dart';
+
+class SliderDrawerAndBottomNavigation extends StatefulWidget {
+  const SliderDrawerAndBottomNavigation({super.key});
+
+  @override
+  State<SliderDrawerAndBottomNavigation> createState() =>
+      _SliderDrawerAndBottomNavigationState();
+}
+
+class _SliderDrawerAndBottomNavigationState
+    extends State<SliderDrawerAndBottomNavigation>
+    with TickerProviderStateMixin {
+  final GlobalKey<SliderDrawerState> _sliderDrawerKey =
+      GlobalKey<SliderDrawerState>();
+  String barTitle = 'Home'.toUpperCase();
+  late AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 400));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Scaffold(
+      body: SliderDrawer(
+          key: _sliderDrawerKey,
+          animationController: animationController,
+          appBar: AppBar(
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            leading: IconButton(
+              icon: AnimatedIcon(
+                progress: CurvedAnimation(
+                    parent: animationController, curve: Curves.linear),
+                icon: AnimatedIcons.menu_close,
+                color: Colors.white,
+                size: 25,
+              ),
+              splashRadius: 20,
+              onPressed: () {
+                _sliderDrawerKey.currentState?.toggle();
+              },
+            ),
+            title: Text(
+              barTitle,
+              style: textTheme.bodyMedium?.copyWith(letterSpacing: 0),
+            ),
+          ),
+          slider: CustomDrawer(
+            index: (value) {},
+          ),
+          child: BottomBarScreen(appBarTitle: (title) {
+            setState(() {
+              barTitle = title.toString().toUpperCase();
+            });
+          })),
+    );
+  }
+}
 
 class BottomBarScreen extends StatefulWidget {
-  const BottomBarScreen({super.key});
-
+  BottomBarScreen({super.key, required this.appBarTitle});
+  ValueChanged<String> appBarTitle;
   @override
   State<BottomBarScreen> createState() => _BottomBarScreenState();
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
- final BottomScreenController _bottomScreenController = Get.put(BottomScreenController());
+  // final BottomScreenController _bottomScreenController =
+  //     Get.put(BottomScreenController());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int bodyIndex = 0;
   final _selectedItemColor = colorDeepOrange;
   final _unselectedItemColor = colorDeepGray;
   bool isFromDrawer = false;
-  int titleIndex = 0;
+  List<String> appbarTitle = ['Home', 'Services', 'Favourite'];
+  List<Widget> screens = [];
+
+  @override
+  void initState() {
+    super.initState();
+    screens = [
+      HomeScreen(
+        index: (index) {
+          _onItemTapped(index);
+        },
+      ),
+      const ServiceScreen(),
+      const FavouriteScreen()
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        leading:  IconButton(
-            icon: const Icon(
-              Icons.menu,
-              color:Colors.white,
-              size: 35,
-            ),
-            splashRadius: 20,
-            onPressed: () {
-              if (!_scaffoldKey.currentState!.isDrawerOpen) {
-                _scaffoldKey.currentState?.openDrawer();
-              } else {
-                _scaffoldKey.currentState?.closeDrawer();
-              }
-            },
-          ),
-        title: Text(
-          _bottomScreenController.appbarTitle[titleIndex].toUpperCase(),
-          style: textTheme.bodyMedium,
-        ),
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 600),
+        child: screens[bodyIndex],
+        // key: ValueKey(bodyIndex),
+        switchInCurve: Curves.linear,
+        switchOutCurve: Curves.linear,
+        transitionBuilder: (child, animation) {
+          // return ScaleTransition(
+          //   scale: animation,
+          //   child: child,
+          // );
+          return FadeTransition(opacity: animation,child: child,);
+          // final curvedAnimation = CurvedAnimation(
+          //   parent: animation,
+          //   curve: Curves
+          //       .easeInOut, // Specify the overall curve for the transition
+          // );
+          // return SlideTransition(
+          //   position: Tween<Offset>(
+          //     begin: Offset(1.0, 0.0),
+          //     end: Offset(0.0, 0.0),
+          //   ).animate(curvedAnimation),
+          //   child: child,
+          // );
+        },
       ),
-      drawer: CustomDrawer(index: (index){
-          _scaffoldKey.currentState?.closeDrawer();
-      },),
-      body:_bottomScreenController.screens[bodyIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: colorLightGray,
         type: BottomNavigationBarType.fixed,
@@ -114,7 +192,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     setState(() {
       isFromDrawer = false;
       bodyIndex = index;
-      titleIndex = index;
+      widget.appBarTitle(appbarTitle[index]);
     });
   }
 }

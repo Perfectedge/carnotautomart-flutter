@@ -1,5 +1,5 @@
-import 'package:carnotautomart/data/helper/device_info.dart';
-import 'package:carnotautomart/data/helper/image_helper.dart';
+import 'package:carnotautomart/ui/utils/helper/device_info.dart';
+import 'package:carnotautomart/ui/utils/helper/image_helper.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../data/helper/helper_functions.dart';
-import '../../data/helper/spacing_helper.dart';
+import '../utils/helper/helper_functions.dart';
+import '../utils/helper/spacing_helper.dart';
 import '../../data/remote/model/state_response.dart';
 import '../utils/app_colors.dart';
 

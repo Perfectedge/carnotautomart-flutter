@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../data/helper/spacing_helper.dart';
+import '../utils/helper/spacing_helper.dart';
 import 'chat_controller.dart';
 
 class ChatMessage extends StatelessWidget {

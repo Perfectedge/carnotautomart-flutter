@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:carnotautomart/data/helper/helper_functions.dart';
-import 'package:carnotautomart/data/helper/spacing_helper.dart';
+import 'package:carnotautomart/ui/utils/helper/helper_functions.dart';
+import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/data/remote/model/state_response.dart';
 import 'package:carnotautomart/ui/chat/chat_screen.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';

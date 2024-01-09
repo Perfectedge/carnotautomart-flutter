@@ -1,4 +1,4 @@
-import 'package:carnotautomart/data/helper/helper_functions.dart';
+import 'package:carnotautomart/ui/utils/helper/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
