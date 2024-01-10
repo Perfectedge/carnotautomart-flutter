@@ -32,7 +32,7 @@ class CarListTile extends StatelessWidget {
               width: 150,
               height: 125,
               imageUrl:
-                  'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                 'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
               placeholder: (context, url) => const Center(
                 child: CupertinoActivityIndicator(
                   color: colorDarkAsh,

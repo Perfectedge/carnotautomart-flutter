@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: const BoxDecoration(color: Colors.white),
       padding: const EdgeInsets.only(left: 10),
       child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -92,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceSmall,
             SizedBox(
                 width: 200,
-                child: BaseButton(onPress: () {}, title: 'Get Started')),
+                child: BaseButton(onPress: () {}, title: 'Get Started',backgroundColor: colorDeepOrange,textStyle: textTheme.labelMedium?.copyWith(color: Colors.white),)),
             SpaceHelper.verticalSpaceLarge,
           ],
         ),
@@ -125,7 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       fit: BoxFit.cover,
                       height: 65,
                       imageUrl:
-                          'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                          // 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                          'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
                       placeholder: (context, url) => const Center(
                         child: CupertinoActivityIndicator(
                           color: colorDarkAsh,

@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.deepOrange,
         scaffoldBackgroundColor: scaffoldBAckground,
         textTheme: AppTextTheme().lightTextTheme,
-        fontFamily: 'Averta Standard'
+        fontFamily: 'Roboto'
       ),
       home:SliderDrawerAndBottomNavigation() //BottomBarScreen() //AllChomphonent() //SplashScreen() ,
 

@@ -27,6 +27,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
     return Container(
         decoration: const BoxDecoration(color: Colors.white),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

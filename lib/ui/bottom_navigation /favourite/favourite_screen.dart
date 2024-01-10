@@ -21,6 +21,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       decoration: const BoxDecoration(color: scaffoldBAckground),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: SingleChildScrollView(
+        physics:const BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

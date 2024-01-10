@@ -19,10 +19,26 @@ class AssetString {
   static String carValuation = 'assets/images/car-valuations@3x.png';
   static String trackApplication = 'assets/images/track-application@3x.png';
   static String insuranceClaims = 'assets/images/insurance-claims@3x.png';
+  static String drawerHome = 'assets/icons/ic_home1.svg';
+  static String account = 'assets/icons/ic_account.svg';
+  static String calender = 'assets/icons/ic_calender.svg';
+  static String document = 'assets/icons/ic_carbon_document.svg';
+  static String chat = 'assets/icons/ic_chat.svg';
+  static String contact = 'assets/icons/ic_contact.svg';
+  static String rateUs = 'assets/icons/ic_rateus.svg';
+  static String share = 'assets/icons/ic_share.svg';
 }
 
 class ImageHelper {
   ImageHelper._();
 
   static final icLogo = SvgPicture.asset(AssetString.logo);
+  static final icdrawerHome = SvgPicture.asset(AssetString.drawerHome);
+  static final icAccount = SvgPicture.asset(AssetString.account);
+  static final icCalender = SvgPicture.asset(AssetString.calender);
+  static final icDocument = SvgPicture.asset(AssetString.document);
+  static final icChat = SvgPicture.asset(AssetString.chat);
+  static final icContact = SvgPicture.asset(AssetString.contact);
+  static final icRateUs = SvgPicture.asset(AssetString.rateUs);
+  static final icShare = SvgPicture.asset(AssetString.share);
 }

@@ -1,7 +1,13 @@
+import 'dart:io';
+import 'dart:ui' as ui;
+
+import 'package:carnotautomart/ui/bottom_navigation%20/slider_drawer/helper/slider_shadow.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../drawer/app_drawer.dart';
+import '../utils/helper/image_helper.dart';
 import 'favourite/favourite_screen.dart';
 import 'home/home_screen.dart';
 import 'service/service_screen.dart';
@@ -28,46 +34,77 @@ class _SliderDrawerAndBottomNavigationState
     super.initState();
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 400));
+        
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      body: SliderDrawer(
-          key: _sliderDrawerKey,
-          animationController: animationController,
-          appBar: AppBar(
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            leading: IconButton(
-              icon: AnimatedIcon(
-                progress: CurvedAnimation(
-                    parent: animationController, curve: Curves.linear),
-                icon: AnimatedIcons.menu_close,
-                color: Colors.white,
-                size: 25,
-              ),
-              splashRadius: 20,
-              onPressed: () {
-                _sliderDrawerKey.currentState?.toggle();
-              },
-            ),
-            title: Text(
-              barTitle,
-              style: textTheme.bodyMedium?.copyWith(letterSpacing: 0),
-            ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value:const SystemUiOverlayStyle(
+        statusBarColor: colorLightOrange,
+        statusBarBrightness: Brightness.dark
+      ),
+      child: Container(
+        color: colorLightOrange,
+        child: SafeArea(
+          top: true,
+          bottom: false,
+          child: Scaffold(
+            
+            body: SliderDrawer(
+                key: _sliderDrawerKey,
+                animationController: animationController,
+                sliderBoxShadow: SliderBoxShadow(color: Colors.black12),
+                appBar: AppBar(
+                  elevation: 0,
+                  automaticallyImplyLeading: false,
+                  centerTitle: true,
+                  leading: IconButton(
+                    icon: AnimatedIcon(
+                      progress: CurvedAnimation(
+                          parent: animationController, curve: Curves.linear),
+                      icon: AnimatedIcons.menu_close,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                    splashRadius: 20,
+                    onPressed: () {
+                      _sliderDrawerKey.currentState?.toggle();
+                    },
+                  ),
+                  title: Text(
+                    barTitle,
+                    style: textTheme.bodyMedium?.copyWith(letterSpacing: 0),
+                  ),
+                  flexibleSpace: Image(
+                    height:Platform.isIOS?60: 80,//
+                    // height: 115,
+                    width: double.infinity,
+                  image:const AssetImage('assets/images/bg_appbar.png'), // Replace with your image path
+                  fit: BoxFit.cover,
+                ),
+                ),
+                slider: CustomDrawer(
+                  trigger: (value) {
+                    _onTriggerCustomDrawerButton(value);
+                  },
+                ),
+                child: BottomBarScreen(appBarTitle: (title) {
+                  setState(() {
+                    barTitle = title.toString().toUpperCase();
+                  });
+                })),
           ),
-          slider: CustomDrawer(
-            index: (value) {},
-          ),
-          child: BottomBarScreen(appBarTitle: (title) {
-            setState(() {
-              barTitle = title.toString().toUpperCase();
-            });
-          })),
+        ),
+      ),
     );
+  }
+
+  _onTriggerCustomDrawerButton(dynamic triggerValue) {
+    if (triggerValue == 'home') {
+      _sliderDrawerKey.currentState?.toggle();
+    }
   }
 }
 
@@ -109,7 +146,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     return Scaffold(
       key: _scaffoldKey,
       body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 600),
+        duration: Duration(seconds: 1),
         child: screens[bodyIndex],
         // key: ValueKey(bodyIndex),
         switchInCurve: Curves.linear,
@@ -119,7 +156,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           //   scale: animation,
           //   child: child,
           // );
-          return FadeTransition(opacity: animation,child: child,);
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
           // final curvedAnimation = CurvedAnimation(
           //   parent: animation,
           //   curve: Curves

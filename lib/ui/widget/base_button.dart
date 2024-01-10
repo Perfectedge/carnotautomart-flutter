@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class BaseButton extends StatefulWidget {
   final VoidCallback? onPress;
   final String title;
+  final Color backgroundColor;
+  final TextStyle? textStyle;
 
-  const BaseButton({Key? key, required this.onPress, required this.title})
+  const BaseButton({Key? key, required this.onPress, required this.title,required this.backgroundColor,required this.textStyle})
       : super(key: key);
 
   @override
@@ -22,21 +24,20 @@ class _BaseBuState extends State<BaseButton> {
         onPressed: widget.onPress,
         style: widget.onPress != null
             ? ElevatedButton.styleFrom(
-                backgroundColor: colorDeepOrange,
+                backgroundColor:widget.backgroundColor,
                 shape: const StadiumBorder(),
                 elevation: 0,
                 // shadowColor: AppColors.button1Color,
               )
             : ElevatedButton.styleFrom(
-                disabledBackgroundColor:colorDeepGray.withOpacity(.5),
+                disabledBackgroundColor: widget.backgroundColor.withOpacity(.5),
                 shape: const StadiumBorder(),
                 elevation: 0.0,
                 // shadowColor: AppColors.button1Color,
               ),
-        child: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.labelMedium!.copyWith(letterSpacing: 0.26,fontWeight: FontWeight.w700,fontSize: 16)
-        ),
+        child: Text(widget.title,
+            style: widget.textStyle
+                ),
       ),
     );
   }
