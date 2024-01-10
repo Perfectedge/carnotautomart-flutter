@@ -1,9 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 
 //Initialising Camera variable
 
@@ -55,6 +55,7 @@ String dateFormat(String inputDate) {
   // log(formattedDate.toString());
   return formattedDate;
 }
+
 String timeFormat(String inputDate) {
   DateTime dateTime = DateTime.parse(inputDate);
   String formattedDate = DateFormat('hh:mm').format(dateTime);
@@ -72,5 +73,12 @@ numberFormat(int inputNumber) {
   return formattedNumber;
 }
 
-//This boolean for checking if the user is in private
-bool isViewingPrivateLive = false;
+//appbar flexibleSpace
+Image appbarFlexibleSpace = Image(
+  height: Platform.isIOS ? 60 : 80, //
+  // height: 115,
+  width: double.infinity,
+  image: const AssetImage(
+      'assets/images/bg_appbar.png'), // Replace with your image path
+  fit: BoxFit.cover,
+);

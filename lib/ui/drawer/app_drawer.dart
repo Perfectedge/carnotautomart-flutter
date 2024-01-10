@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:carnotautomart/ui/auth/login/onbording_screen.dart';
+import 'package:carnotautomart/ui/auth/onbording_screen.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/helper/image_helper.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';

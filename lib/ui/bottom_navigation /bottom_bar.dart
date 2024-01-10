@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../drawer/app_drawer.dart';
+import '../utils/helper/helper_functions.dart';
 import '../utils/helper/image_helper.dart';
 import 'favourite/favourite_screen.dart';
 import 'home/home_screen.dart';
@@ -77,13 +78,7 @@ class _SliderDrawerAndBottomNavigationState
                     barTitle,
                     style: textTheme.bodyMedium?.copyWith(letterSpacing: 0),
                   ),
-                  flexibleSpace: Image(
-                    height:Platform.isIOS?60: 80,//
-                    // height: 115,
-                    width: double.infinity,
-                  image:const AssetImage('assets/images/bg_appbar.png'), // Replace with your image path
-                  fit: BoxFit.cover,
-                ),
+                  flexibleSpace: appbarFlexibleSpace
                 ),
                 slider: CustomDrawer(
                   trigger: (value) {
