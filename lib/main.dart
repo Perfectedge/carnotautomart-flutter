@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carnotautomart/ui/auth/auth_controller.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/text_font_style.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -30,6 +31,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    initializeController();
     findDeviceInfo();
   }
 
@@ -47,6 +49,10 @@ class _MyAppState extends State<MyApp> {
       storage.writeIfNull(PrefKeys.deviceToken, iosInfo.identifierForVendor);
       storage.writeIfNull(PrefKeys.iosVersion, iosInfo.systemVersion);
     }
+  }
+
+  initializeController() {
+    Get.put(AuthController());
   }
 
   // This widget is the root of your application.

@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../utils/app_colors.dart';
+import '../../widget/show_loader.dart';
 import '../../widget/text_box_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -94,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Center(
                 child: SingleChildScrollView(
-                  physics:const BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,7 +134,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                           width: 100,
                           child: BaseButton(
-                            onPress: () {},
+                            onPress: () {
+                             
+                            },
                             title: 'Login'.toUpperCase(),
                             backgroundColor:
                                 const Color.fromARGB(255, 0, 41, 74),

@@ -4,7 +4,7 @@ import 'pretty_dio_logger.dart';
 import 'request_headers.dart';
 
 class DioProvider {
-  static const String baseUrl = ""; // fixme Please change this
+  static const String baseUrl = "https://dev.perfectedgetech.com/all-dev-projects/carnotautomart/api/v1"; // fixme Please change this
 
   static Dio? _instance;
 

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:carnotautomart/ui/auth/auth_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +28,22 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController passwordControlelr = TextEditingController();
   TextEditingController confirmPasswordControlelr = TextEditingController();
   TextEditingController accountTypeController = TextEditingController();
+  final AuthController _authController = Get.put(AuthController());
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
+      if (_authController.accountType.isEmpty) {
+        _authController.getAccountType((isSuccess) {
+          if (isSuccess) {
+            Get.back();
+          }
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -129,6 +148,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(
                         height: 40,
                         child: TextFormField(
+                          controller: accountTypeController,
                           cursorColor: Colors.white,
                           style: textTheme.bodyMedium?.copyWith(
                               letterSpacing: 0, fontWeight: FontWeight.normal),
@@ -150,19 +170,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                           readOnly: true,
                           onTap: () {
-                            showCupertinoDialog(
-                                context: context,
-                                barrierDismissible: true,
-                                builder: (context) {
-                                  return Dialog(
-                                    child: SizedBox(
-                                      height: 400,
-                                      child: Column(
-                                        children: [Text('asdasdasd')],
-                                      ),
-                                    ),
-                                  );
-                                });
+                            log(_authController.accountType.length.toString());
+                            _showAccountTypeDialog(context, textTheme, (data) {
+                              accountTypeController.text = data['name'];
+                            });
                           },
                         ),
                       ),
@@ -203,5 +214,71 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> _showAccountTypeDialog(BuildContext context,
+      TextTheme textTheme, Function(dynamic data) onTapData) {
+    return showCupertinoDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return Dialog(
+            child: SizedBox(
+              height: 350,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Text(
+                      'Account Type',
+                      style: textTheme.labelMedium?.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  if (_authController.accountType.isNotEmpty)
+                    ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _authController.accountType.length,
+                      itemBuilder: (context, index) {
+                        return SizedBox(
+                          height: 50,
+                          child: MaterialButton(
+                            onPressed: () {
+                              onTapData({
+                                'id': _authController.accountType[index].id,
+                                'name': _authController.accountType[index].name
+                              });
+                              Get.back();
+                            },
+                            padding:const EdgeInsets.only(left: 10),
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            child: Row(
+                              children: [
+                                Text(
+                                  _authController.accountType[index].name ?? '',
+                                  textAlign: TextAlign.left,
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return Container();
+                      },
+                    ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

@@ -1,10 +1,16 @@
 import 'package:carnotautomart/data/remote/datasource/carnotautomart_remote_data_source.dart';
+import 'package:carnotautomart/data/remote/model/account_type_response.dart';
 import 'package:get/get.dart';
 
-import '../datasource/carnotautomart_remote_data_source_impl.dart';
+import '../datasource/carnotautomart_remote_data_sourceImpl.dart';
 import 'carnotmart_repository.dart';
 
 class CarnotMartRepositoryImpl implements CarnotMartRepository {
-  final CarnotMartRemoteDataSource _dataSource = Get.put(CarnotMartRemoteDataSourceImpl());
+  final CarnotAutoMartRemoteDataSource _dataSource =
+      Get.put(CarnotAutoMartRemoteDataSourceImpl());
 
+  @override
+  Future<AccountTypeResponse> getAccountType() {
+   return _dataSource.getAccountType();
+  }
 }
