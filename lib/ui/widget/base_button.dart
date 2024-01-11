@@ -1,4 +1,3 @@
-import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class BaseButton extends StatefulWidget {
@@ -6,8 +5,16 @@ class BaseButton extends StatefulWidget {
   final String title;
   final Color backgroundColor;
   final TextStyle? textStyle;
+  final bool? isBorder;
 
-  const BaseButton({Key? key, required this.onPress, required this.title,required this.backgroundColor,required this.textStyle})
+  const BaseButton(
+      {Key? key,
+      required this.onPress,
+      required this.title,
+      required this.backgroundColor,
+      required this.textStyle,
+      this.isBorder=false
+      })
       : super(key: key);
 
   @override
@@ -24,8 +31,9 @@ class _BaseBuState extends State<BaseButton> {
         onPressed: widget.onPress,
         style: widget.onPress != null
             ? ElevatedButton.styleFrom(
-                backgroundColor:widget.backgroundColor,
-                shape: const StadiumBorder(),
+                backgroundColor: widget.backgroundColor,
+                shape:widget.isBorder==false?const StadiumBorder() : const StadiumBorder(
+                    side: BorderSide(color: Colors.white, width: 2)),
                 elevation: 0,
                 // shadowColor: AppColors.button1Color,
               )
@@ -35,9 +43,7 @@ class _BaseBuState extends State<BaseButton> {
                 elevation: 0.0,
                 // shadowColor: AppColors.button1Color,
               ),
-        child: Text(widget.title,
-            style: widget.textStyle
-                ),
+        child: Text(widget.title, style: widget.textStyle),
       ),
     );
   }

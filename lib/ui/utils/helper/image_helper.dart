@@ -29,6 +29,8 @@ class AssetString {
   static String share = 'assets/icons/ic_share.svg';
   static String email = 'assets/icons/ic_email.svg';
   static String lock = 'assets/icons/ic_lock.svg';
+  static String icUserName = 'assets/icons/ic_user_name.svg';
+  static String icPhone = 'assets/icons/ic_phone.svg';
 }
 
 class ImageHelper {
@@ -45,4 +47,6 @@ class ImageHelper {
   static final icShare = SvgPicture.asset(AssetString.share);
   static final icEmail = SvgPicture.asset(AssetString.email);
   static final icLock = SvgPicture.asset(AssetString.lock);
+  static final icUserName = SvgPicture.asset(AssetString.icUserName);
+  static final icPhone = SvgPicture.asset(AssetString.icPhone);
 }

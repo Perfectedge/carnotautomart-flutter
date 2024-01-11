@@ -1,12 +1,21 @@
-import 'package:carnotautomart/ui/utils/helper/device_info.dart';
+import 'dart:developer';
+import 'dart:io';
+import 'package:carnotautomart/data/local/pref_keys.dart';
+import 'package:carnotautomart/ui/auth/signin/signin_screen.dart';
 import 'package:carnotautomart/ui/utils/helper/helper_functions.dart';
 import 'package:carnotautomart/ui/utils/helper/image_helper.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
+
+import 'package:carnotautomart/ui/widget/base_button.dart';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../utils/app_colors.dart';
+import '../../widget/text_box_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,8 +25,22 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailControlelr=TextEditingController();
-  TextEditingController passwordControlelr=TextEditingController();
+  TextEditingController emailControlelr = TextEditingController();
+  TextEditingController passwordControlelr = TextEditingController();
+  FocusNode _focusNode = FocusNode();
+  final _storage = GetStorage();
+  double iOSVersion = 0.0;
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isIOS) {
+      String cleanNumber = '${_storage.read(PrefKeys.iosVersion)}'
+          .replaceAll(RegExp(r'\.\d+$'), '');
+      iOSVersion = double.parse(cleanNumber);
+    }
+    log(iOSVersion.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -31,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           top: true,
           bottom: false,
           child: Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(
               automaticallyImplyLeading: false,
               centerTitle: true,
@@ -62,32 +85,114 @@ class _LoginScreenState extends State<LoginScreen> {
               flexibleSpace: appbarFlexibleSpace,
             ),
             body: Container(
-              height: DeviceInfo(context).height,
-              width: DeviceInfo(context).width,
+              // height: double.infinity,
+              // width: double.infinity,
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/bg.jpg'),
-                      fit: BoxFit.fill)),
+                      fit: BoxFit.cover)),
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SpaceHelper.verticalSpaceMedium,
-                    TextBoxWidget(
-                    textTheme: textTheme,
-                    controller: emailControlelr,
-                    lableText: 'Email',
-                    suffixIcon: ImageHelper.icEmail,
-                    ),
-                     
-                     SpaceHelper.verticalSpaceMedium,
-                    //       TextBoxWidget(
-                    // textTheme: textTheme,
-                    // controller: passwordControlelr,
-                    // lableText: 'Password',
-                    // suffixIcon: ImageHelper.icLock,
-                    // ),
-                  ],
+              child: Center(
+                child: SingleChildScrollView(
+                  physics:const BouncingScrollPhysics(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // SpaceHelper.verticalSpaceMedium,
+                      ImageHelper.icLogo,
+                      SpaceHelper.verticalSpaceMedium,
+                      TextBoxWidget(
+                        textTheme: textTheme,
+                        controller: emailControlelr,
+                        lableText: 'Email',
+                        suffixIcon: ImageHelper.icEmail,
+                      ),
+
+                      SpaceHelper.verticalSpaceMedium,
+                      TextBoxWidget(
+                        textTheme: textTheme,
+                        controller: passwordControlelr,
+                        lableText: 'Password',
+                        suffixIcon: ImageHelper.icLock,
+                      ),
+                      SpaceHelper.verticalSpaceSmall,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                                text: 'Forgot Password',
+                                style: textTheme.bodySmall,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {}),
+                          ),
+                        ],
+                      ),
+                      SpaceHelper.verticalSpaceMedium,
+                      SizedBox(
+                          width: 100,
+                          child: BaseButton(
+                            onPress: () {},
+                            title: 'Login'.toUpperCase(),
+                            backgroundColor:
+                                const Color.fromARGB(255, 0, 41, 74),
+                            textStyle: textTheme.labelMedium,
+                            isBorder: true,
+                          )),
+                      SpaceHelper.verticalSpaceSmall,
+                      Text(
+                        'Login with'.toUpperCase(),
+                        style: textTheme.bodySmall
+                            ?.copyWith(fontStyle: FontStyle.italic),
+                      ),
+                      SpaceHelper.verticalSpaceMedium,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SocialLoginButton(
+                              backgroundColor: Colors.red,
+                              child: SvgPicture.asset(
+                                'assets/icons/ic_google.svg',
+                                height: 25,
+                                width: 25,
+                              ),
+                              onPressed: () {}),
+                          SpaceHelper.horizontalSpaceSmall,
+                          if (Platform.isIOS && iOSVersion > 13.0)
+                            SocialLoginButton(
+                              backgroundColor: Colors.transparent,
+                              child: SvgPicture.asset(
+                                  'assets/icons/ic_apple.svg',
+                                  height: 25,
+                                  width: 25),
+                              onPressed: () {},
+                            ),
+                          SpaceHelper.horizontalSpaceSmall,
+                          SocialLoginButton(
+                            backgroundColor: const Color(0xff0866FF),
+                            child: SvgPicture.asset(
+                                'assets/icons/ic_facebook.svg',
+                                height: 25,
+                                width: 25),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                      SpaceHelper.verticalSpaceMedium,
+                      RichText(
+                        text: TextSpan(
+                            text: 'Register now'.toUpperCase(),
+                            style: textTheme.bodySmall?.copyWith(
+                                decoration: TextDecoration.underline),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.to(() => SignInScreen(),
+                                    transition: Transition.rightToLeft);
+                              }),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -98,64 +203,28 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class TextBoxWidget extends StatefulWidget {
-   TextBoxWidget({
+class SocialLoginButton extends StatelessWidget {
+  const SocialLoginButton({
     super.key,
-    required this.textTheme,
-    required this.controller,
-    required this.lableText,
-    this.suffixIcon,
-    this.validator,
-    this.isObsecure
-
+    required this.backgroundColor,
+    required this.child,
+    required this.onPressed,
   });
-
-  final TextTheme textTheme;
-  final String lableText;
-  final Widget? suffixIcon;
-  final TextEditingController controller;
-  String? Function(String?)? validator;
-   bool? isObsecure;
-
-  @override
-  State<TextBoxWidget> createState() => _TextBoxWidgetState();
-}
-
-class _TextBoxWidgetState extends State<TextBoxWidget> {
-  
+  final Color backgroundColor;
+  final Widget child;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-    
-      cursorColor: Colors.white,
-      scrollPadding: EdgeInsets.zero,
-      obscureText: widget.isObsecure ?? false,
-      style: widget.textTheme.bodyMedium
-          ?.copyWith(letterSpacing: 0, fontWeight: FontWeight.normal),
-          
-      decoration: InputDecoration(
-          contentPadding:EdgeInsets.all(0), // Adjust padding as needed
-          
-          labelText: widget.lableText.toUpperCase(),
-          labelStyle: widget.textTheme.bodyMedium
-              ?.copyWith(letterSpacing: 0, fontWeight: FontWeight.normal,fontSize:14),
-                //  helperText: ' ',
-          // hintText: _isFocused ? '' : widget.lableText.toUpperCase(),   
-          //  hintStyle:widget.textTheme.bodySmall?.copyWith(color: Colors.white),
-          
-      
-          enabledBorder:_border ,
-          focusedBorder: _border,
-          suffixIcon: widget.suffixIcon,
-          suffixIconConstraints: BoxConstraints(maxHeight: 20,maxWidth: 20)
-          ),
-          validator: widget.validator,
-        
-    );
+    return OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: const EdgeInsets.all(8),
+            shape: const CircleBorder(),
+            backgroundColor: backgroundColor,
+            side: const BorderSide(color: Colors.white, width: 2.0),
+            elevation: 2),
+        child: child);
   }
-
-  final _border=const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white));
 }
