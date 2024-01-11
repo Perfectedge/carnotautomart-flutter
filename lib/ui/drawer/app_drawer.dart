@@ -48,6 +48,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               imageName: AssetString.account,
               buttonName: 'Account',
               onPressed: () {
+                widget.trigger('home');
                 Get.to(() =>const OnBordingScreen(),transition: Transition.rightToLeft);
               }),
           SpaceHelper.verticalSpaceSmall,
@@ -55,19 +56,25 @@ class _CustomDrawerState extends State<CustomDrawer> {
               textTheme: textTheme,
               imageName: AssetString.contact,
               buttonName: 'Contact Us',
-              onPressed: () {}),
+              onPressed: () {
+                widget.trigger('home');
+              }),
           SpaceHelper.verticalSpaceSmall,
           _drawerTileButton(
               textTheme: textTheme,
               imageName: AssetString.rateUs,
               buttonName: 'Rate Us',
-              onPressed: () {}),
+              onPressed: () {
+                // widget.trigger('home');
+              }),
           SpaceHelper.verticalSpaceSmall,
           _drawerTileButton(
               textTheme: textTheme,
               imageName: AssetString.share,
               buttonName: 'Share',
-              onPressed: () {}),
+              onPressed: () {
+                // widget.trigger('home');
+              }),
         ],
       ),
     );

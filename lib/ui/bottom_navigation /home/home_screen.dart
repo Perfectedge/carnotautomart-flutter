@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../data/remote/model/recentry_post_response.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.index});
   final ValueChanged index;
@@ -24,6 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _homeController = Get.put(HomeController());
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+      _homeController.getRecentHomePageData();
+    });
   }
 
   @override
@@ -33,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: const BoxDecoration(color: Colors.white),
       padding: const EdgeInsets.only(left: 10),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -58,21 +63,22 @@ class _HomeScreenState extends State<HomeScreen> {
               log('sdfsd');
             }),
             SpaceHelper.verticalSpaceSmall,
-            _recentlyPostdItems(textTheme),
+            Obx(() =>
+                _recentlyPostdItems(textTheme, _homeController.carData.value)),
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Motorbike', () {
               log('sdfsd');
             }),
             SpaceHelper.verticalSpaceSmall,
-            _recentlyPostdItems(textTheme),
+            _recentlyPostdItems(textTheme, _homeController.carData.value),
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Spare Parts', () {
               log('sdfsd');
             }),
             SpaceHelper.verticalSpaceSmall,
-            _recentlyPostdItems(textTheme),
+            _recentlyPostdItems(textTheme, _homeController.carData.value),
             SpaceHelper.verticalSpaceSmall,
             Text(
               'Get Financing For Your Car',
@@ -93,7 +99,13 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceSmall,
             SizedBox(
                 width: 200,
-                child: BaseButton(onPress: () {}, title: 'Get Started',backgroundColor: colorDeepOrange,textStyle: textTheme.labelMedium?.copyWith(color: Colors.white),)),
+                child: BaseButton(
+                  onPress: () {},
+                  title: 'Get Started',
+                  backgroundColor: colorDeepOrange,
+                  textStyle:
+                      textTheme.labelMedium?.copyWith(color: Colors.white),
+                )),
             SpaceHelper.verticalSpaceLarge,
           ],
         ),
@@ -101,7 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SizedBox _recentlyPostdItems(TextTheme textTheme) {
+   _recentlyPostdItems(
+      TextTheme textTheme, List<BikeCarSpareParts> dataItem) {
+    if (dataItem.isEmpty) {
+      return  Text('No Recent post found',style: textTheme.bodySmall?.copyWith(color: colorDarkAsh),);
+    }
     return SizedBox(
       height: 150,
       child: ListView.separated(
