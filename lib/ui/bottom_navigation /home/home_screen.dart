@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carnotautomart/ui/post%20details/post_details_screen.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/bottom_navigation%20/home/home_controller.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
@@ -26,9 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _homeController = Get.put(HomeController());
-    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
-      _homeController.getRecentHomePageData();
-    });
+    if (_homeController.carData.isEmpty ||
+        _homeController.bikeData.isEmpty ||
+        _homeController.sparePartsData.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+        _homeController.getRecentHomePageData();
+      });
+    }
   }
 
   @override
@@ -63,22 +68,27 @@ class _HomeScreenState extends State<HomeScreen> {
               log('sdfsd');
             }),
             SpaceHelper.verticalSpaceSmall,
-            Obx(() =>
-                _recentlyPostdItems(textTheme, _homeController.carData.value)),
+            Obx(() => _recentlyPostdItems(textTheme, _homeController.carData)),
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Motorbike', () {
               log('sdfsd');
             }),
             SpaceHelper.verticalSpaceSmall,
-            _recentlyPostdItems(textTheme, _homeController.carData.value),
+            Obx(
+              () => _recentlyPostdItems(textTheme, _homeController.bikeData),
+            ),
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Spare Parts', () {
               log('sdfsd');
             }),
             SpaceHelper.verticalSpaceSmall,
-            _recentlyPostdItems(textTheme, _homeController.carData.value),
+            Obx(
+              () => _recentlyPostdItems(
+                  textTheme, _homeController.sparePartsData),
+            ),
+
             SpaceHelper.verticalSpaceSmall,
             Text(
               'Get Financing For Your Car',
@@ -113,87 +123,117 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-   _recentlyPostdItems(
-      TextTheme textTheme, List<BikeCarSpareParts> dataItem) {
+  _recentlyPostdItems(TextTheme textTheme, List<BikeCarSpareParts> dataItem) {
     if (dataItem.isEmpty) {
-      return  Text('No Recent post found',style: textTheme.bodySmall?.copyWith(color: colorDarkAsh),);
+      return Text(
+        'No Recent post found',
+        style: textTheme.bodySmall?.copyWith(color: colorDarkAsh),
+      );
     }
-    return SizedBox(
-      height: 150,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemCount: 5,
-        separatorBuilder: (context, index) => SpaceHelper.horizontalSpaceSmall,
-        itemBuilder: (context, index) => SizedBox(
-          width: 140,
-          child: Card(
-            elevation: 2,
-            child: Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      height: 65,
-                      imageUrl:
-                          // 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
-                          'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
-                      placeholder: (context, url) => const Center(
-                        child: CupertinoActivityIndicator(
-                          color: colorDarkAsh,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/default.png',
-                      ),
-                    ),
-                  ),
-                ),
-                SpaceHelper.verticalSpace(2),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => PostDetailsScreen());
+      },
+      child: SizedBox(
+        height: 160,
+        child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemCount: dataItem.length,
+            separatorBuilder: (context, index) =>
+                SpaceHelper.horizontalSpaceSmall,
+            itemBuilder: (context, index) {
+              BikeCarSpareParts _bikeCarSpareParts = dataItem[index];
+              return SizedBox(
+                width: 140,
+                child: Card(
+                  elevation: 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Clean 2010 Upgraded To 2015 Mercedes BMW Iconic car',
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: textTheme.bodySmall?.copyWith(
-                          color: colorDarkAsh,
-                          fontSize: 12,
+                      SizedBox(
+                        width: double.infinity,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            height: 65,
+                            imageUrl:
+                                // 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                                // 'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
+                                _bikeCarSpareParts.photo ?? '',
+                            placeholder: (context, url) => const Center(
+                              child: CupertinoActivityIndicator(
+                                color: colorDarkAsh,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              child: Image.asset(
+                                'assets/images/default.png',
+                                fit: BoxFit.cover,
+                                height: 65,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      Text(
-                        '₦ 78,00,000 || 79000',
-                        softWrap: true,
-                        style: textTheme.bodySmall?.copyWith(
-                          color: colorDeepOrange,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        'Maryland, Lagos',
-                        softWrap: true,
-                        style: textTheme.bodySmall?.copyWith(
-                          color: colorDeepOrange,
-                          fontSize: 12,
+                      SpaceHelper.verticalSpace(2),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                _bikeCarSpareParts.title ?? '',
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colorDarkAsh,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                // '₦ 78,00,000 || 79000',
+                                '₦ ${_bikeCarSpareParts.priceinnaira}??'
+                                ' ||',
+
+                                softWrap: true,
+                                textAlign: TextAlign.left,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colorDeepOrange,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  _bikeCarSpareParts.location ?? '',
+                                  softWrap: true,
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorDeepOrange,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              );
+            }),
       ),
     );
   }

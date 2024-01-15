@@ -19,6 +19,8 @@ class HomeController extends GetxController {
   ];
 
   RxList<BikeCarSpareParts> carData = <BikeCarSpareParts>[].obs;
+  RxList<BikeCarSpareParts> bikeData = <BikeCarSpareParts>[].obs;
+  RxList<BikeCarSpareParts> sparePartsData = <BikeCarSpareParts>[].obs;
 
   getRecentHomePageData() async {
     showLoader();
@@ -27,6 +29,8 @@ class HomeController extends GetxController {
       if (response.status == true) {
         Get.back();
         carData.addAll(response.data?.cars ?? []);
+        bikeData.addAll(response.data?.bikes ?? []);
+        sparePartsData.addAll(response.data?.spareParts ?? []);
       }else{
         Get.back();
       }

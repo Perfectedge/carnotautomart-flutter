@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:carnotautomart/ui/auth/login/login_screen.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/helper/device_info.dart';
@@ -7,8 +5,7 @@ import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../utils/helper/helper_functions.dart';
+import '../widget/carnotmart_appbabr.dart';
 
 class OnBordingScreen extends StatefulWidget {
   const OnBordingScreen({super.key});
@@ -27,24 +24,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
         top: true,
         bottom: false,
         child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-                splashRadius: 20,
-                splashColor: colorDeepOrange,
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-            title: Text(
-              'Account'.toUpperCase(),
-              style: textTheme.labelMedium
-                  ?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),
-            ),
-            flexibleSpace: appbarFlexibleSpace
-          ),
+          appBar: CarnotMartAppbar(),
           body: Container(
             height: DeviceInfo(context).height,
             width: DeviceInfo(context).width,
@@ -104,3 +84,4 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
     );
   }
 }
+

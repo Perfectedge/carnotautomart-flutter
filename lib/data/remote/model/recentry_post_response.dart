@@ -31,9 +31,9 @@ class Data {
     });
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
-        cars: json["cars"]== null? []: List<BikeCarSpareParts>.from(json["data"]!.map((x) => BikeCarSpareParts.fromJson(x))),
-        bikes: json["bikes"] == null ? [] :  List<BikeCarSpareParts>.from(json["data"]!.map((x) => BikeCarSpareParts.fromJson(x))),
-        spareParts: json["spare_parts"] == null ? [] :  List<BikeCarSpareParts>.from(json["data"]!.map((x) => BikeCarSpareParts.fromJson(x))),
+        cars: json["cars"]== null? []: List<BikeCarSpareParts>.from(json["cars"]!.map((x) => BikeCarSpareParts.fromJson(x))),
+        bikes: json["bikes"] == null ? [] :  List<BikeCarSpareParts>.from(json["bikes"]!.map((x) => BikeCarSpareParts.fromJson(x))),
+        spareParts: json["spare_parts"] == null ? [] :  List<BikeCarSpareParts>.from(json["spare_parts"]!.map((x) => BikeCarSpareParts.fromJson(x))),
     );
 
   
