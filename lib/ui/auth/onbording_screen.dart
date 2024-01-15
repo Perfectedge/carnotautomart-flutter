@@ -24,7 +24,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
         top: true,
         bottom: false,
         child: Scaffold(
-          appBar: CarnotMartAppbar(),
+          appBar:const CarnotMartAppbar(title:'Account' ,),
           body: Container(
             height: DeviceInfo(context).height,
             width: DeviceInfo(context).width,

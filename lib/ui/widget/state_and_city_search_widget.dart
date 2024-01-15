@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,29 +11,26 @@ import '../../data/remote/model/state_response.dart';
 import '../utils/app_colors.dart';
 
 class StateAndCitySearchWidget extends StatefulWidget {
-  StateAndCitySearchWidget({super.key, required this.notifier});
+  const StateAndCitySearchWidget(
+      {super.key, required this.notifier, required this.findFromSearch});
 
-  void Function(String text) notifier;
+  final void Function(String text) notifier;
+  final RxList<dynamic> findFromSearch;
   @override
   State<StateAndCitySearchWidget> createState() =>
       _StateAndCitySearchWidgetState();
 }
 
 class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
-  RxList<StateResponse> searchResponse = <StateResponse>[].obs;
-  RxList<StateResponse> findFromSearch = <StateResponse>[].obs;
+  RxList searchResult = [].obs;
+  RxList findFromSearch = [].obs;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await loadJson();
+      findFromSearch.value = widget.findFromSearch;
+      searchResult.value = widget.findFromSearch;
     });
-  }
-
-  loadJson() async {
-    String fileData = await rootBundle.loadString('assets/ng.json');
-    searchResponse.value = stateResponseFromJson(fileData);
-    findFromSearch.value = searchResponse;
   }
 
   @override
@@ -45,8 +43,10 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
+            // forceMaterialTransparency: true,
             automaticallyImplyLeading: false,
             elevation: 0,
+
             leading: IconButton(
               splashRadius: 30,
               onPressed: () {
@@ -58,6 +58,15 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
               'Select State'.toUpperCase(),
               style: textTheme.labelMedium,
             ),
+            flexibleSpace: Image(
+              height: Platform.isIOS ? 130 : 80, //
+              // height: 115,
+              width: double.infinity,
+              image: const AssetImage(
+                  'assets/images/bg_appbar.png'), // Replace with your image path
+              fit: BoxFit.cover,
+            ),
+
             bottom: PreferredSize(
                 preferredSize: Size.fromHeight(50),
                 child: Column(
@@ -95,8 +104,8 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
                               style: const TextStyle(
                                   fontSize: 16.0, color: Colors.black),
                               onChanged: (text) {
-                                findFromSearch.value = searchResponse
-                                    .where((item) => item.city!
+                                findFromSearch.value = searchResult
+                                    .where((item) => item.name!
                                         .toLowerCase()
                                         .contains(text.toLowerCase()))
                                     .toList();
@@ -121,18 +130,18 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
             child: Obx(
               () => ListView.separated(
                 shrinkWrap: true,
-                itemCount: findFromSearch.length,
+                itemCount:findFromSearch.length,
                 itemBuilder: (_, index) => ListTile(
                     onTap: () {
                       Get.back();
-                      widget.notifier(findFromSearch[index].city??'');
+                      widget.notifier(findFromSearch[index].name ?? '');
                     },
                     dense: true,
                     minVerticalPadding: 0,
                     //  contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
                     visualDensity: VisualDensity(horizontal: 0, vertical: -4),
                     title: Text(
-                      '${findFromSearch[index].city}',
+                      '${findFromSearch[index].name}',
                       style:
                           textTheme.labelMedium?.copyWith(color: Colors.black),
                     )),

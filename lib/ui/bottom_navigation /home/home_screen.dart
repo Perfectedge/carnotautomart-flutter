@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carnotautomart/ui/filter/filter_screen.dart';
 import 'package:carnotautomart/ui/post%20details/post_details_screen.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/bottom_navigation%20/home/home_controller.dart';
@@ -66,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceMedium,
             _titleAndSeeAll(textTheme, 'Recently Posted Cars', () {
               log('sdfsd');
+              Get.to(()=>FilterScreen());
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(() => _recentlyPostdItems(textTheme, _homeController.carData)),

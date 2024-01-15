@@ -7,8 +7,10 @@ import '../utils/helper/helper_functions.dart';
 class CarnotMartAppbar extends StatelessWidget implements PreferredSizeWidget{
   const CarnotMartAppbar({
     super.key,
+  required this.title
 
   });
+   final String title;
 
 
 
@@ -27,7 +29,7 @@ class CarnotMartAppbar extends StatelessWidget implements PreferredSizeWidget{
           },
           icon: const Icon(Icons.arrow_back_ios_new_rounded)),
       title: Text(
-        'Account'.toUpperCase(),
+       title.toUpperCase(),
         style: textTheme.labelMedium
             ?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),
       ),

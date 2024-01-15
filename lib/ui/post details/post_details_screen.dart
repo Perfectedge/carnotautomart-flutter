@@ -71,7 +71,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
           top: true,
           bottom: false,
           child: Scaffold(
-            appBar: CarnotMartAppbar(),
+            appBar: CarnotMartAppbar(title: 'Post Details',),
             body: Container(
               height: DeviceInfo(context).height,
               width: DeviceInfo(context).width,
