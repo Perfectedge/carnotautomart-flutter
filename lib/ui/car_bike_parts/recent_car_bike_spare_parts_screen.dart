@@ -11,9 +11,10 @@ import '../widget/car_list_tile.dart';
 import '../widget/carnotmart_appbabr.dart';
 
 class RecentCarBikeSparePartsScreen extends StatefulWidget {
-  const RecentCarBikeSparePartsScreen({super.key, required this.vehicleType});
+  const RecentCarBikeSparePartsScreen({super.key, required this.vehicleType,required this.appbarTitle});
 
   final String vehicleType;
+  final String appbarTitle;
 
   @override
   State<RecentCarBikeSparePartsScreen> createState() =>
@@ -61,8 +62,8 @@ class _RecentCarBikeSparePartsScreenState
         top: true,
         bottom: false,
         child: Scaffold(
-          appBar: const CarnotMartAppbar(
-            title: 'Recently Posted Car',
+          appBar:  CarnotMartAppbar(
+            title: widget.appbarTitle,
             isFilter: true,
           ),
           body: Padding(

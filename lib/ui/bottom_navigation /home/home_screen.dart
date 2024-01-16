@@ -67,15 +67,16 @@ class _HomeScreenState extends State<HomeScreen> {
               _serviceSection(textTheme),
             SpaceHelper.verticalSpaceMedium,
             _titleAndSeeAll(textTheme, 'Recently Posted Cars', () {
-              log('sdfsd');
-              Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'car',));
+              
+              Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'car',appbarTitle:'Recently Posted Car',));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(() => _recentlyPostdItems(textTheme, _homeController.carData)),
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Motorbike', () {
-              log('sdfsd');
+              
+                Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'motorbike',appbarTitle: 'Recently Posted Motorbike',));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(
@@ -84,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Spare Parts', () {
-              log('sdfsd');
+              Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'spare-parts',appbarTitle: 'Recently Posted Spare Parts'));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(
