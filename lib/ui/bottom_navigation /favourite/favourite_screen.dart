@@ -21,7 +21,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       decoration: const BoxDecoration(color: scaffoldBAckground),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: SingleChildScrollView(
-        physics:const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -30,16 +30,18 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               physics: const BouncingScrollPhysics(),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return CarListTile(textTheme: textTheme);
-                
-          
+                // return CarListTile();
+                return Text('Favourite Screen');
               },
               separatorBuilder: (context, index) {
                 // return const Divider(
                 //   color: Colors.black,
                 //   thickness: .2,
                 // );
-                return Container(color: Colors.black,height: .3,);
+                return Container(
+                  color: Colors.black,
+                  height: .3,
+                );
               },
             ),
             SpaceHelper.verticalSpaceLarge,

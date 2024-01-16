@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/helper/spacing_helper.dart';
@@ -8,13 +9,26 @@ import '../utils/helper/spacing_helper.dart';
 class CarListTile extends StatelessWidget {
   const CarListTile({
     super.key,
-    required this.textTheme,
+    required this.tileData
   });
+  final dynamic tileData;
 
-  final TextTheme textTheme;
-
+// entBikeCarSpareParts({
+//         this.condition,
+//         this.priceinnaira,
+//         this.mileage,
+//         this.vehicleTypeId,
+//         this.id,
+//         this.postSlug,
+//         this.title,
+//         this.featuredPosition,
+//         this.postType,
+//         this.manufactureYear,
+//         this.location,
+//         this.photo,
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return MaterialButton(
       onPressed: () {},
       color: Colors.white,
@@ -27,19 +41,24 @@ class CarListTile extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedNetworkImage(
-              fit: BoxFit.cover,
-              width: 150,
-              height: 125,
-              imageUrl:
-                 'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
-              placeholder: (context, url) => const Center(
-                child: CupertinoActivityIndicator(
-                  color: colorDarkAsh,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                width: 150,
+                height: 125,
+                imageUrl: tileData?.photo??'',
+                placeholder: (context, url) => const Center(
+                  child: CupertinoActivityIndicator(
+                    color: colorDarkAsh,
+                  ),
                 ),
-              ),
-              errorWidget: (context, url, error) => Image.asset(
-                'assets/images/default.png',
+                errorWidget: (context, url, error) => Image.asset(
+                   fit: BoxFit.cover,
+                  width: 150,
+                height: 125,
+                  'assets/images/default.png',
+                ),
               ),
             ),
             SpaceHelper.horizontalSpaceSmall,
@@ -49,7 +68,7 @@ class CarListTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Black Toyota camry sport 2010'.toUpperCase(),
+                 tileData?.title??''.toUpperCase(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodySmall?.copyWith(color: colorDarkAsh),
@@ -63,18 +82,18 @@ class CarListTile extends StatelessWidget {
                           color: colorLightOrange.withOpacity(.1),
                           borderRadius: BorderRadius.circular(25),
                           border: Border.all(color: colorLightOrange)),
-                      child: Text('2024',
+                      child: Text(  tileData?.manufactureYear??'',
                           style: textTheme.bodySmall
                               ?.copyWith(color: colorDeepOrange, fontSize: 12)),
                     ),
                     SpaceHelper.horizontalSpaceSmall,
-                    Text('0 Mile',
+                    Text('${tileData.mileage??''} Mile',
                         style: textTheme.bodySmall
                             ?.copyWith(color: colorDeepOrange, fontSize: 12)),
                   ],
                 ),
                 Text(
-                  '₦ 78,00,000 || 79000',
+                  '₦ ${tileData?.priceinnaira??''}',
                   softWrap: true,
                   style: textTheme.bodySmall?.copyWith(
                     color: colorDeepGray,
@@ -82,7 +101,7 @@ class CarListTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Maryland, Lagos',
+                  tileData?.location??'',
                   softWrap: true,
                   style: textTheme.bodySmall?.copyWith(
                     color: colorDeepGray,

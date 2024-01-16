@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/remote/model/recentry_post_response.dart';
+import '../../car_bike_parts/recent_car_bike_spare_parts_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.index});
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceMedium,
             _titleAndSeeAll(textTheme, 'Recently Posted Cars', () {
               log('sdfsd');
-              Get.to(()=>FilterScreen());
+              Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'car',));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(() => _recentlyPostdItems(textTheme, _homeController.carData)),

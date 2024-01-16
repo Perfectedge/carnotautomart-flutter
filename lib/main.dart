@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carnotautomart/ui/auth/auth_controller.dart';
+import 'package:carnotautomart/ui/filter/filter_controller.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/text_font_style.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
 
   initializeController() {
     Get.put(AuthController());
+    Get.put(FilterController());
   }
 
   // This widget is the root of your application.

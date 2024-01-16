@@ -2,10 +2,11 @@ import 'dart:developer';
 
 import 'package:carnotautomart/data/remote/core/base_remote_source.dart';
 import 'package:carnotautomart/data/remote/model/account_type_response.dart';
-import 'package:carnotautomart/data/remote/model/dropdown_dat_response.dart';
+import 'package:carnotautomart/data/remote/model/dropdown_data_response.dart';
 import 'package:carnotautomart/data/remote/model/recentry_post_response.dart';
 import 'package:flutter/foundation.dart';
 
+import '../model/car_bike_spare_parts_response.dart';
 import '../network/dio_provider.dart';
 import 'carnotautomart_remote_data_source.dart';
 
@@ -53,6 +54,22 @@ class CarnotAutoMartRemoteDataSourceImpl extends BaseRemoteSource
     } catch (e) {
       if (kDebugMode) {
         log('DropDown Data : $e');
+      }
+      rethrow;
+    }
+  } 
+   //Get CarBikeSparePartsResponse
+  @override
+  Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts({required String vehicleType, required int page}) async {
+    var endPoint = "${DioProvider.baseUrl}/v1/posts?vehicle_type=$vehicleType&page=$page";
+    var dioCall = dioClient.get(endPoint);
+    try {
+      var response = await callApiWithErrorParser(dioCall);
+     
+      return CarBikeSparePartsResponse.fromJson(response.data); //DropDownResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        log('Recent car bike spare parts error : $e');
       }
       rethrow;
     }
