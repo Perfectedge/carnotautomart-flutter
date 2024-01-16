@@ -7,14 +7,19 @@ import 'package:get/get.dart';
 
 import '../utils/helper/helper_functions.dart';
 import '../utils/helper/spacing_helper.dart';
-import '../../data/remote/model/state_response.dart';
 import '../utils/app_colors.dart';
 
 class StateAndCitySearchWidget extends StatefulWidget {
   const StateAndCitySearchWidget(
-      {super.key, required this.notifier, required this.findFromSearch});
+      {super.key,
+      required this.appBarTitle,
+      required this.notifier,
+      required this.findFromSearch,
+      required this.selectionType});
 
-  final void Function(String text) notifier;
+  final String appBarTitle;
+  final String selectionType;
+  final void Function(Map<String, dynamic> selectedData) notifier;
   final RxList<dynamic> findFromSearch;
   @override
   State<StateAndCitySearchWidget> createState() =>
@@ -31,6 +36,26 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
       findFromSearch.value = widget.findFromSearch;
       searchResult.value = widget.findFromSearch;
     });
+  }
+
+  findSelectionType(String type) {
+    switch (type) {
+      case 'Location':
+        return 'Location';
+      case 'Model':
+        return 'Model';
+      case 'Brand':
+        return 'Brand';
+    }
+  }
+
+  Map<String, dynamic> prepareSelectionData(
+      {required String name, required int id}) {
+    Map<String, dynamic> preapareData = {
+      'name': name,
+      'id': id,
+    };
+    return preapareData;
   }
 
   @override
@@ -52,10 +77,10 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.cancel_sharp),
+              icon: const Icon(Icons.cancel_sharp),
             ),
             title: Text(
-              'Select State'.toUpperCase(),
+              widget.appBarTitle.toUpperCase(),
               style: textTheme.labelMedium,
             ),
             flexibleSpace: Image(
@@ -94,7 +119,7 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
                                 //  border:_border ,
                                 // enabledBorder: _border,
                                 //  focusedBorder: _border,
-                                hintText: 'Type a message',
+                                hintText: 'Search',
                                 hintStyle: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.normal,
@@ -102,7 +127,9 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
                               ),
                               keyboardType: TextInputType.multiline,
                               style: const TextStyle(
-                                  fontSize: 16.0, color: Colors.black),
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
                               onChanged: (text) {
                                 findFromSearch.value = searchResult
                                     .where((item) => item.name!
@@ -130,20 +157,21 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
             child: Obx(
               () => ListView.separated(
                 shrinkWrap: true,
-                itemCount:findFromSearch.length,
+                itemCount: findFromSearch.length,
                 itemBuilder: (_, index) => ListTile(
                     onTap: () {
                       Get.back();
-                      widget.notifier(findFromSearch[index].name ?? '');
+                      widget.notifier(prepareSelectionData(name: findFromSearch[index].name ?? '', id: int.parse(findFromSearch[index].id.toString() ?? '0') ));
                     },
                     dense: true,
                     minVerticalPadding: 0,
                     //  contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-                    visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
                     title: Text(
                       '${findFromSearch[index].name}',
-                      style:
-                          textTheme.labelMedium?.copyWith(color: Colors.black),
+                      style: textTheme.bodySmall?.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.normal),
                     )),
                 separatorBuilder: (_, index) => Divider(),
               ),

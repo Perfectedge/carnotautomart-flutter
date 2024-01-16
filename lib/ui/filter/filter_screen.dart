@@ -6,6 +6,7 @@ import 'package:carnotautomart/ui/utils/helper/device_info.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
 import 'package:carnotautomart/ui/widget/carnotmart_appbabr.dart';
+import 'package:carnotautomart/ui/widget/show_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,22 +22,26 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen> {
   late FilterController _filterController;
-  String sortValue='date'; 
-  String orderBy='ascending'; 
+  String sortValue = 'date';
+  String orderBy = 'ascending';
   @override
   void initState() {
     super.initState();
     _filterController = Get.find<FilterController>();
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       // await _filterController.getDropDownData();
-      _filterController.selectName.value = 'Select State';
+      _filterController.selectLocationName.value = 'Select State';
+      _filterController.brands.value = 'Brand';
+      _filterController.model.value = 'Model';
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _filterController.selectName.value = 'Select State';
+    _filterController.selectLocationName.value = 'Select State';
+    _filterController.brands.value = 'Brand';
+    _filterController.model.value = 'Model';
   }
 
   RangeValues rangeValue = const RangeValues(1960, 2024);
@@ -87,9 +92,12 @@ class _FilterScreenState extends State<FilterScreen> {
                             barrierDismissible: false,
                             builder: (_) {
                               return StateAndCitySearchWidget(
-                                notifier: (text) {
-                                  log('Selected result: $text');
-                                  _filterController.selectName.value = text;
+                                appBarTitle: 'Select State',
+                                selectionType: 'Location',
+                                notifier: (seletedData) {
+                                  log('Selected result: ${seletedData['name']}');
+                                  _filterController.selectLocationName.value =
+                                      seletedData['name'];
                                 },
                                 findFromSearch:
                                     _filterController.dropDownLocations,
@@ -99,9 +107,10 @@ class _FilterScreenState extends State<FilterScreen> {
                       child: Row(children: [
                         Obx(
                           () => Text(
-                            _filterController.selectName.value,
+                            _filterController.selectLocationName.value,
                             style: textTheme.bodySmall?.copyWith(
-                                color: _filterController.selectName.value ==
+                                color: _filterController
+                                            .selectLocationName.value ==
                                         'Select State'
                                     ? colorDeepGray
                                     : Colors.black,
@@ -145,12 +154,18 @@ class _FilterScreenState extends State<FilterScreen> {
                             barrierDismissible: false,
                             builder: (_) {
                               return StateAndCitySearchWidget(
-                                notifier: (text) {
-                                  log('Selected result: $text');
-                                  _filterController.selectName.value = text;
+                                appBarTitle: 'Select Brand',
+                                selectionType: 'Brand',
+                                notifier: (seletedData) {
+                                  log('Selected result: ${seletedData['name']}');
+                                  _filterController.brands.value =
+                                      seletedData['name'];
+                                  //Get Model Data
+                                  _filterController.model.value = 'Model';
+                                  _filterController.getModelByBrand(
+                                      brandId: seletedData['id']);
                                 },
-                                findFromSearch:
-                                    _filterController.dropDownLocations,
+                                findFromSearch: _filterController.dropDownBrand,
                               );
                             });
                       },
@@ -159,7 +174,9 @@ class _FilterScreenState extends State<FilterScreen> {
                           () => Text(
                             _filterController.brands.value,
                             style: textTheme.bodySmall?.copyWith(
-                                color: colorDeepGray,
+                                color: _filterController.brands.value == 'Brand'
+                                    ? colorDeepGray
+                                    : Colors.black,
                                 fontWeight: FontWeight.normal),
                           ),
                         ),
@@ -200,21 +217,25 @@ class _FilterScreenState extends State<FilterScreen> {
                             barrierDismissible: false,
                             builder: (_) {
                               return StateAndCitySearchWidget(
-                                notifier: (text) {
-                                  log('Selected result: $text');
-                                  _filterController.selectName.value = text;
+                                appBarTitle: 'Select Model',
+                                selectionType: 'Model',
+                                notifier: (selectedData) {
+                                  log('Selected result: ${selectedData['name']}');
+                                  _filterController.model.value =
+                                      selectedData['name'];
                                 },
-                                findFromSearch:
-                                    _filterController.dropDownLocations,
+                                findFromSearch: _filterController.dropDownModel,
                               );
                             });
                       },
                       child: Row(children: [
                         Obx(
                           () => Text(
-                            _filterController.brands.value,
-                            style: textTheme.bodySmall
-                                ?.copyWith(color: colorDeepGray),
+                            _filterController.model.value,
+                            style: textTheme.bodySmall?.copyWith(
+                                color: _filterController.model.value == 'Model'
+                                    ? colorDeepGray
+                                    : Colors.black),
                           ),
                         ),
                         const Spacer(),
@@ -250,14 +271,16 @@ class _FilterScreenState extends State<FilterScreen> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
                       'Menufacture year',
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+                      style: textTheme.bodySmall?.copyWith(
+                          color: Colors.black,
+                          letterSpacing: .3,
+                          fontWeight: FontWeight.normal),
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10.0, vertical: 5),
-                        height: 50,
+                    height: 50,
                     child: Material(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
@@ -272,7 +295,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         child: RangeSlider(
                           min: 1960,
                           max: 2024,
-                          divisions: 2024-1960,
+                          divisions: 2024 - 1960,
                           values: rangeValue,
                           onChanged: (value) {
                             setState(() {
@@ -284,8 +307,9 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   SpaceHelper.verticalSpaceSmall,
-                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Row(
                       children: [
                         PriceWIdget(
@@ -301,8 +325,8 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   SpaceHelper.verticalSpaceSmall,
-                    //Fuel Type
-                        Padding(
+                  //Fuel Type
+                  Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
@@ -316,7 +340,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
                   //Condition
                   SpaceHelper.verticalSpaceSmall,
-                        Padding(
+                  Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
@@ -328,8 +352,8 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   //Color
-                   SpaceHelper.verticalSpaceSmall,
-                        Padding(
+                  SpaceHelper.verticalSpaceSmall,
+                  Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
@@ -341,9 +365,10 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   //GearBox
-                    SpaceHelper.verticalSpaceSmall,
+                  SpaceHelper.verticalSpaceSmall,
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
                       'Gear box',
                       style: textTheme.bodySmall?.copyWith(
@@ -352,11 +377,12 @@ class _FilterScreenState extends State<FilterScreen> {
                           fontWeight: FontWeight.normal),
                     ),
                   ),
-                
+
                   //'Sort By'
-                    SpaceHelper.verticalSpaceSmall,
+                  SpaceHelper.verticalSpaceSmall,
                   Padding(
-                    padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
                       'Sort By',
                       style: textTheme.bodySmall?.copyWith(
@@ -366,55 +392,64 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
 
-                     Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Material(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                            color: Colors.white,
-                            elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      color: Colors.white,
+                      elevation: 0,
                       child: Row(
                         children: [
                           Expanded(
                             child: RadioListTile(
-                                    title: const Text("Date"),
-                                    contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity( horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity),
-                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                    activeColor: colorDeepOrange,
-                                    splashRadius: 10,
-                                    value: "date", 
-                                    groupValue: sortValue, 
-                                    onChanged: (value){
-                                      setState(() {
-                                          sortValue = value.toString();
-                                      });
-                                    },
-                                ),
-                          ),
-                          Expanded(child: RadioListTile(
-                            contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity( horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity),
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            title: const Text("Price"),
-                            value: "price", 
-                            groupValue: sortValue, 
-                            onChanged: (value){
-                              setState(() {
+                              title: const Text("Date"),
+                              contentPadding: const EdgeInsets.all(0),
+                              visualDensity: const VisualDensity(
+                                  horizontal: VisualDensity.minimumDensity,
+                                  vertical: VisualDensity.minimumDensity),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              activeColor: colorDeepOrange,
+                              splashRadius: 10,
+                              value: "date",
+                              groupValue: sortValue,
+                              onChanged: (value) {
+                                setState(() {
                                   sortValue = value.toString();
-                              });
-                            },
-                        ),)
+                                });
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile(
+                              contentPadding: const EdgeInsets.all(0),
+                              visualDensity: const VisualDensity(
+                                  horizontal: VisualDensity.minimumDensity,
+                                  vertical: VisualDensity.minimumDensity),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              title: const Text("Price"),
+                              value: "price",
+                              groupValue: sortValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  sortValue = value.toString();
+                                });
+                              },
+                            ),
+                          )
                         ],
                       ),
                     ),
                   ),
 
-                    //'Sort By'
-                    SpaceHelper.verticalSpaceSmall,
+                  //'Sort By'
+                  SpaceHelper.verticalSpaceSmall,
                   Padding(
-                    padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
                       'Order By',
                       style: textTheme.bodySmall?.copyWith(
@@ -424,46 +459,53 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
 
-                     Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Material(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                            color: Colors.white,
-                            elevation: 0,
-                            
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      color: Colors.white,
+                      elevation: 0,
                       child: Row(
                         children: [
                           Expanded(
                             child: RadioListTile(
-                                    title: const Text("Ascending"),
-                                    contentPadding: const EdgeInsets.all(0),
-                                        visualDensity: const VisualDensity( horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity),
-                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                    activeColor: colorDeepOrange,
-                                    value: "ascending", 
-                                    groupValue: orderBy, 
-                                    onChanged: (value){
-                                      setState(() {
-                                          orderBy = value.toString();
-                                      });
-                                    },
-                                ),
-                          ),
-                          Expanded(child: RadioListTile(
-                            contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity( horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity),
-                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            title: const Text("Descending"),
-                            value: "descending", 
-                            groupValue: orderBy, 
-                            onChanged: (value){
-                              setState(() {
+                              title: const Text("Ascending"),
+                              contentPadding: const EdgeInsets.all(0),
+                              visualDensity: const VisualDensity(
+                                  horizontal: VisualDensity.minimumDensity,
+                                  vertical: VisualDensity.minimumDensity),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              activeColor: colorDeepOrange,
+                              value: "ascending",
+                              groupValue: orderBy,
+                              onChanged: (value) {
+                                setState(() {
                                   orderBy = value.toString();
-                              });
-                            },
-                        ),)
+                                });
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile(
+                              contentPadding: const EdgeInsets.all(0),
+                              visualDensity: const VisualDensity(
+                                  horizontal: VisualDensity.minimumDensity,
+                                  vertical: VisualDensity.minimumDensity),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              title: const Text("Descending"),
+                              value: "descending",
+                              groupValue: orderBy,
+                              onChanged: (value) {
+                                setState(() {
+                                  orderBy = value.toString();
+                                });
+                              },
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -473,8 +515,11 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: SizedBox(
                       width: 150,
                       child: BaseButton(
-                        onPress: (){}, 
-                        title: 'Apply', backgroundColor: colorDeepOrange, textStyle: textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                          onPress: () {},
+                          title: 'Apply',
+                          backgroundColor: colorDeepOrange,
+                          textStyle: textTheme.bodyMedium
+                              ?.copyWith(color: Colors.white)),
                     ),
                   ),
 

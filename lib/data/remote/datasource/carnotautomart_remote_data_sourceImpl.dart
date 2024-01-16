@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:carnotautomart/data/remote/core/base_remote_source.dart';
 import 'package:carnotautomart/data/remote/model/account_type_response.dart';
 import 'package:carnotautomart/data/remote/model/dropdown_data_response.dart';
+import 'package:carnotautomart/data/remote/model/model_response.dart';
 import 'package:carnotautomart/data/remote/model/recentry_post_response.dart';
 import 'package:flutter/foundation.dart';
 
+import '../model/brand_response.dart';
 import '../model/car_bike_spare_parts_response.dart';
 import '../network/dio_provider.dart';
 import 'carnotautomart_remote_data_source.dart';
@@ -65,8 +67,41 @@ class CarnotAutoMartRemoteDataSourceImpl extends BaseRemoteSource
     var dioCall = dioClient.get(endPoint);
     try {
       var response = await callApiWithErrorParser(dioCall);
-     
       return CarBikeSparePartsResponse.fromJson(response.data); //DropDownResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        log('Recent car bike spare parts error : $e');
+      }
+      rethrow;
+    }
+  }
+
+  @override
+  //Get Brand
+  Future<BrandResponse> getBrands({required int vehicleTypeId})async{
+      var endPoint = "${DioProvider.baseUrl}/get-brands?vehicle_type_id=$vehicleTypeId";
+    var dioCall = dioClient.get(endPoint);
+    try {
+      var response = await callApiWithErrorParser(dioCall);
+        final data = await compute(brandResponseFromJson, response.data);
+      return data; //DropDownResponse.fromJson(response.data);
+    } catch (e) {
+      if (kDebugMode) {
+        log('Brand Response Error : $e');
+      }
+      rethrow;
+    }
+  }
+
+
+  @override
+  //Get Model By Brands
+  Future<ModelResponse> getModelByBrands({required int brandId})async{
+         var endPoint = "${DioProvider.baseUrl}/get-models?brand_id=$brandId";
+    var dioCall = dioClient.get(endPoint);
+    try {
+      var response = await callApiWithErrorParser(dioCall);
+      return ModelResponse.fromJson(response.data); //DropDownResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
         log('Recent car bike spare parts error : $e');

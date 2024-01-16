@@ -1,8 +1,6 @@
 
 
 DropDownResponse dropDownResponseFromJson(dynamic str) {
-  // log(str.runtimeType.toString());
-
   final responseResult = DropDownResponse.fromJson(str);
   return responseResult;
 }
