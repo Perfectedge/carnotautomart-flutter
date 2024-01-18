@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'dart:ui' as ui;
-
-import 'package:carnotautomart/ui/bottom_navigation%20/slider_drawer/helper/slider_shadow.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +10,7 @@ import '../utils/helper/image_helper.dart';
 import 'favourite/favourite_screen.dart';
 import 'home/home_screen.dart';
 import 'service/service_screen.dart';
+import 'slider_drawer/helper/slider_shadow.dart';
 import 'slider_drawer/slider.dart';
 
 class SliderDrawerAndBottomNavigation extends StatefulWidget {
