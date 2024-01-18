@@ -9,7 +9,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'data/local/pref_keys.dart';
 import 'ui/auth/auth_controller.dart';
-import 'ui/bottom_navigation /bottom_bar.dart';
+import 'ui/bottom_navigation/bottom_bar.dart';
 import 'ui/filter/filter_controller.dart';
 import 'ui/splash/splash_screen.dart';
 import 'ui/utils/app_colors.dart';
