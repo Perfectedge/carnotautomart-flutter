@@ -17,8 +17,9 @@ class FilterController extends GetxController {
   final RxList<Brand> dropDownBrand = <Brand>[].obs;
   final RxList<Model> dropDownModel = <Model>[].obs;
   final RxList<Fuel> dropDownFuels = <Fuel>[].obs;
-  final Rx<VehicleConditions> dropDownVehicleConditions =
-      VehicleConditions().obs;
+  
+  
+  final RxList<String> dropDownVehicleConditions =<String> [].obs;
   final RxList<CarColor> dropDownCarColors = <CarColor>[].obs;
   final Rx<Gearbox> dropDownGareBox = Gearbox().obs;
   RxMap g = {}.obs;
@@ -47,7 +48,8 @@ class FilterController extends GetxController {
         dropDownLocations.value = response.data?.locations ?? [];
         dropDownFuels.value = response.data?.fuels ?? [];
         dropDownVehicleConditions.value =
-            response.data?.vehicleConditions ?? VehicleConditions();
+          response.data?.vehicleConditions?.toStringList()?? [];
+
         dropDownCarColors.value = response.data?.colors ?? [];
         dropDownGareBox.value = response.data?.gearbox ?? Gearbox();
       } else {}
@@ -57,6 +59,7 @@ class FilterController extends GetxController {
       }
     }
   }
+
 
   getBrandDropDownData() async {
     try {

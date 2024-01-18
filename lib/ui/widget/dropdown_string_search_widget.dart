@@ -13,28 +13,30 @@ class DropDownStringSearchWidget<T> extends StatefulWidget {
   const DropDownStringSearchWidget(
       {super.key,
       required this.appBarTitle,
-      required this.notifier,
+      required this.onSelected,
       required this.findFromSearch,
       required this.selectionType});
 
   final String appBarTitle;
   final String selectionType;
-  final void Function(String selectedData) notifier;
-  final Rx<T> findFromSearch;
+   final ValueChanged<T?>? onSelected;
+  final List<T> findFromSearch;
   @override
-  State<DropDownStringSearchWidget> createState() =>
-      _DropDownStringSearchWidgetState();
+  State<DropDownStringSearchWidget<T>> createState() =>
+      _DropDownStringSearchWidgetState<T>();
 }
 
-class _DropDownStringSearchWidgetState extends State<DropDownStringSearchWidget> {
-  RxList searchResult = [].obs;
-  RxList findFromSearch = [].obs;
+class _DropDownStringSearchWidgetState<T> extends State<DropDownStringSearchWidget<T>> {
+  RxList<T> _searchResult = <T>[].obs;
+  RxList<T> _findFromSearch = <T>[].obs;
+ 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // findFromSearch.value = widget.findFromSearch;
-      // searchResult.value = widget.findFromSearch;
+      _findFromSearch.value = widget.findFromSearch;
+      _searchResult.value = widget.findFromSearch;
+      
     });
   }
 
@@ -114,10 +116,8 @@ class _DropDownStringSearchWidgetState extends State<DropDownStringSearchWidget>
                                     color: Colors.black,
                                     fontWeight: FontWeight.normal),
                                 onChanged: (text) {
-                                  findFromSearch.value = searchResult
-                                      .where((item) => item.name!
-                                          .toLowerCase()
-                                          .contains(text.toLowerCase()))
+                                  _findFromSearch.value = _searchResult
+                                      .where((item) => item.toString().toLowerCase().contains(text.toLowerCase()))
                                       .toList();
                                 },
                                 onTapOutside: (value) {
@@ -141,11 +141,11 @@ class _DropDownStringSearchWidgetState extends State<DropDownStringSearchWidget>
             child: Obx(
               () => ListView.separated(
                 shrinkWrap: true,
-                itemCount: findFromSearch.length,
+                itemCount: _findFromSearch.length,
                 itemBuilder: (_, index) => ListTile(
                     onTap: () {
                       Get.back();
-                      widget.notifier( findFromSearch[index].name ?? '');
+                      widget.onSelected?.call((_findFromSearch[index].toString() ?? '') as T?);
                     },
                     dense: true,
                     minVerticalPadding: 0,
@@ -153,7 +153,7 @@ class _DropDownStringSearchWidgetState extends State<DropDownStringSearchWidget>
                     visualDensity:
                         const VisualDensity(horizontal: 0, vertical: -4),
                     title: Text(
-                      '${findFromSearch[index].name}',
+                      '${_findFromSearch[index]}',
                       style: textTheme.bodySmall?.copyWith(
                           color: Colors.black, fontWeight: FontWeight.normal),
                     )),

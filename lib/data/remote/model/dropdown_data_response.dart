@@ -699,6 +699,9 @@ class VehicleConditions {
         "Nigerian used": nigerianUsed,
         "Foreign used": foreignUsed,
       };
+        List<String> toStringList() {
+    return [vehicleConditionsNew, nigerianUsed, foreignUsed].where((item) => item != null).toList().cast<String>();
+  }
 }
 
 class VehicleTypeElement {

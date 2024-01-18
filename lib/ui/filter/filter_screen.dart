@@ -392,7 +392,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               _filterController.fuels.value,
                               // 'Fule',
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController.fuels.value =='Select Fuel'
+                                  color: _filterController.fuels.value =='Select fuel'
                                       ? colorDeepGray
                                       : Colors.black,
                                   fontWeight: FontWeight.normal),
@@ -435,27 +435,23 @@ class _FilterScreenState extends State<FilterScreen> {
                               context: context,
                               barrierDismissible: false,
                               builder: (_) {
-                                return DropDownStringSearchWidget(
+                                return DropDownStringSearchWidget<String>(
                                   appBarTitle: 'Select Contition',
                                   selectionType: 'Condition',
-                                  notifier: (seletedData) {
+                                  onSelected: (seletedData) {
                                     log('Selected result: ${seletedData}');
-                                    // _filterController.selectLocationName.value =
-                                    //     seletedData['name'];
+                                    _filterController.condition.value =seletedData??'';
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownVehicleConditions,
+                                  findFromSearch:_filterController.dropDownVehicleConditions,
                                 );
                               });
                         },
                         child: Row(children: [
                           Obx(
                             () => Text(
-                              _filterController.selectLocationName.value,
+                              _filterController.condition.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
+                                  color: _filterController.condition.value =='Select condition'
                                       ? colorDeepGray
                                       : Colors.black,
                                   fontWeight: FontWeight.normal),
