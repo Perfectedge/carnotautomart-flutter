@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,12 +21,11 @@ showLoader()  {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 30.0,
-                width: 30.0,
-                child: CircularProgressIndicator.adaptive(
-                  strokeWidth: 2.0,
-                  backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation(Colors.blue),
+                height: 40.0,
+                width: 40.0,
+                child: CupertinoActivityIndicator(
+                 color: Colors.white,
+                 radius: 15,
                 ),
               ),
               SizedBox(

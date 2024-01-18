@@ -40,7 +40,7 @@ class Data {
   Gearbox? gearbox;
   List<String>? manufacturingYears;
   List<BodyType>? bodyType;
-  List<Color>? colors;
+  List<CarColor>? colors;
   Map<String, String>? seats;
   Map<String, String>? ownerType;
   List<AllFeature>? allFeatures;
@@ -122,7 +122,7 @@ class Data {
         gearbox: json["gearbox"] == null ? null : Gearbox.fromJson(json["gearbox"]),
         manufacturingYears: json["manufacturing_years"] == null ? [] : List<String>.from(json["manufacturing_years"]!.map((x) => x)),
         bodyType: json["body_type"] == null ? [] : List<BodyType>.from(json["body_type"]!.map((x) => BodyType.fromJson(x))),
-        colors: json["colors"] == null ? [] : List<Color>.from(json["colors"]!.map((x) => Color.fromJson(x))),
+        colors: json["colors"] == null ? [] : List<CarColor>.from(json["colors"]!.map((x) => CarColor.fromJson(x))),
         seats: Map.from(json["seats"]!).map((k, v) => MapEntry<String, String>(k, v)),
         ownerType: Map.from(json["owner_type"]!).map((k, v) => MapEntry<String, String>(k, v)),
         allFeatures: json["all_features"] == null ? [] : List<AllFeature>.from(json["all_features"]!.map((x) => AllFeature.fromJson(x))),
@@ -291,16 +291,16 @@ class BodyType {
       };
 }
 
-class Color {
+class CarColor {
   String? id;
   String? colorName;
 
-  Color({
+  CarColor({
     this.id,
     this.colorName,
   });
 
-  factory Color.fromJson(Map<String, dynamic> json) => Color(
+  factory CarColor.fromJson(Map<String, dynamic> json) => CarColor(
         id: json["id"],
         colorName: json["color_name"],
       );
@@ -454,21 +454,21 @@ class EngineSize {
 
 class Fuel {
   String? id;
-  String? fuelName;
+  String? name;
 
   Fuel({
     this.id,
-    this.fuelName,
+    this.name,
   });
 
   factory Fuel.fromJson(Map<String, dynamic> json) => Fuel(
         id: json["id"],
-        fuelName: json["fuel_name"],
+        name: json["fuel_name"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "fuel_name": fuelName,
+        "fuel_name": name,
       };
 }
 

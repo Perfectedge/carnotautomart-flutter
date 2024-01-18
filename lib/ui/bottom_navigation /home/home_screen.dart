@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceMedium,
             _titleAndSeeAll(textTheme, 'Recently Posted Cars', () {
               
-              Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'car',appbarTitle:'Recently Posted Car',));
+              Get.to(()=>const RecentCarBikeSparePartsScreen(vehicleType: 'car',appbarTitle:'Recently Posted Car',));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(() => _recentlyPostdItems(textTheme, _homeController.carData)),
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Motorbike', () {
               
-                Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'motorbike',appbarTitle: 'Recently Posted Motorbike',));
+                Get.to(()=>const RecentCarBikeSparePartsScreen(vehicleType: 'motorbike',appbarTitle: 'Recently Posted Motorbike',));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Spare Parts', () {
-              Get.to(()=>RecentCarBikeSparePartsScreen(vehicleType: 'spare-parts',appbarTitle: 'Recently Posted Spare Parts'));
+              Get.to(()=>const RecentCarBikeSparePartsScreen(vehicleType: 'spare-parts',appbarTitle: 'Recently Posted Spare Parts'));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return GestureDetector(
       onTap: () {
-        Get.to(() => PostDetailsScreen());
+        Get.to(() => const PostDetailsScreen());
       },
       child: SizedBox(
         height: 160,
@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
             separatorBuilder: (context, index) =>
                 SpaceHelper.horizontalSpaceSmall,
             itemBuilder: (context, index) {
-              BikeCarSpareParts _bikeCarSpareParts = dataItem[index];
+              BikeCarSpareParts bikeCarSpareParts = dataItem[index];
               return SizedBox(
                 width: 140,
                 child: Card(
@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             imageUrl:
                                 // 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
                                 // 'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
-                                _bikeCarSpareParts.photo ?? '',
+                                bikeCarSpareParts.photo ?? '',
                             placeholder: (context, url) => const Center(
                               child: CupertinoActivityIndicator(
                                 color: colorDarkAsh,
@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                _bikeCarSpareParts.title ?? '',
+                                bikeCarSpareParts.title ?? '',
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 overflow: TextOverflow.ellipsis,
@@ -208,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Text(
                                 // '₦ 78,00,000 || 79000',
-                                '₦ ${_bikeCarSpareParts.priceinnaira}??'
+                                '₦ ${bikeCarSpareParts.priceinnaira}??'
                                 ' ||',
 
                                 softWrap: true,
@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Align(
                                 alignment: Alignment.bottomLeft,
                                 child: Text(
-                                  _bikeCarSpareParts.location ?? '',
+                                  bikeCarSpareParts.location ?? '',
                                   softWrap: true,
                                   style: textTheme.bodySmall?.copyWith(
                                     color: colorDeepOrange,
@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
             shadowColor: Colors.black,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            child: Center(
+            child: Center( 
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

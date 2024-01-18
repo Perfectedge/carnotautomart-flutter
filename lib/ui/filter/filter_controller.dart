@@ -16,10 +16,18 @@ class FilterController extends GetxController {
   final RxList<Location> dropDownLocations = <Location>[].obs;
   final RxList<Brand> dropDownBrand = <Brand>[].obs;
   final RxList<Model> dropDownModel = <Model>[].obs;
+  final RxList<Fuel> dropDownFuels = <Fuel>[].obs;
+  final Rx<VehicleConditions> dropDownVehicleConditions =
+      VehicleConditions().obs;
+  final RxList<CarColor> dropDownCarColors = <CarColor>[].obs;
+  final Rx<Gearbox> dropDownGareBox = Gearbox().obs;
+  RxMap g = {}.obs;
 
   RxString selectLocationName = ''.obs;
   RxString brands = ''.obs;
   RxString model = ''.obs;
+  RxString fuels = ''.obs;
+  RxString condition = ''.obs;
   @override
   void onInit() {
     super.onInit();
@@ -37,6 +45,11 @@ class FilterController extends GetxController {
       final response = await repository.getDropDownResponse();
       if (response.status == true) {
         dropDownLocations.value = response.data?.locations ?? [];
+        dropDownFuels.value = response.data?.fuels ?? [];
+        dropDownVehicleConditions.value =
+            response.data?.vehicleConditions ?? VehicleConditions();
+        dropDownCarColors.value = response.data?.colors ?? [];
+        dropDownGareBox.value = response.data?.gearbox ?? Gearbox();
       } else {}
     } catch (e) {
       if (kDebugMode) {

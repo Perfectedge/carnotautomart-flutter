@@ -78,7 +78,14 @@ class _SliderDrawerAndBottomNavigationState
                     barTitle,
                     style: textTheme.bodyMedium?.copyWith(letterSpacing: 0),
                   ),
-                  flexibleSpace: appbarFlexibleSpace
+                  flexibleSpace: Image(
+  height: Platform.isIOS ? 60 : 60, //
+  // height: 115,
+  width: double.infinity,
+  image: const AssetImage(
+      'assets/images/bg_appbar.png'), // Replace with your image path
+  fit: BoxFit.cover,
+)
                 ),
                 slider: CustomDrawer(
                   trigger: (value) {

@@ -9,8 +9,8 @@ import '../utils/helper/helper_functions.dart';
 import '../utils/helper/spacing_helper.dart';
 import '../utils/app_colors.dart';
 
-class StateAndCitySearchWidget extends StatefulWidget {
-  const StateAndCitySearchWidget(
+class DropDownStringSearchWidget<T> extends StatefulWidget {
+  const DropDownStringSearchWidget(
       {super.key,
       required this.appBarTitle,
       required this.notifier,
@@ -19,44 +19,25 @@ class StateAndCitySearchWidget extends StatefulWidget {
 
   final String appBarTitle;
   final String selectionType;
-  final void Function(Map<String, dynamic> selectedData) notifier;
-  final RxList<dynamic> findFromSearch;
+  final void Function(String selectedData) notifier;
+  final Rx<T> findFromSearch;
   @override
-  State<StateAndCitySearchWidget> createState() =>
-      _StateAndCitySearchWidgetState();
+  State<DropDownStringSearchWidget> createState() =>
+      _DropDownStringSearchWidgetState();
 }
 
-class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
+class _DropDownStringSearchWidgetState extends State<DropDownStringSearchWidget> {
   RxList searchResult = [].obs;
   RxList findFromSearch = [].obs;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      findFromSearch.value = widget.findFromSearch;
-      searchResult.value = widget.findFromSearch;
+      // findFromSearch.value = widget.findFromSearch;
+      // searchResult.value = widget.findFromSearch;
     });
   }
 
-  findSelectionType(String type) {
-    switch (type) {
-      case 'Location':
-        return 'Location';
-      case 'Model':
-        return 'Model';
-      case 'Brand':
-        return 'Brand';
-    }
-  }
-
-  Map<String, dynamic> prepareSelectionData(
-      {required String name, required int id}) {
-    Map<String, dynamic> preapareData = {
-      'name': name,
-      'id': id,
-    };
-    return preapareData;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +74,9 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
             ),
 
             bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(50),
+                preferredSize: Size.fromHeight(50),
                 child: Container(
-                  decoration: const BoxDecoration(image:DecorationImage(fit:BoxFit.cover,image: AssetImage('assets/images/bg_appbar.png')) ),
+                  decoration: BoxDecoration(image:DecorationImage(fit:BoxFit.cover,image: AssetImage('assets/images/bg_appbar.png')) ),
                   child: Column(
                     children: [
                       Container(
@@ -164,7 +145,7 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
                 itemBuilder: (_, index) => ListTile(
                     onTap: () {
                       Get.back();
-                      widget.notifier(prepareSelectionData(name: findFromSearch[index].name ?? '', id: int.parse(findFromSearch[index].id.toString() ?? '0') ));
+                      widget.notifier( findFromSearch[index].name ?? '');
                     },
                     dense: true,
                     minVerticalPadding: 0,
@@ -176,7 +157,7 @@ class _StateAndCitySearchWidgetState extends State<StateAndCitySearchWidget> {
                       style: textTheme.bodySmall?.copyWith(
                           color: Colors.black, fontWeight: FontWeight.normal),
                     )),
-                separatorBuilder: (_, index) => const Divider(),
+                separatorBuilder: (_, index) => Divider(),
               ),
             ),
           )),
