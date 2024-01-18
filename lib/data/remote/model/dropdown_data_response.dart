@@ -293,21 +293,21 @@ class BodyType {
 
 class CarColor {
   String? id;
-  String? colorName;
+  String? name;
 
   CarColor({
     this.id,
-    this.colorName,
+    this.name,
   });
 
   factory CarColor.fromJson(Map<String, dynamic> json) => CarColor(
         id: json["id"],
-        colorName: json["color_name"],
+        name: json["color_name"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "color_name": colorName,
+        "color_name": name,
       };
 }
 
@@ -494,6 +494,9 @@ class Gearbox {
         "Sami Automatic": samiAutomatic,
         "Manual": manual,
       };
+        List<String> toStringList() {
+    return [automatic, samiAutomatic, manual].where((item) => item != null).toList().cast<String>();
+  }
 }
 
 class LicenseType {

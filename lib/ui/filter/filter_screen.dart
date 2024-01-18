@@ -22,20 +22,26 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen> {
   late FilterController _filterController;
-  String sortValue = 'date';
-  String orderBy = 'ascending';
+
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  late RangeValues rangeValue;
+
+
   @override
   void initState() {
     super.initState();
     _filterController = Get.find<FilterController>();
+     rangeValue =RangeValues(double.parse(_filterController.manufacturingYears.last) , double.parse(_filterController.manufacturingYears.first));
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       // await _filterController.getDropDownData();
+      log(_filterController.manufacturingYears.first.toString());
       _filterController.selectLocationName.value = 'Select State';
       _filterController.brands.value = 'Brand';
       _filterController.model.value = 'Model';
       _filterController.fuels.value = 'Select fuel';
       _filterController.condition.value = 'Select condition';
+      _filterController.carColor.value ='Select color';
+      _filterController.gearBox.value ='Select gearbox';
     });
   }
 
@@ -47,12 +53,14 @@ class _FilterScreenState extends State<FilterScreen> {
     _filterController.model.value = 'Model';
     _filterController.fuels.value == 'Select Fuel';
     _filterController.condition.value = 'Select condition';
+    _filterController.carColor.value ='Select color';
+    _filterController.gearBox.value ='Select gearbox';
   }
 
-  RangeValues rangeValue = const RangeValues(1960, 2024);
+
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;     
     return Container(
       decoration: const BoxDecoration(color: colorLightOrange),
       child: GestureDetector(
@@ -107,8 +115,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Location',
                                   notifier: (seletedData) {
                                     // log('Selected result: ${seletedData['name']}');
-                                    _filterController.selectLocationName.value =
-                                        seletedData['name'];
+                                    _filterController.selectLocationName.value = seletedData['name'];
                                   },
                                   findFromSearch:
                                       _filterController.dropDownLocations,
@@ -120,11 +127,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.selectLocationName.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.selectLocationName.value == 'Select State'? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -176,8 +179,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                     _filterController.getModelByBrand(
                                         brandId: seletedData['id']);
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownBrand,
+                                  findFromSearch: _filterController.dropDownBrand,
                                 );
                               });
                         },
@@ -186,10 +188,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.brands.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color:
-                                      _filterController.brands.value == 'Brand'
-                                          ? colorDeepGray
-                                          : Colors.black,
+                                  color:_filterController.brands.value == 'Brand'? colorDeepGray: Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -316,9 +315,9 @@ class _FilterScreenState extends State<FilterScreen> {
                             inactiveTrackColor: Colors.grey.shade300,
                           ),
                           child: RangeSlider(
-                            min: 1960,
-                            max: 2024,
-                            divisions: 2024 - 1960,
+                            min: double.parse(_filterController.manufacturingYears.last),
+                            max: double.parse(_filterController.manufacturingYears.first),
+                            divisions: int.parse(_filterController.manufacturingYears.first) - int.parse(_filterController.manufacturingYears.last),
                             values: rangeValue,
                             onChanged: (value) {
                               setState(() {
@@ -494,26 +493,22 @@ class _FilterScreenState extends State<FilterScreen> {
                               barrierDismissible: false,
                               builder: (_) {
                                 return StateAndCitySearchWidget(
-                                  appBarTitle: 'Select State',
-                                  selectionType: 'Location',
+                                  appBarTitle: 'Select Color',
+                                  selectionType: 'Color',
                                   notifier: (seletedData) {
                                     // log('Selected result: ${seletedData['name']}');
-                                    _filterController.selectLocationName.value =
-                                        seletedData['name'];
+                                    _filterController.carColor.value = seletedData['name'];
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownLocations,
+                                  findFromSearch:_filterController.dropDownCarColors,
                                 );
                               });
                         },
                         child: Row(children: [
                           Obx(
                             () => Text(
-                              _filterController.selectLocationName.value,
+                              _filterController.carColor.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
+                                  color: _filterController.carColor.value =='Select color'
                                       ? colorDeepGray
                                       : Colors.black,
                                   fontWeight: FontWeight.normal),
@@ -555,27 +550,24 @@ class _FilterScreenState extends State<FilterScreen> {
                               context: context,
                               barrierDismissible: false,
                               builder: (_) {
-                                return StateAndCitySearchWidget(
+                                return DropDownStringSearchWidget<String>(
                                   appBarTitle: 'Select State',
                                   selectionType: 'Location',
-                                  notifier: (seletedData) {
-                                    // log('Selected result: ${seletedData['name']}');
-                                    _filterController.selectLocationName.value =
-                                        seletedData['name'];
+                                  onSelected: (seletedData) {
+                                    log('Selected result: ${seletedData}');
+                                    _filterController.gearBox.value =seletedData.toString();
                                   },
                                   findFromSearch:
-                                      _filterController.dropDownLocations,
+                                      _filterController.dropDownGareBox,
                                 );
                               });
                         },
                         child: Row(children: [
                           Obx(
                             () => Text(
-                              _filterController.selectLocationName.value,
+                              _filterController.gearBox.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
+                                  color: _filterController.gearBox.value =='Select gearbox'
                                       ? colorDeepGray
                                       : Colors.black,
                                   fontWeight: FontWeight.normal),
@@ -626,10 +618,10 @@ class _FilterScreenState extends State<FilterScreen> {
                                 activeColor: colorDeepOrange,
                                 splashRadius: 10,
                                 value: "date",
-                                groupValue: sortValue,
+                                groupValue: _filterController.sortValue.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    sortValue = value.toString();
+                                     _filterController.sortValue.value = value.toString();
                                   });
                                 },
                               ),
@@ -644,10 +636,10 @@ class _FilterScreenState extends State<FilterScreen> {
                                     MaterialTapTargetSize.shrinkWrap,
                                 title: const Text("Price"),
                                 value: "price",
-                                groupValue: sortValue,
+                                groupValue: _filterController.sortValue.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    sortValue = value.toString();
+                                    _filterController.sortValue.value = value.toString();
                                   });
                                 },
                               ),
@@ -692,10 +684,10 @@ class _FilterScreenState extends State<FilterScreen> {
                                     MaterialTapTargetSize.shrinkWrap,
                                 activeColor: colorDeepOrange,
                                 value: "ascending",
-                                groupValue: orderBy,
+                                groupValue:  _filterController.orderBy.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    orderBy = value.toString();
+                                     _filterController.orderBy.value = value.toString();
                                   });
                                 },
                               ),
@@ -710,10 +702,10 @@ class _FilterScreenState extends State<FilterScreen> {
                                     MaterialTapTargetSize.shrinkWrap,
                                 title: const Text("Descending"),
                                 value: "descending",
-                                groupValue: orderBy,
+                                groupValue:  _filterController.orderBy.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    orderBy = value.toString();
+                                     _filterController.orderBy.value = value.toString();
                                   });
                                 },
                               ),
@@ -819,33 +811,6 @@ class PriceWIdget extends StatelessWidget {
             ),
           ),
         ),
-        //    TextFormField(
-        //   // controller: _chatController.messageController,
-        //   autofocus: false,
-        //   maxLines: null,
-        //   decoration: const InputDecoration(
-        //     isDense: true,
-        //     contentPadding: EdgeInsets.zero,
-        //     border: InputBorder.none,
-        //     //  border:_border ,
-        //     // enabledBorder: _border,
-        //     //  focusedBorder: _border,
-        //     hintText: 'Type a message',
-        //     hintStyle: TextStyle(
-        //         fontSize: 16.0,
-        //         fontWeight: FontWeight.normal,
-        //         color: colorDarkAsh),
-        //   ),
-        //   keyboardType: TextInputType.multiline,
-        //   style: const TextStyle(
-        //       fontSize: 16.0, color: Colors.black),
-        //   onChanged: (text) {
-
-        //   },
-        //   onTapOutside: (value) {
-        //     // log('onTapOutside called');
-        //   },
-        // ),
       ],
     );
   }
