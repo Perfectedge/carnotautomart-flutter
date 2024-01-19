@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 import '../../../data/remote/model/recentry_post_response.dart';
 import '../../car_bike_parts/recent_car_bike_spare_parts_screen.dart';
+import '../../utils/helper/helper_functions.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -134,111 +135,112 @@ class _HomeScreenState extends State<HomeScreen> {
         style: textTheme.bodySmall?.copyWith(color: colorDarkAsh),
       );
     }
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => const PostDetailsScreen());
-      },
-      child: SizedBox(
-        height: 160,
-        child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemCount: dataItem.length,
-            separatorBuilder: (context, index) =>
-                SpaceHelper.horizontalSpaceSmall,
-            itemBuilder: (context, index) {
-              BikeCarSpareParts bikeCarSpareParts = dataItem[index];
-              return SizedBox(
-                width: 140,
-                child: Card(
-                  elevation: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            height: 65,
-                            imageUrl:
-                                // 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
-                                // 'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
-                                bikeCarSpareParts.photo ?? '',
-                            placeholder: (context, url) => const Center(
-                              child: CupertinoActivityIndicator(
-                                color: colorDarkAsh,
+    return SizedBox(
+      height: 160,
+      child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemCount: dataItem.length,
+          separatorBuilder: (context, index) =>
+              SpaceHelper.horizontalSpaceSmall,
+          itemBuilder: (context, index) {
+            BikeCarSpareParts bikeCarSpareParts = dataItem[index];
+            return GestureDetector(
+               onTap: () {
+      Get.to(() => const PostDetailsScreen());
+    },
+              child: Hero(
+                tag: index,
+                child: SizedBox(
+                  width: 140,
+                  child: Card(
+                    elevation: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              height: 65,
+                              imageUrl:
+                                  // 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                                  // 'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
+                                  bikeCarSpareParts.photo ?? '',
+                              placeholder: (context, url) => const Center(
+                                child: CupertinoActivityIndicator(
+                                  color: colorDarkAsh,
+                                ),
                               ),
-                            ),
-                            errorWidget: (context, url, error) => ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10)),
-                              child: Image.asset(
-                                'assets/images/default.png',
-                                fit: BoxFit.cover,
-                                height: 65,
+                              errorWidget: (context, url, error) => ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
+                                child: Image.asset(
+                                  'assets/images/default.png',
+                                  fit: BoxFit.cover,
+                                  height: 65,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      SpaceHelper.verticalSpace(2),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                bikeCarSpareParts.title ?? '',
-                                softWrap: true,
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: colorDarkAsh,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                // '₦ 78,00,000 || 79000',
-                                '₦ ${bikeCarSpareParts.priceinnaira}??'
-                                ' ||',
-
-                                softWrap: true,
-                                textAlign: TextAlign.left,
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: colorDeepOrange,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  bikeCarSpareParts.location ?? '',
+                        SpaceHelper.verticalSpace(2),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  bikeCarSpareParts.title ?? '',
                                   softWrap: true,
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorDarkAsh,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  // '₦ 78,00,000 || 79000',
+                              (bikeCarSpareParts.mileage == '0') ?'₦ ${bikeCarSpareParts.priceinnaira}' ' | ''0'  :(bikeCarSpareParts.mileage != null)? '₦ ${bikeCarSpareParts.priceinnaira}' ' | ''${numberFormat(int.parse(bikeCarSpareParts.mileage.toString()))} Miles':'₦ ${bikeCarSpareParts.priceinnaira}' ' | ''0',
+                                  softWrap: true,
+                                  textAlign: TextAlign.left,
                                   style: textTheme.bodySmall?.copyWith(
                                     color: colorDeepOrange,
                                     fontSize: 12,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    bikeCarSpareParts.location ?? '',
+                                    softWrap: true,
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: colorDeepOrange,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              );
-            }),
-      ),
+              ),
+            );
+          }),
     );
   }
 

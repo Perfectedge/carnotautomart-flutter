@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/remote/model/car_bike_spare_parts_response.dart';
+import '../filter/filter_screen.dart';
 import '../utils/app_colors.dart';
 import '../utils/helper/spacing_helper.dart';
 import '../widget/car_list_tile.dart';
@@ -64,7 +65,17 @@ class _RecentCarBikeSparePartsScreenState
         child: Scaffold(
           appBar:  CarnotMartAppbar(
             title: widget.appbarTitle,
-            isFilter: true,
+            actionItem: IconButton(
+              splashRadius: 20,
+              onPressed: () {
+                Get.to(() => const FilterScreen(),
+                    transition: Transition.rightToLeft);
+              },
+              icon: const Icon(
+                Icons.filter_list,
+                color: Colors.white,
+                size: 20,
+              )),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),

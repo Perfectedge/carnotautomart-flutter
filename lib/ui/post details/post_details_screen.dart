@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carnotautomart/ui/post%20details/pinch_image.dart';
+import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/carnotmart_appbabr.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/helper/device_info.dart';
@@ -22,48 +27,41 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
   int _current = 0;
-  final CarouselController _controller = CarouselController();
-   List<Widget> imageSliders = [];
+  final CarouselController _carouselController = CarouselController();
+  List<Widget> _imageSliders = [];
   @override
   void initState() {
-    imageSliders = List.generate(
-        imgList.length,
-        (index) => Container(
-          margin: EdgeInsets.all(5.0),
-          child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.network(imgList[index],
-                      fit: BoxFit.cover, width: double.infinity),
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    right: 0.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(200, 0, 0, 0),
-                            Color.fromARGB(0, 0, 0, 0)
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        ),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 20.0),
-                    ),
-                  ),
-                ],
-              )),
-        ));
+    _imageSliders = List.generate(
+      imgList.length,
+      (index) => CachedNetworkImage(
+        fit: BoxFit.cover,
+        width: double.infinity,
+        imageUrl:
+            // 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+            // 'https://imagedelivery.net/bc3AzSC5rzsaweEH1LLxAQ/eac56afb-a0c8-4bfc-a1e8-f5c6af9d6b00/Medium',
+            imgList[index],
+        placeholder: (context, url) => const Center(
+          child: CupertinoActivityIndicator(
+            color: colorDarkAsh,
+          ),
+        ),
+        errorWidget: (context, url, error) => Image.asset(
+          'assets/images/default.png',
+          fit: BoxFit.cover,
+          height: 65,
+        ),
+      ),
+
+      // Image.network(imgList[index],
+      //     fit: BoxFit.cover, width: double.infinity)
+    );
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Container(
         decoration: const BoxDecoration(color: colorLightOrange),
@@ -71,53 +69,90 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
           top: true,
           bottom: false,
           child: Scaffold(
-            appBar: CarnotMartAppbar(title: 'Post Details',),
+            appBar: CarnotMartAppbar(
+              title: 'Post Details',
+              actionItem: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.favorite_border_sharp,
+                  )),
+            ),
             body: Container(
               height: DeviceInfo(context).height,
               width: DeviceInfo(context).width,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Column(
                 children: [
-                  CarouselSlider(
-                    items: imageSliders,
-                    carouselController: _controller,
-                    options: CarouselOptions(
-                        autoPlay: true,
-                        enlargeCenterPage: false,
-                        aspectRatio: 2.0,
-                        viewportFraction: 1,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
-                        }),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: imgList.asMap().entries.map((entry) {
-                      return GestureDetector(
-                        onTap: () => _controller.animateToPage(entry.key),
-                        child: Container(
-                          width: 12.0,
-                          height: 12.0,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(
-                                      _current == entry.key ? 0.9 : 0.4)),
-                        ),
-                      );
-                    }).toList(),
+                  _buildCarouselSlider(
+                      imageSliders: _imageSliders,
+                      carouselController: _carouselController,
+                      theme: theme),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          '#ID-46025',
+                          style: textTheme.bodySmall
+                              ?.copyWith(color: colorDeepOrange),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
             ),
           ),
         ));
+  }
+
+  _buildCarouselSlider(
+      {required List<Widget> imageSliders,
+      required CarouselController carouselController,
+      required ThemeData theme}) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Get.to(()=>PinchImageScreen(image: imgList[_current], imgList:imgList,currentIndex: _current,));
+          },
+          child: CarouselSlider(
+            items: imageSliders,
+            carouselController: carouselController,
+            options: CarouselOptions(
+                autoPlay: false,
+                enlargeCenterPage: false,
+                aspectRatio: 16 / 9,
+                viewportFraction: 1,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _current = index;
+                  });
+                }),
+          ),
+        ),
+        SpaceHelper.verticalSpace(5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: imgList.asMap().entries.map((entry) {
+            return GestureDetector(
+              onTap: () => carouselController.animateToPage(entry.key),
+              child: Container(
+                width: 8.0,
+                height: 8.0,
+                margin: EdgeInsets.symmetric(horizontal: 4.0),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (theme.brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black)
+                        .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+              ),
+            );
+          }).toList(),
+        )
+      ],
+    );
   }
 }
