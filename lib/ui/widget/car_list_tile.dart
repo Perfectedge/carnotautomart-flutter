@@ -13,19 +13,6 @@ class CarListTile extends StatelessWidget {
   });
   final dynamic tileData;
 
-// entBikeCarSpareParts({
-//         this.condition,
-//         this.priceinnaira,
-//         this.mileage,
-//         this.vehicleTypeId,
-//         this.id,
-//         this.postSlug,
-//         this.title,
-//         this.featuredPosition,
-//         this.postType,
-//         this.manufactureYear,
-//         this.location,
-//         this.photo,
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;

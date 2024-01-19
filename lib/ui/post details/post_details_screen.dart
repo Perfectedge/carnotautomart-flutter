@@ -91,12 +91,39 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 10),
                     child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,         
                       children: [
-                        Text(
-                          '#ID-46025',
+                        Expanded(
+                          child: Text(
+                            '#ID-46025',
+                            style: textTheme.bodySmall
+                                ?.copyWith(color: colorDeepOrange),
+                                     textAlign: TextAlign.center,
+                          ),
+                        ),
+                    
+
+                            Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 2),
+                      decoration: BoxDecoration(
+                          color: colorLightOrange.withOpacity(.1),
+                          borderRadius: BorderRadius.circular(25),
+                          border: Border.all(color: colorLightOrange)),
+                      child: Text( '2024',
                           style: textTheme.bodySmall
-                              ?.copyWith(color: colorDeepOrange),
-                        )
+                              ?.copyWith(color: colorDeepOrange, fontSize: 12)),
+                    ),
+              
+        
+                      Expanded(
+                        child: Text(
+                            '₦ 7,500000,000',
+                            style: textTheme.bodySmall
+                                ?.copyWith(color: colorDeepOrange),
+                                textAlign: TextAlign.center,
+                          ),
+                      ),
                       ],
                     ),
                   )
