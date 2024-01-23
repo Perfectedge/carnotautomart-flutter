@@ -21,26 +21,26 @@ class FilterController extends GetxController {
   final RxList<CarColor> dropDownCarColors = <CarColor>[].obs;
   final RxList<String> dropDownGareBox = <String>[].obs;
   final RxList<String> manufacturingYears = <String>[].obs;
+  List<AllFeature> allFeature = [];
 
   RxString selectLocationName = ''.obs;
-  RxInt stateId=0.obs;
+  RxInt stateId = 0.obs;
   RxString brands = ''.obs;
-  RxInt brandId=0.obs;
+  RxInt brandId = 0.obs;
   RxString model = ''.obs;
-  RxInt modelId=0.obs;
+  RxInt modelId = 0.obs;
   RxString fuels = ''.obs;
   RxString condition = ''.obs;
   RxString carColor = ''.obs;
-  RxInt colorId =0.obs;
+  RxInt colorId = 0.obs;
   RxString gearBox = ''.obs;
   RxString sortValue = 'date'.obs;
-  RxString orderBy = 'ascending'.obs; 
-  RxInt fromYear=0.obs;
-  RxInt toYear=0.obs;
-  RxString bodyType=''.obs;
-  RxInt priceFrom=0.obs;
-  RxInt priceTo=0.obs;
-
+  RxString orderBy = 'ascending'.obs;
+  RxInt fromYear = 0.obs;
+  RxInt toYear = 0.obs;
+  RxString bodyType = ''.obs;
+  RxInt priceFrom = 0.obs;
+  RxInt priceTo = 0.obs;
 
   @override
   void onInit() {
@@ -65,6 +65,7 @@ class FilterController extends GetxController {
         manufacturingYears.value = response.data?.manufacturingYears ?? [];
         dropDownCarColors.value = response.data?.colors ?? [];
         dropDownGareBox.value = response.data?.gearbox?.toStringList() ?? [];
+        allFeature = response.data?.allFeatures ?? [];
       } else {}
     } catch (e) {
       if (kDebugMode) {
@@ -104,7 +105,18 @@ class FilterController extends GetxController {
     }
   }
 
-  selectedAllSearchData({required int fromYear,required int toYear,required int stateId, required int brandId,required int modelId,required String bodyType,required int priceFrom,required int priceTo,required String condition,required String fuelType,required int colorId,required String sortBy, required String orderBy}){
-
-  }
+  selectedAllSearchData(
+      {required int fromYear,
+      required int toYear,
+      required int stateId,
+      required int brandId,
+      required int modelId,
+      required String bodyType,
+      required int priceFrom,
+      required int priceTo,
+      required String condition,
+      required String fuelType,
+      required int colorId,
+      required String sortBy,
+      required String orderBy}) {}
 }

@@ -154,6 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 140,
                 child: Card(
                   elevation: 2,
+                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)) ,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -161,8 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: double.infinity,
                         child: ClipRRect(
                           borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
+                              topLeft: Radius.circular(8),
+                              topRight: Radius.circular(8)),
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
                             height: 65,
