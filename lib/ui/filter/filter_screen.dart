@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widget/state_and_city_search_widget.dart';
+import '../widget/title_and_textbox.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -269,19 +270,22 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     //Price
                     SpaceHelper.verticalSpaceSmall,
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                     Padding(
+                      padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Row(
                         children: [
-                          PriceWIdget(
+                          TextBoxtWithTitle(
                             headerTitle: 'Price',
                             title: 'Min',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
-                          Spacer(),
-                          PriceWIdget(
+                         const Spacer(),
+                          TextBoxtWithTitle(
                             headerTitle: 'Price',
                             title: 'Max',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
                         ],
                       ),
@@ -334,14 +338,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           horizontal: 10, vertical: 2),
                       child: Row(
                         children: [
-                          PriceWIdget(
+                          TextBoxtWithTitle(
                             headerTitle: 'From',
                             title: '${rangeValue.start.toInt()}',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
                           const Spacer(),
-                          PriceWIdget(
+                          TextBoxtWithTitle(
                             headerTitle: 'To',
                             title: '${rangeValue.end.toInt()}',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
                         ],
                       ),
@@ -751,67 +759,5 @@ class _FilterScreenState extends State<FilterScreen> {
         maxWidth: double.infinity,
         backgroundColor: Colors.red,
         padding: const EdgeInsets.only(top: 20, bottom: 10));
-  }
-}
-
-class PriceWIdget extends StatelessWidget {
-  const PriceWIdget(
-      {super.key, required this.headerTitle, required this.title});
-  final String headerTitle;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          headerTitle,
-          style: textTheme.bodySmall?.copyWith(
-              color: Colors.black,
-              letterSpacing: .3,
-              fontWeight: FontWeight.normal),
-        ),
-        SpaceHelper.verticalSpaceSmall,
-        Material(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          color: Colors.white,
-          elevation: 0,
-          child: Container(
-            width: DeviceInfo(context).width / 2 - 20,
-            height: 40,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Center(
-              child: TextFormField(
-                // controller: _chatController.messageController,
-                autofocus: false,
-                maxLines: null,
-                minLines: 1,
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.zero,
-                  border: InputBorder.none,
-                  //  border:_border ,
-                  // enabledBorder: _border,
-                  //  focusedBorder: _border,
-                  hintText: title,
-                  hintStyle: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                      color: colorDarkAsh),
-                ),
-                keyboardType: TextInputType.number,
-                style: const TextStyle(fontSize: 16.0, color: Colors.black),
-                onChanged: (text) {},
-                onTapOutside: (value) {
-                  // log('onTapOutside called');
-                },
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
   }
 }

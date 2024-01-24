@@ -15,6 +15,7 @@ import 'package:get/get.dart';
 import '../utils/app_colors.dart';
 import '../utils/helper/device_info.dart';
 import '../widget/rounded_rectangle_button.dart';
+import '../widget/title_and_textbox.dart';
 
 class PostDetailsScreen extends StatefulWidget {
   const PostDetailsScreen({super.key});
@@ -38,6 +39,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
   List<Widget> _imageSliders = [];
   String featureIdsString = "18,17,16,15,14,10,9,8,7,6,5,4,3,2,1";
   List<int> featureIdsList = [];
+  GlobalKey _globalKey=GlobalKey();
   @override
   void initState() {
     _imageSliders = List.generate(
@@ -84,6 +86,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
           bottom: false,
           child: Scaffold(
             backgroundColor: Colors.white,
+            resizeToAvoidBottomInset: true,
             appBar: CarnotMartAppbar(
               title: 'Post Details',
               actionItem: IconButton(
@@ -139,7 +142,156 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                             height: 30,
                             width: 95,
                             child: RoundedRectangleButton(
-                                onPress: () {},
+                                onPress: () {
+                                  showGeneralDialog(
+                                    // barrierLabel: "Contact Seller",
+                                    barrierDismissible: true,
+                                    barrierColor: Colors.black.withOpacity(0.5),
+                                    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                    transitionDuration:
+                                        const Duration(milliseconds: 350),
+                                    context: context,
+                                    pageBuilder: (context, anim1, anim2) {
+                                        return Scaffold(
+                                          backgroundColor: Colors.transparent,
+                                          resizeToAvoidBottomInset: true,
+                                          body: Center(
+                                            child: Material(
+                                              color: Colors.grey.shade100,
+                                              shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(20)),
+                                              child: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                  maxHeight: double.infinity,
+                                                    maxWidth: DeviceInfo(context).width -40),
+                                                child: Padding(
+                                                  padding:const EdgeInsets.symmetric( horizontal: 10,),
+                                                  child: Column(
+                                                    mainAxisSize:MainAxisSize.min,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:MainAxisAlignment.center,
+                                                        children: [
+                                                          Spacer(),
+                                                          Align(alignment: Alignment.center,
+                                                              child: Text(
+                                                                'Contact Seller',
+                                                                style: textTheme.bodyMedium?.copyWith(color: Colors.black54),
+                                                              )),
+                                                          Expanded(
+                                                            child: Align(
+                                                              alignment: Alignment.centerRight,
+                                                              child: IconButton(
+                                                                splashRadius: 20,
+                                                                onPressed: () {
+                                                                  Get.back();
+                                                                },
+                                                                icon: Icon(Icons.cancel),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      // SpaceHelper.verticalSpaceSmall,
+                                                      Row(
+                                                        mainAxisAlignment:MainAxisAlignment.center,
+                                                        children: [
+                                                          IconButton(
+                                                              padding:const EdgeInsets.all(0),
+                                                              splashRadius: 20,
+                                                              onPressed: () {},
+                                                              icon: SvgPicture.asset('assets/icons/ic_call.svg')),
+                                                          SpaceHelper
+                                                              .horizontalSpaceSmall,
+                                                          IconButton(
+                                                              padding:const EdgeInsets.all(0),
+                                                              splashRadius: 20,
+                                                              onPressed: () {},
+                                                              icon: SvgPicture.asset(
+                                                                  'assets/icons/ic_whatsapp.svg')),
+                                                          SpaceHelper.horizontalSpaceSmall,
+                                                          IconButton(
+                                                              padding:const EdgeInsets.all(0),
+                                                              splashRadius: 20,
+                                                              onPressed: () {},
+                                                              icon: SvgPicture.asset('assets/icons/ic_chat.svg')),
+                                                        ],
+                                                      ),
+                                                      SpaceHelper.verticalSpaceSmall,
+                                                     Row(
+                                                        children: [
+                                                          TextBoxtWithTitle(
+                                                            headerTitle: 'Full Name',
+                                                            title: 'Full Name',
+                                                            width: (DeviceInfo(context).width-40) / 2 - 20,
+                                                            keyboardType: TextInputType.text,
+                                                          ),
+                                                        const Spacer(),
+                                                          TextBoxtWithTitle(
+                                                            headerTitle: 'Email',
+                                                            title: 'Email',
+                                                            width: (DeviceInfo(context).width-40) / 2 - 20,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SpaceHelper.verticalSpaceSmall,
+                                                        const TextBoxtWithTitle(
+                                                            headerTitle: 'Phone Number',
+                                                            title: 'Phone Number',
+                                                            width: double.infinity,
+                                                            keyboardType: TextInputType.number,
+                                                          ),
+                                                      SpaceHelper.verticalSpaceSmall,
+                                                      Text('Message'),
+                                                    Material(
+                                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                        color: Colors.white,
+                                                        child: TextFormField(
+                                                          key: _globalKey,
+                                                          // controller: _chatController.messageController,
+                                                          autofocus: false,
+                                                          maxLines: 5,
+                                                          // minLines: 5,
+                                                          decoration: InputDecoration(
+                                                            isDense: true,
+                                                            contentPadding: EdgeInsets.zero,
+                                                            border: InputBorder.none,
+                                                            //  border:_border ,
+                                                            // enabledBorder: _border,
+                                                            //  focusedBorder: _border,
+                                                            
+                                                            hintStyle: const TextStyle(
+                                                                fontSize: 16.0,
+                                                                fontWeight: FontWeight.normal,
+                                                                color: colorDarkAsh),
+                                                          ),
+                                                          keyboardType: TextInputType.text,
+                                                          style: const TextStyle(fontSize: 16.0, color: Colors.black),
+                                                          onChanged: (text) {},
+                                                          onTapOutside: (value) {
+                                                            // log('onTapOutside called');
+                                                          },
+                                                          
+                                                        ),
+                                                      ),
+                                                      SpaceHelper.verticalSpaceMedium,
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                     
+                                    },
+                                    transitionBuilder:(context, anim1, anim2, child) {
+                                      return SlideTransition(
+                                        position: Tween(begin: const Offset(0, -1),end: const Offset(0, 0)).animate(anim1),
+                                        child: child,
+                                      );
+                                    },
+                                  );
+                                },
                                 title: 'Contact seller',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
                                 textStyle: textTheme.bodySmall?.copyWith(
@@ -217,86 +369,111 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   SpaceHelper.verticalSpaceMedium,
                   //Special Feature
                   SpaceHelper.verticalSpaceMedium,
-                  buildSpecialFeature(context,textTheme),
+                  buildSpecialFeature(context, textTheme),
                   SpaceHelper.verticalSpaceMedium,
-                      Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,),
-                       child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text('Similar Products',style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),),
-                                     ],
-                                   ),
-                     ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Similar Products',
+                          style: textTheme.bodySmall?.copyWith(
+                              color: colorLightOrange,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
 
-                    //  _buildSimilarProducts
+                  //  _buildSimilarProducts
                   SpaceHelper.verticalSpaceLarge,
                   SpaceHelper.verticalSpaceLarge,
                   SpaceHelper.verticalSpaceLarge,
                 ],
               ),
             ),
-         
-         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-         floatingActionButton: SizedBox(
-          height: 45,
-          width: 45,
-           child: FloatingActionButton(
-            backgroundColor:colorLightOrange,
-            materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
-            onPressed: (){},child: SvgPicture.asset('assets/icons/ic_chat_fav.svg',height: 25,width: 25,)),
-         ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            floatingActionButton: SizedBox(
+              height: 45,
+              width: 45,
+              child: FloatingActionButton(
+                  backgroundColor: colorLightOrange,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  onPressed: () {},
+                  child: SvgPicture.asset(
+                    'assets/icons/ic_chat_fav.svg',
+                    height: 25,
+                    width: 25,
+                  )),
+            ),
           ),
         ));
   }
 
   Container buildSpecialFeature(BuildContext context, TextTheme textTheme) {
     return Container(
-                  width: double.infinity,
-                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: colorLightGray.withOpacity(.5)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                        Text('Special Features',style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
-                  ),
-                ],
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: colorLightGray.withOpacity(.5)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'Special Features',
+                style: textTheme.bodySmall?.copyWith(
+                    color: colorLightOrange, fontWeight: FontWeight.w500),
               ),
-              SpaceHelper.verticalSpaceSmall,
-              Wrap(spacing: 10,runSpacing: 12,direction: Axis.horizontal,
-                        children:List.generate(featureIdsList.length, (index) {
-                        final featureId = featureIdsList[index].toString();
-                        final feature = filterController.allFeature.firstWhere((item)=> item.id==featureId);
-                       return SizedBox(
-                        width: DeviceInfo(context).width*.40,
-                         child: Row(
-                                children: [
-                                  Container(
-                                    height: 12,
-                                    width: 12,
-                                    decoration: BoxDecoration(color: colorDeepOrange,borderRadius: BorderRadius.circular(1)),
-                                    padding:const EdgeInsets.symmetric(horizontal: 1,vertical: 1),
-                                    child: SvgPicture.asset('assets/icons/ic_check_orange.svg',colorFilter:const ColorFilter.mode(Colors.white, BlendMode.srcIn),)),
-                                  SpaceHelper.horizontalSpaceSmall,
-                                  Text(
-                                    '${feature.title}',
-                                    style: textTheme.bodySmall?.copyWith(
-                                  color: Colors.black54, fontWeight: FontWeight.normal),
-                                  ),
-                                ],
-                              ),
-                       );
-                        }),
-                      ),
-                    ],
-                  ),
-                );
+            ],
+          ),
+          SpaceHelper.verticalSpaceSmall,
+          Wrap(
+            spacing: 10,
+            runSpacing: 12,
+            direction: Axis.horizontal,
+            children: List.generate(featureIdsList.length, (index) {
+              final featureId = featureIdsList[index].toString();
+              final feature = filterController.allFeature
+                  .firstWhere((item) => item.id == featureId);
+              return SizedBox(
+                width: DeviceInfo(context).width * .40,
+                child: Row(
+                  children: [
+                    Container(
+                        height: 12,
+                        width: 12,
+                        decoration: BoxDecoration(
+                            color: colorDeepOrange,
+                            borderRadius: BorderRadius.circular(1)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 1, vertical: 1),
+                        child: SvgPicture.asset(
+                          'assets/icons/ic_check_orange.svg',
+                          colorFilter: const ColorFilter.mode(
+                              Colors.white, BlendMode.srcIn),
+                        )),
+                    SpaceHelper.horizontalSpaceSmall,
+                    Text(
+                      '${feature.title}',
+                      style: textTheme.bodySmall?.copyWith(
+                          color: Colors.black54, fontWeight: FontWeight.normal),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+        ],
+      ),
+    );
   }
 
   Container buildDescriptionBox(TextTheme textTheme) {
@@ -980,6 +1157,4 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
 //           }),
 //     );
 //   }
-
-
 }
