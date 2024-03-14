@@ -12,7 +12,6 @@ import 'package:get/get.dart';
 
 import '../../../data/remote/model/recentry_post_response.dart';
 import '../../car_bike_parts/recent_car_bike_spare_parts_screen.dart';
-import '../../utils/helper/helper_functions.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,9 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _homeController = Get.put(HomeController());
-    if (_homeController.carData.isEmpty ||
-        _homeController.bikeData.isEmpty ||
-        _homeController.sparePartsData.isEmpty) {
+    if (_homeController.carData.isEmpty || _homeController.bikeData.isEmpty || _homeController.sparePartsData.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((timestamp) {
         _homeController.getRecentHomePageData();
       });
@@ -55,8 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.topLeft,
                 child: Text(
                   'Welcome to Carnotautomart',
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: colorDarkAsh, letterSpacing: .3),
+                  style: textTheme.bodySmall?.copyWith(color: colorDarkAsh, letterSpacing: .3),
                 )),
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
@@ -64,20 +60,23 @@ class _HomeScreenState extends State<HomeScreen> {
               widget.index(1);
             }),
             SpaceHelper.verticalSpaceSmall,
-            if (_homeController.homeServiceList.isNotEmpty)
-              _serviceSection(textTheme),
+            if (_homeController.homeServiceList.isNotEmpty) _serviceSection(textTheme),
             SpaceHelper.verticalSpaceMedium,
             _titleAndSeeAll(textTheme, 'Recently Posted Cars', () {
-              
-              Get.to(()=>const RecentCarBikeSparePartsScreen(vehicleType: 'car',appbarTitle:'Recently Posted Car',));
+              Get.to(() => const RecentCarBikeSparePartsScreen(
+                    vehicleType: 'car',
+                    appbarTitle: 'Recently Posted Car',
+                  ));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(() => _recentlyPostdItems(textTheme, _homeController.carData)),
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Motorbike', () {
-              
-                Get.to(()=>const RecentCarBikeSparePartsScreen(vehicleType: 'motorbike',appbarTitle: 'Recently Posted Motorbike',));
+              Get.to(() => const RecentCarBikeSparePartsScreen(
+                    vehicleType: 'motorbike',
+                    appbarTitle: 'Recently Posted Motorbike',
+                  ));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(
@@ -86,30 +85,22 @@ class _HomeScreenState extends State<HomeScreen> {
             SpaceHelper.verticalSpaceSmall,
             //Title and See All
             _titleAndSeeAll(textTheme, 'Recently Posted Spare Parts', () {
-              Get.to(()=>const RecentCarBikeSparePartsScreen(vehicleType: 'spare-parts',appbarTitle: 'Recently Posted Spare Parts'));
+              Get.to(() => const RecentCarBikeSparePartsScreen(vehicleType: 'spare-parts', appbarTitle: 'Recently Posted Spare Parts'));
             }),
             SpaceHelper.verticalSpaceSmall,
             Obx(
-              () => _recentlyPostdItems(
-                  textTheme, _homeController.sparePartsData),
+              () => _recentlyPostdItems(textTheme, _homeController.sparePartsData),
             ),
 
             SpaceHelper.verticalSpaceSmall,
             Text(
               'Get Financing For Your Car',
-              style: textTheme.bodyMedium?.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16),
+              style: textTheme.bodyMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 16),
             ),
             SpaceHelper.verticalSpaceSmall,
             Text(
               'We can help you get your dream car on load',
-              style: textTheme.labelSmall?.copyWith(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 12,
-                  letterSpacing: 0),
+              style: textTheme.labelSmall?.copyWith(color: Colors.grey, fontWeight: FontWeight.normal, fontSize: 12, letterSpacing: 0),
             ),
             SpaceHelper.verticalSpaceSmall,
             SizedBox(
@@ -118,8 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPress: () {},
                   title: 'Get Started',
                   backgroundColor: colorDeepOrange,
-                  textStyle:
-                      textTheme.labelMedium?.copyWith(color: Colors.white),
+                  textStyle: textTheme.labelMedium?.copyWith(color: Colors.white),
                 )),
             SpaceHelper.verticalSpaceLarge,
           ],
@@ -135,35 +125,31 @@ class _HomeScreenState extends State<HomeScreen> {
         style: textTheme.bodySmall?.copyWith(color: colorDarkAsh),
       );
     }
-    return SizedBox(
-      height: 160,
-      child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          itemCount: dataItem.length,
-          separatorBuilder: (context, index) =>
-              SpaceHelper.horizontalSpaceSmall,
-          itemBuilder: (context, index) {
-            BikeCarSpareParts bikeCarSpareParts = dataItem[index];
-            return GestureDetector(
-               onTap: () {
-      Get.to(() => const PostDetailsScreen());
-    },
-              child: SizedBox(
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const PostDetailsScreen());
+      },
+      child: SizedBox(
+        height: 160,
+        child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemCount: dataItem.length,
+            separatorBuilder: (context, index) => SpaceHelper.horizontalSpaceSmall,
+            itemBuilder: (context, index) {
+              BikeCarSpareParts bikeCarSpareParts = dataItem[index];
+              return SizedBox(
                 width: 140,
                 child: Card(
                   elevation: 2,
-                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)) ,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         width: double.infinity,
                         child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8)),
+                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
                             height: 65,
@@ -177,9 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             errorWidget: (context, url, error) => ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10)),
+                              borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                               child: Image.asset(
                                 'assets/images/default.png',
                                 fit: BoxFit.cover,
@@ -210,7 +194,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Text(
                                 // '₦ 78,00,000 || 79000',
-                            (bikeCarSpareParts.mileage == '0') ?'₦ ${bikeCarSpareParts.priceinnaira}' ' | ''0'  :(bikeCarSpareParts.mileage != null)? '₦ ${bikeCarSpareParts.priceinnaira}' ' | ''${numberFormat(int.parse(bikeCarSpareParts.mileage.toString()))} Miles':'₦ ${bikeCarSpareParts.priceinnaira}' ' | ''0',
+                                '₦ ${bikeCarSpareParts.priceinnaira}??'
+                                ' ||',
+
                                 softWrap: true,
                                 textAlign: TextAlign.left,
                                 style: textTheme.bodySmall?.copyWith(
@@ -236,9 +222,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-              ),
-            );
-          }),
+              );
+            }),
+      ),
     );
   }
 
@@ -256,9 +242,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Card(
             elevation: 4,
             shadowColor: Colors.black,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            child: Center( 
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -270,8 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SpaceHelper.verticalSpaceSmall,
                   Text(
                     _homeController.homeServiceList[index].name ?? '',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: colorDarkAsh, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: colorDarkAsh, fontWeight: FontWeight.normal),
                   )
                 ],
               ),
@@ -288,17 +272,14 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           text,
-          style: textTheme.bodySmall
-              ?.copyWith(color: colorDarkAsh, letterSpacing: .3),
+          style: textTheme.bodySmall?.copyWith(color: colorDarkAsh, letterSpacing: .3),
         ),
         const Spacer(),
         InkWell(
           onTap: ontTap,
           child: Row(
             children: [
-              Text('See all',
-                  style: textTheme.bodySmall
-                      ?.copyWith(color: colorDeepOrange, letterSpacing: 0)),
+              Text('See all', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, letterSpacing: 0)),
               SpaceHelper.horizontalSpace(2),
               const Icon(
                 Icons.arrow_forward_ios_rounded,
