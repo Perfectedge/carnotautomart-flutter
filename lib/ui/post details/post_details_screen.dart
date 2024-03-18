@@ -39,7 +39,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
   List<Widget> _imageSliders = [];
   String featureIdsString = "18,17,16,15,14,10,9,8,7,6,5,4,3,2,1";
   List<int> featureIdsList = [];
-  GlobalKey _globalKey=GlobalKey();
+  GlobalKey _globalKey = GlobalKey();
   @override
   void initState() {
     _imageSliders = List.generate(
@@ -68,8 +68,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     );
 
     log(filterController.allFeature.length.toString());
-    featureIdsList =
-        featureIdsString.split(',').map((e) => int.parse(e)).toList();
+    featureIdsList = featureIdsString.split(',').map((e) => int.parse(e)).toList();
 
     print(featureIdsList);
     super.initState();
@@ -100,10 +99,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildCarouselSlider(
-                      imageSliders: _imageSliders,
-                      carouselController: _carouselController,
-                      theme: theme),
+                  _buildCarouselSlider(imageSliders: _imageSliders, carouselController: _carouselController, theme: theme),
                   _buildIdYearAndPriceSection(textTheme),
                   SpaceHelper.verticalSpace(5),
                   //Title
@@ -113,21 +109,16 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       ),
                       child: Text(
                         'Foreign Used 2012 Ford Explorer 7 WD With DVD And Reverse Camera',
-                        style: textTheme.labelMedium?.copyWith(
-                            color: Colors.black, fontWeight: FontWeight.normal),
+                        style: textTheme.labelMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
                       )),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     child: Row(children: [
                       SvgPicture.asset('assets/icons/ic_location_grey.svg'),
                       SpaceHelper.horizontalSpace(5),
                       Text(
                         'Maryland',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: colorDeepGray,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12),
+                        style: textTheme.bodySmall?.copyWith(color: colorDeepGray, fontWeight: FontWeight.normal, fontSize: 12),
                       )
                     ]),
                   ),
@@ -148,31 +139,32 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                     barrierDismissible: true,
                                     barrierColor: Colors.black.withOpacity(0.5),
                                     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                    transitionDuration:
-                                        const Duration(milliseconds: 350),
+                                    transitionDuration: const Duration(milliseconds: 350),
                                     context: context,
                                     pageBuilder: (context, anim1, anim2) {
-                                        return Scaffold(
-                                          backgroundColor: Colors.transparent,
-                                          resizeToAvoidBottomInset: true,
-                                          body: Center(
-                                            child: Material(
-                                              color: Colors.grey.shade100,
-                                              shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(20)),
+                                      return Scaffold(
+                                        backgroundColor: Colors.transparent,
+                                        resizeToAvoidBottomInset: true,
+                                        body: Center(
+                                          child: Material(
+                                            color: Colors.grey.shade100,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                            child: SingleChildScrollView(
                                               child: ConstrainedBox(
-                                                constraints: BoxConstraints(
-                                                  maxHeight: double.infinity,
-                                                    maxWidth: DeviceInfo(context).width -40),
+                                                constraints: BoxConstraints(maxHeight: double.infinity, maxWidth: DeviceInfo(context).width - 40),
                                                 child: Padding(
-                                                  padding:const EdgeInsets.symmetric( horizontal: 10,),
+                                                  padding: const EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                  ),
                                                   child: Column(
-                                                    mainAxisSize:MainAxisSize.min,
+                                                    mainAxisSize: MainAxisSize.min,
                                                     children: [
                                                       Row(
-                                                        mainAxisAlignment:MainAxisAlignment.center,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
                                                           Spacer(),
-                                                          Align(alignment: Alignment.center,
+                                                          Align(
+                                                              alignment: Alignment.center,
                                                               child: Text(
                                                                 'Contact Seller',
                                                                 style: textTheme.bodyMedium?.copyWith(color: Colors.black54),
@@ -193,60 +185,64 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                                       ),
                                                       // SpaceHelper.verticalSpaceSmall,
                                                       Row(
-                                                        mainAxisAlignment:MainAxisAlignment.center,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
                                                           IconButton(
-                                                              padding:const EdgeInsets.all(0),
+                                                              padding: const EdgeInsets.all(0),
                                                               splashRadius: 20,
                                                               onPressed: () {},
                                                               icon: SvgPicture.asset('assets/icons/ic_call.svg')),
-                                                          SpaceHelper
-                                                              .horizontalSpaceSmall,
-                                                          IconButton(
-                                                              padding:const EdgeInsets.all(0),
-                                                              splashRadius: 20,
-                                                              onPressed: () {},
-                                                              icon: SvgPicture.asset(
-                                                                  'assets/icons/ic_whatsapp.svg')),
                                                           SpaceHelper.horizontalSpaceSmall,
                                                           IconButton(
-                                                              padding:const EdgeInsets.all(0),
+                                                              padding: const EdgeInsets.all(0),
+                                                              splashRadius: 20,
+                                                              onPressed: () {},
+                                                              icon: SvgPicture.asset('assets/icons/ic_whatsapp.svg')),
+                                                          SpaceHelper.horizontalSpaceSmall,
+                                                          IconButton(
+                                                              padding: const EdgeInsets.all(0),
                                                               splashRadius: 20,
                                                               onPressed: () {},
                                                               icon: SvgPicture.asset('assets/icons/ic_chat.svg')),
                                                         ],
                                                       ),
                                                       SpaceHelper.verticalSpaceSmall,
-                                                     Row(
+                                                      Row(
                                                         children: [
                                                           TextBoxtWithTitle(
                                                             headerTitle: 'Full Name',
                                                             title: 'Full Name',
-                                                            width: (DeviceInfo(context).width-40) / 2 - 20,
+                                                            width: (DeviceInfo(context).width - 40) / 2 - 20,
                                                             keyboardType: TextInputType.text,
                                                           ),
-                                                        const Spacer(),
+                                                          const Spacer(),
                                                           TextBoxtWithTitle(
-                                                            headerTitle: 'Email',
+                                                            headerTitle: 'Email Address',
                                                             title: 'Email',
-                                                            width: (DeviceInfo(context).width-40) / 2 - 20,
+                                                            width: (DeviceInfo(context).width - 40) / 2 - 20,
                                                             keyboardType: TextInputType.emailAddress,
                                                           ),
                                                         ],
                                                       ),
                                                       SpaceHelper.verticalSpaceSmall,
-                                                        const TextBoxtWithTitle(
-                                                            headerTitle: 'Phone Number',
-                                                            title: 'Phone Number',
-                                                            width: double.infinity,
-                                                            keyboardType: TextInputType.number,
-                                                          ),
+                                                      const TextBoxtWithTitle(
+                                                        headerTitle: 'Phone Number',
+                                                        title: 'Phone Number',
+                                                        width: double.infinity,
+                                                        keyboardType: TextInputType.number,
+                                                      ),
                                                       SpaceHelper.verticalSpaceSmall,
-                                                      Text('Message'),
-                                                    Material(
+                                                      Text(
+                                                        'Message',
+                                                        style: textTheme.bodySmall
+                                                            ?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+                                                      ),
+                                                      SpaceHelper.verticalSpaceSmall,
+                                                      Material(
                                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                                                         color: Colors.white,
                                                         child: TextFormField(
+                                                          scrollPhysics: BouncingScrollPhysics(),
                                                           key: _globalKey,
                                                           // controller: _chatController.messageController,
                                                           autofocus: false,
@@ -259,11 +255,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                                             //  border:_border ,
                                                             // enabledBorder: _border,
                                                             //  focusedBorder: _border,
-                                                            
-                                                            hintStyle: const TextStyle(
-                                                                fontSize: 16.0,
-                                                                fontWeight: FontWeight.normal,
-                                                                color: colorDarkAsh),
+                                            
+                                                            hintStyle:
+                                                                const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
                                                           ),
                                                           keyboardType: TextInputType.text,
                                                           style: const TextStyle(fontSize: 16.0, color: Colors.black),
@@ -271,7 +265,6 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                                           onTapOutside: (value) {
                                                             // log('onTapOutside called');
                                                           },
-                                                          
                                                         ),
                                                       ),
                                                       SpaceHelper.verticalSpaceMedium,
@@ -281,12 +274,12 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                               ),
                                             ),
                                           ),
-                                        );
-                                     
+                                        ),
+                                      );
                                     },
-                                    transitionBuilder:(context, anim1, anim2, child) {
+                                    transitionBuilder: (context, anim1, anim2, child) {
                                       return SlideTransition(
-                                        position: Tween(begin: const Offset(0, -1),end: const Offset(0, 0)).animate(anim1),
+                                        position: Tween(begin: const Offset(0, -1), end: const Offset(0, 0)).animate(anim1),
                                         child: child,
                                       );
                                     },
@@ -294,9 +287,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                 },
                                 title: 'Contact seller',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal))),
+                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
                         SizedBox(
                             height: 30,
                             width: 95,
@@ -304,9 +295,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                 onPress: () {},
                                 title: 'Make an offer',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal))),
+                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
                         SizedBox(
                             height: 30,
                             width: 95,
@@ -314,9 +303,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                 onPress: () {},
                                 title: 'Compare',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal))),
+                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
                         SizedBox(
                             height: 30,
                             width: 95,
@@ -324,9 +311,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                 onPress: () {},
                                 title: 'Finance',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal))),
+                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
                         SizedBox(
                             height: 30,
                             width: 95,
@@ -334,9 +319,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                 onPress: () {},
                                 title: 'Insurance',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal))),
+                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
                         SizedBox(
                             height: 30,
                             width: 95,
@@ -344,9 +327,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                 onPress: () {},
                                 title: 'Review',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal))),
+                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
                         SizedBox(
                             height: 30,
                             width: 180,
@@ -354,9 +335,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                 onPress: () {},
                                 title: 'More from this seller',
                                 backgroundColor: colorLightOrange,
-                                textStyle: textTheme.bodySmall?.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal))),
+                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.normal))),
                       ]),
                   SpaceHelper.verticalSpaceMedium,
                   buildBrandTable(textTheme),
@@ -380,9 +359,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                       children: [
                         Text(
                           'Similar Products',
-                          style: textTheme.bodySmall?.copyWith(
-                              color: colorLightOrange,
-                              fontWeight: FontWeight.w500),
+                          style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -418,9 +395,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: colorLightGray.withOpacity(.5)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: colorLightGray.withOpacity(.5)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -429,8 +404,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             children: [
               Text(
                 'Special Features',
-                style: textTheme.bodySmall?.copyWith(
-                    color: colorLightOrange, fontWeight: FontWeight.w500),
+                style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -441,8 +415,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             direction: Axis.horizontal,
             children: List.generate(featureIdsList.length, (index) {
               final featureId = featureIdsList[index].toString();
-              final feature = filterController.allFeature
-                  .firstWhere((item) => item.id == featureId);
+              final feature = filterController.allFeature.firstWhere((item) => item.id == featureId);
               return SizedBox(
                 width: DeviceInfo(context).width * .40,
                 child: Row(
@@ -450,21 +423,16 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     Container(
                         height: 12,
                         width: 12,
-                        decoration: BoxDecoration(
-                            color: colorDeepOrange,
-                            borderRadius: BorderRadius.circular(1)),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 1, vertical: 1),
+                        decoration: BoxDecoration(color: colorDeepOrange, borderRadius: BorderRadius.circular(1)),
+                        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
                         child: SvgPicture.asset(
                           'assets/icons/ic_check_orange.svg',
-                          colorFilter: const ColorFilter.mode(
-                              Colors.white, BlendMode.srcIn),
+                          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                         )),
                     SpaceHelper.horizontalSpaceSmall,
                     Text(
                       '${feature.title}',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54, fontWeight: FontWeight.normal),
+                      style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                     ),
                   ],
                 ),
@@ -482,9 +450,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         margin: const EdgeInsets.symmetric(
           horizontal: 10,
         ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: colorLightGray.withOpacity(.5)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: colorLightGray.withOpacity(.5)),
         child: Column(
           children: [
             SpaceHelper.verticalSpaceSmall,
@@ -497,8 +463,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Description',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: colorLightOrange, fontWeight: FontWeight.w500),
+                    style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -530,9 +495,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         margin: const EdgeInsets.symmetric(
           horizontal: 10,
         ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: colorLightGray.withOpacity(.5)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: colorLightGray.withOpacity(.5)),
         child: Column(
           children: [
             SpaceHelper.verticalSpaceSmall,
@@ -545,13 +508,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Brand Name',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Ford',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Ford', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -567,13 +526,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Driven',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('2500',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('2500', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -589,13 +544,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Fuel Type',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Petrol',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Petrol', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -611,13 +562,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Color',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Brown',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Brown', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -632,9 +579,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         margin: const EdgeInsets.symmetric(
           horizontal: 10,
         ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: colorLightGray.withOpacity(.5)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: colorLightGray.withOpacity(.5)),
         child: Column(
           children: [
             SpaceHelper.verticalSpaceSmall,
@@ -647,8 +592,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Registration Info',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: colorLightOrange, fontWeight: FontWeight.w500),
+                    style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -665,13 +609,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Brand Name',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('FORD',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('FORD', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -687,13 +627,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Registration Number',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('None',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('None', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -709,13 +645,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Body Type',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('SUV',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('SUV', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -731,13 +663,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Model Name',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Explorer',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Explorer', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -752,9 +680,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         margin: const EdgeInsets.symmetric(
           horizontal: 10,
         ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: colorLightGray.withOpacity(.5)),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: colorLightGray.withOpacity(.5)),
         child: Column(
           children: [
             SpaceHelper.verticalSpaceSmall,
@@ -767,8 +693,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Others Info',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: colorLightOrange, fontWeight: FontWeight.w500),
+                    style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -785,13 +710,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Product Type',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Car',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Car', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -807,13 +728,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Fuel Type',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Petrol',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Petrol', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -829,13 +746,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Color',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Grey',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Grey', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -851,13 +764,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Gear Box',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Automatic',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Automatic', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -873,13 +782,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Condition',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('Foregin Used',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('Foregin Used', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -895,13 +800,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Owners',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('1st',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('1st', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -917,13 +818,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     'Alloy Wheels',
-                    style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54, fontWeight: FontWeight.normal),
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal),
                   ),
-                  Text('13" Alloy Wheels',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.normal)),
+                  Text('13" Alloy Wheels', style: textTheme.bodySmall?.copyWith(color: Colors.black54, fontWeight: FontWeight.normal)),
                 ],
               ),
             ),
@@ -953,15 +850,10 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             child: Align(
               alignment: Alignment.center,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 decoration: BoxDecoration(
-                    color: colorLightOrange.withOpacity(.1),
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: colorLightOrange)),
-                child: Text('2024',
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: colorDeepOrange, fontSize: 12)),
+                    color: colorLightOrange.withOpacity(.1), borderRadius: BorderRadius.circular(25), border: Border.all(color: colorLightOrange)),
+                child: Text('2024', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12)),
               ),
             ),
           ),
@@ -980,10 +872,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     );
   }
 
-  _buildCarouselSlider(
-      {required List<Widget> imageSliders,
-      required CarouselController carouselController,
-      required ThemeData theme}) {
+  _buildCarouselSlider({required List<Widget> imageSliders, required CarouselController carouselController, required ThemeData theme}) {
     return Column(
       children: [
         GestureDetector(
@@ -1024,13 +913,8 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
               child: Container(
                 width: 5.0,
                 height: 5.0,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 4.0, vertical: 5),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _current == entry.key
-                        ? colorDeepOrange
-                        : Colors.black.withOpacity(0.4)
+                margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 5),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: _current == entry.key ? colorDeepOrange : Colors.black.withOpacity(0.4)
                     // (theme.brightness == Brightness.dark
                     //         ? Colors.black
                     //         : colorDeepOrange)
