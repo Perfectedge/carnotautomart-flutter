@@ -3,5 +3,4 @@ class PrefKeys {
   static const accessToken = "accessToken";
   static const deviceToken = "deviceToken";
   static const iosVersion = "iosVersion";
-
 }

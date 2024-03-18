@@ -12,8 +12,7 @@ import '../model/car_bike_spare_parts_response.dart';
 import '../network/dio_provider.dart';
 import 'carnotautomart_remote_data_source.dart';
 
-class CarnotAutoMartRemoteDataSourceImpl extends BaseRemoteSource
-    implements CarnotAutoMartRemoteDataSource {
+class CarnotAutoMartRemoteDataSourceImpl extends BaseRemoteSource implements CarnotAutoMartRemoteDataSource {
   @override
   Future<AccountTypeResponse> getAccountType() async {
     var endPoint = "${DioProvider.baseUrl}/v1/role-list";
@@ -59,8 +58,9 @@ class CarnotAutoMartRemoteDataSourceImpl extends BaseRemoteSource
       }
       rethrow;
     }
-  } 
-   //Get CarBikeSparePartsResponse
+  }
+
+  //Get CarBikeSparePartsResponse
   @override
   Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts({required String vehicleType, required int page}) async {
     var endPoint = "${DioProvider.baseUrl}/v1/posts?vehicle_type=$vehicleType&page=$page";
@@ -78,12 +78,12 @@ class CarnotAutoMartRemoteDataSourceImpl extends BaseRemoteSource
 
   @override
   //Get Brand
-  Future<BrandResponse> getBrands({required int vehicleTypeId})async{
-      var endPoint = "${DioProvider.baseUrl}/get-brands?vehicle_type_id=$vehicleTypeId";
+  Future<BrandResponse> getBrands({required int vehicleTypeId}) async {
+    var endPoint = "${DioProvider.baseUrl}/get-brands?vehicle_type_id=$vehicleTypeId";
     var dioCall = dioClient.get(endPoint);
     try {
       var response = await callApiWithErrorParser(dioCall);
-        final data = await compute(brandResponseFromJson, response.data);
+      final data = await compute(brandResponseFromJson, response.data);
       return data; //DropDownResponse.fromJson(response.data);
     } catch (e) {
       if (kDebugMode) {
@@ -93,11 +93,10 @@ class CarnotAutoMartRemoteDataSourceImpl extends BaseRemoteSource
     }
   }
 
-
   @override
   //Get Model By Brands
-  Future<ModelResponse> getModelByBrands({required int brandId})async{
-         var endPoint = "${DioProvider.baseUrl}/get-models?brand_id=$brandId";
+  Future<ModelResponse> getModelByBrands({required int brandId}) async {
+    var endPoint = "${DioProvider.baseUrl}/get-models?brand_id=$brandId";
     var dioCall = dioClient.get(endPoint);
     try {
       var response = await callApiWithErrorParser(dioCall);

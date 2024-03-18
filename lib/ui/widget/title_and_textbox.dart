@@ -5,8 +5,7 @@ import '../utils/helper/device_info.dart';
 import '../utils/helper/spacing_helper.dart';
 
 class TextBoxtWithTitle extends StatelessWidget {
-  const TextBoxtWithTitle(
-      {super.key, required this.headerTitle, required this.title, required this.width,required this.keyboardType});
+  const TextBoxtWithTitle({super.key, required this.headerTitle, required this.title, required this.width, required this.keyboardType});
   final String headerTitle;
   final String title;
   final double width;
@@ -20,10 +19,7 @@ class TextBoxtWithTitle extends StatelessWidget {
       children: [
         Text(
           headerTitle,
-          style: textTheme.bodySmall?.copyWith(
-              color: Colors.black,
-              letterSpacing: .3,
-              fontWeight: FontWeight.normal),
+          style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
         ),
         SpaceHelper.verticalSpaceSmall,
         Material(
@@ -48,10 +44,7 @@ class TextBoxtWithTitle extends StatelessWidget {
                   // enabledBorder: _border,
                   //  focusedBorder: _border,
                   hintText: title,
-                  hintStyle: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                      color: colorDarkAsh),
+                  hintStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
                 ),
                 keyboardType: keyboardType,
                 style: const TextStyle(fontSize: 16.0, color: Colors.black),

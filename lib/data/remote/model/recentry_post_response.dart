@@ -1,75 +1,69 @@
-
 class RecentlyPostResponse {
-    bool? status;
-    String? message;
-    Data? data;
+  bool? status;
+  String? message;
+  Data? data;
 
-    RecentlyPostResponse({
-        this.status,
-        this.message,
-        this.data,
-    });
+  RecentlyPostResponse({
+    this.status,
+    this.message,
+    this.data,
+  });
 
-    factory RecentlyPostResponse.fromJson(Map<String, dynamic> json) => RecentlyPostResponse(
+  factory RecentlyPostResponse.fromJson(Map<String, dynamic> json) => RecentlyPostResponse(
         status: json["status"],
         message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
-    );
-
- 
+      );
 }
 
 class Data {
-    List<BikeCarSpareParts>? cars;
-    List<BikeCarSpareParts>? bikes;
-    List<BikeCarSpareParts>? spareParts;
+  List<BikeCarSpareParts>? cars;
+  List<BikeCarSpareParts>? bikes;
+  List<BikeCarSpareParts>? spareParts;
 
-    Data({
-        this.cars,
-        this.bikes,
-        this.spareParts,
-    });
+  Data({
+    this.cars,
+    this.bikes,
+    this.spareParts,
+  });
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
-        cars: json["cars"]== null? []: List<BikeCarSpareParts>.from(json["cars"]!.map((x) => BikeCarSpareParts.fromJson(x))),
-        bikes: json["bikes"] == null ? [] :  List<BikeCarSpareParts>.from(json["bikes"]!.map((x) => BikeCarSpareParts.fromJson(x))),
-        spareParts: json["spare_parts"] == null ? [] :  List<BikeCarSpareParts>.from(json["spare_parts"]!.map((x) => BikeCarSpareParts.fromJson(x))),
-    );
-
-  
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        cars: json["cars"] == null ? [] : List<BikeCarSpareParts>.from(json["cars"]!.map((x) => BikeCarSpareParts.fromJson(x))),
+        bikes: json["bikes"] == null ? [] : List<BikeCarSpareParts>.from(json["bikes"]!.map((x) => BikeCarSpareParts.fromJson(x))),
+        spareParts: json["spare_parts"] == null ? [] : List<BikeCarSpareParts>.from(json["spare_parts"]!.map((x) => BikeCarSpareParts.fromJson(x))),
+      );
 }
 
-
 class BikeCarSpareParts {
-    String? condition;
-    String? priceinnaira;
-    dynamic mileage;
-    String? vehicleTypeId;
-    String? id;
-    String? postSlug;
-    String? title;
-    String? featuredPosition;
-    String? postType;
-    String? manufactureYear;
-    String? location;
-    String? photo;
+  String? condition;
+  String? priceinnaira;
+  dynamic mileage;
+  String? vehicleTypeId;
+  String? id;
+  String? postSlug;
+  String? title;
+  String? featuredPosition;
+  String? postType;
+  String? manufactureYear;
+  String? location;
+  String? photo;
 
-    BikeCarSpareParts({
-        this.condition,
-        this.priceinnaira,
-        this.mileage,
-        this.vehicleTypeId,
-        this.id,
-        this.postSlug,
-        this.title,
-        this.featuredPosition,
-        this.postType,
-        this.manufactureYear,
-        this.location,
-        this.photo,
-    });
+  BikeCarSpareParts({
+    this.condition,
+    this.priceinnaira,
+    this.mileage,
+    this.vehicleTypeId,
+    this.id,
+    this.postSlug,
+    this.title,
+    this.featuredPosition,
+    this.postType,
+    this.manufactureYear,
+    this.location,
+    this.photo,
+  });
 
-    factory BikeCarSpareParts.fromJson(Map<String, dynamic> json) => BikeCarSpareParts(
+  factory BikeCarSpareParts.fromJson(Map<String, dynamic> json) => BikeCarSpareParts(
         condition: json["condition"],
         priceinnaira: json["priceinnaira"],
         mileage: json["mileage"],
@@ -82,9 +76,9 @@ class BikeCarSpareParts {
         manufactureYear: json["manufacture_year"],
         location: json["location"],
         photo: json["photo"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "condition": condition,
         "priceinnaira": priceinnaira,
         "mileage": mileage,
@@ -97,5 +91,5 @@ class BikeCarSpareParts {
         "manufacture_year": manufactureYear,
         "location": location,
         "photo": photo,
-    };
+      };
 }

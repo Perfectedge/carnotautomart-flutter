@@ -11,35 +11,28 @@ import '../utils/app_colors.dart';
 
 class DropDownStringSearchWidget<T> extends StatefulWidget {
   const DropDownStringSearchWidget(
-      {super.key,
-      required this.appBarTitle,
-      required this.onSelected,
-      required this.findFromSearch,
-      required this.selectionType});
+      {super.key, required this.appBarTitle, required this.onSelected, required this.findFromSearch, required this.selectionType});
 
   final String appBarTitle;
   final String selectionType;
-   final ValueChanged<T?>? onSelected;
+  final ValueChanged<T?>? onSelected;
   final List<T> findFromSearch;
   @override
-  State<DropDownStringSearchWidget<T>> createState() =>
-      _DropDownStringSearchWidgetState<T>();
+  State<DropDownStringSearchWidget<T>> createState() => _DropDownStringSearchWidgetState<T>();
 }
 
 class _DropDownStringSearchWidgetState<T> extends State<DropDownStringSearchWidget<T>> {
   RxList<T> _searchResult = <T>[].obs;
   RxList<T> _findFromSearch = <T>[].obs;
- 
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _findFromSearch.value = widget.findFromSearch;
       _searchResult.value = widget.findFromSearch;
-      
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,15 +63,14 @@ class _DropDownStringSearchWidgetState<T> extends State<DropDownStringSearchWidg
               height: Platform.isIOS ? 130 : 80, //
               // height: 115,
               width: double.infinity,
-              image: const AssetImage(
-                  'assets/images/bg_appbar.png'), // Replace with your image path
+              image: const AssetImage('assets/images/bg_appbar.png'), // Replace with your image path
               fit: BoxFit.cover,
             ),
 
             bottom: PreferredSize(
                 preferredSize: Size.fromHeight(50),
                 child: Container(
-                  decoration: BoxDecoration(image:DecorationImage(fit:BoxFit.cover,image: AssetImage('assets/images/bg_appbar.png')) ),
+                  decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.cover, image: AssetImage('assets/images/bg_appbar.png'))),
                   child: Column(
                     children: [
                       Container(
@@ -87,9 +79,7 @@ class _DropDownStringSearchWidgetState<T> extends State<DropDownStringSearchWidg
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(width: 1, color: Colors.grey)),
+                            color: Colors.white, borderRadius: BorderRadius.circular(30), border: Border.all(width: 1, color: Colors.grey)),
                         child: Row(
                           children: [
                             Expanded(
@@ -105,20 +95,13 @@ class _DropDownStringSearchWidgetState<T> extends State<DropDownStringSearchWidg
                                   // enabledBorder: _border,
                                   //  focusedBorder: _border,
                                   hintText: 'Search',
-                                  hintStyle: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: colorDarkAsh),
+                                  hintStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
                                 ),
                                 keyboardType: TextInputType.multiline,
-                                style: const TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal),
+                                style: const TextStyle(fontSize: 14.0, color: Colors.black, fontWeight: FontWeight.normal),
                                 onChanged: (text) {
-                                  _findFromSearch.value = _searchResult
-                                      .where((item) => item.toString().toLowerCase().contains(text.toLowerCase()))
-                                      .toList();
+                                  _findFromSearch.value =
+                                      _searchResult.where((item) => item.toString().toLowerCase().contains(text.toLowerCase())).toList();
                                 },
                                 onTapOutside: (value) {
                                   // log('onTapOutside called');
@@ -136,8 +119,7 @@ class _DropDownStringSearchWidgetState<T> extends State<DropDownStringSearchWidg
           body: Container(
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: Obx(
               () => ListView.separated(
                 shrinkWrap: true,
@@ -150,12 +132,10 @@ class _DropDownStringSearchWidgetState<T> extends State<DropDownStringSearchWidg
                     dense: true,
                     minVerticalPadding: 0,
                     //  contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-                    visualDensity:
-                        const VisualDensity(horizontal: 0, vertical: -4),
+                    visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                     title: Text(
                       '${_findFromSearch[index]}',
-                      style: textTheme.bodySmall?.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.normal),
+                      style: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
                     )),
                 separatorBuilder: (_, index) => Divider(),
               ),

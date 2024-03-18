@@ -64,9 +64,6 @@ Exception _parseDioErrorResponse(DioException dioError) {
     case HttpStatus.notFound:
       return NotFoundException(serverMessage ?? "", status ?? "");
     default:
-      return ApiException(
-          httpCode: statusCode,
-          status: status ?? "",
-          message: serverMessage ?? "");
+      return ApiException(httpCode: statusCode, status: status ?? "", message: serverMessage ?? "");
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-
 import '../slider_direction.dart';
 
 class GetOffset {
@@ -22,8 +21,7 @@ class GetOffset {
     }
   }
 
-  static Offset getOffsetValueForShadow(
-      SlideDirection direction, double value, double slideOpenWidth) {
+  static Offset getOffsetValueForShadow(SlideDirection direction, double value, double slideOpenWidth) {
     switch (direction) {
       case SlideDirection.LEFT_TO_RIGHT:
         return Offset(value - (slideOpenWidth > 50 ? 20 : 10), 0);

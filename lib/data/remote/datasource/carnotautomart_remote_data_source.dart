@@ -13,8 +13,7 @@ abstract class CarnotAutoMartRemoteDataSource {
   //Get DropDown Api data
   Future<DropDownResponse> getDropDownResponse();
   //Get CarBikeSparePartsResponse
-  Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts(
-      {required String vehicleType, required int page});
+  Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts({required String vehicleType, required int page});
   //Get Brand
   Future<BrandResponse> getBrands({required int vehicleTypeId});
   //Get Model By Brands

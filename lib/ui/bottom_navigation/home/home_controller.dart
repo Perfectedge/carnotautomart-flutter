@@ -31,7 +31,7 @@ class HomeController extends GetxController {
         carData.addAll(response.data?.cars ?? []);
         bikeData.addAll(response.data?.bikes ?? []);
         sparePartsData.addAll(response.data?.spareParts ?? []);
-      }else{
+      } else {
         Get.back();
       }
     } catch (e) {

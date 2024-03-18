@@ -14,8 +14,7 @@ abstract class CarnotMartRepository {
   //Get DropDown Api data
   Future<DropDownResponse> getDropDownResponse();
   //Get CarBikeSparePartsResponse
-  Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts(
-      {required String vehicleType, required int page});
+  Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts({required String vehicleType, required int page});
   //Get Brands
   Future<BrandResponse> getBrands({required int vehicleTypeId});
   //Get Model By Brands

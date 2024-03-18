@@ -78,7 +78,6 @@ Image appbarFlexibleSpace = Image(
   height: Platform.isIOS ? 60 : 80, //
   // height: 115,
   width: double.infinity,
-  image: const AssetImage(
-      'assets/images/bg_appbar.png'), // Replace with your image path
+  image: const AssetImage('assets/images/bg_appbar.png'), // Replace with your image path
   fit: BoxFit.cover,
 );

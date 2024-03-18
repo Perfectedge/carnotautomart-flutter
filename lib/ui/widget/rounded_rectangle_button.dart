@@ -8,13 +8,7 @@ class RoundedRectangleButton extends StatefulWidget {
   final bool? isBorder;
 
   const RoundedRectangleButton(
-      {Key? key,
-      required this.onPress,
-      required this.title,
-      required this.backgroundColor,
-      required this.textStyle,
-      this.isBorder=false
-      })
+      {Key? key, required this.onPress, required this.title, required this.backgroundColor, required this.textStyle, this.isBorder = false})
       : super(key: key);
 
   @override
@@ -34,14 +28,14 @@ class _RoundedRectangleBuState extends State<RoundedRectangleButton> {
                 backgroundColor: widget.backgroundColor,
                 padding: EdgeInsets.all(0),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                shape:widget.isBorder==false? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)) : const RoundedRectangleBorder(),
+                shape: widget.isBorder == false ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)) : const RoundedRectangleBorder(),
                 elevation: 0,
               )
             : ElevatedButton.styleFrom(
-               padding: EdgeInsets.all(0),
-               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                padding: EdgeInsets.all(0),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 disabledBackgroundColor: widget.backgroundColor.withOpacity(.5),
-                shape:const RoundedRectangleBorder(),
+                shape: const RoundedRectangleBorder(),
                 elevation: 0.0,
                 // shadowColor: AppColors.button1Color,
               ),

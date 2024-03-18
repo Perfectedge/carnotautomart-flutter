@@ -60,8 +60,7 @@ class FilterController extends GetxController {
       if (response.status == true) {
         dropDownLocations.value = response.data?.locations ?? [];
         dropDownFuels.value = response.data?.fuels ?? [];
-        dropDownVehicleConditions.value =
-            response.data?.vehicleConditions?.toStringList() ?? [];
+        dropDownVehicleConditions.value = response.data?.vehicleConditions?.toStringList() ?? [];
         manufacturingYears.value = response.data?.manufacturingYears ?? [];
         dropDownCarColors.value = response.data?.colors ?? [];
         dropDownGareBox.value = response.data?.gearbox?.toStringList() ?? [];

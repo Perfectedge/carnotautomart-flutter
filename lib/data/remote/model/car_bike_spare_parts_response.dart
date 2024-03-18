@@ -1,53 +1,52 @@
-
 class CarBikeSparePartsResponse {
-    bool? status;
-    String? message;
-     List<RecentBikeCarSpareParts>? carsBikeSpareParts;
+  bool? status;
+  String? message;
+  List<RecentBikeCarSpareParts>? carsBikeSpareParts;
 
-    CarBikeSparePartsResponse({
-        this.status,
-        this.message,
-        this.carsBikeSpareParts,
-    });
+  CarBikeSparePartsResponse({
+    this.status,
+    this.message,
+    this.carsBikeSpareParts,
+  });
 
-    factory CarBikeSparePartsResponse.fromJson(Map<String, dynamic> json) => CarBikeSparePartsResponse(
+  factory CarBikeSparePartsResponse.fromJson(Map<String, dynamic> json) => CarBikeSparePartsResponse(
         status: json["status"],
         message: json["message"],
-        carsBikeSpareParts:  json["data"]== null? []: List<RecentBikeCarSpareParts>.from(json["data"]!.map((x) => RecentBikeCarSpareParts.fromJson(x))),
-    );
-
- 
+        carsBikeSpareParts:
+            json["data"] == null ? [] : List<RecentBikeCarSpareParts>.from(json["data"]!.map((x) => RecentBikeCarSpareParts.fromJson(x))),
+      );
 }
+
 class RecentBikeCarSpareParts {
-    String? condition;
-    String? priceinnaira;
-    dynamic mileage;
-    String? vehicleTypeId;
-    String? id;
-    String? postSlug;
-    String? title;
-    String? featuredPosition;
-    String? postType;
-    String? manufactureYear;
-    String? location;
-    String? photo;
+  String? condition;
+  String? priceinnaira;
+  dynamic mileage;
+  String? vehicleTypeId;
+  String? id;
+  String? postSlug;
+  String? title;
+  String? featuredPosition;
+  String? postType;
+  String? manufactureYear;
+  String? location;
+  String? photo;
 
-    RecentBikeCarSpareParts({
-        this.condition,
-        this.priceinnaira,
-        this.mileage,
-        this.vehicleTypeId,
-        this.id,
-        this.postSlug,
-        this.title,
-        this.featuredPosition,
-        this.postType,
-        this.manufactureYear,
-        this.location,
-        this.photo,
-    });
+  RecentBikeCarSpareParts({
+    this.condition,
+    this.priceinnaira,
+    this.mileage,
+    this.vehicleTypeId,
+    this.id,
+    this.postSlug,
+    this.title,
+    this.featuredPosition,
+    this.postType,
+    this.manufactureYear,
+    this.location,
+    this.photo,
+  });
 
-    factory RecentBikeCarSpareParts.fromJson(Map<String, dynamic> json) => RecentBikeCarSpareParts(
+  factory RecentBikeCarSpareParts.fromJson(Map<String, dynamic> json) => RecentBikeCarSpareParts(
         condition: json["condition"],
         priceinnaira: json["priceinnaira"],
         mileage: json["mileage"],
@@ -60,9 +59,9 @@ class RecentBikeCarSpareParts {
         manufactureYear: json["manufacture_year"],
         location: json["location"],
         photo: json["photo"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "condition": condition,
         "priceinnaira": priceinnaira,
         "mileage": mileage,
@@ -75,5 +74,5 @@ class RecentBikeCarSpareParts {
         "manufacture_year": manufactureYear,
         "location": location,
         "photo": photo,
-    };
+      };
 }

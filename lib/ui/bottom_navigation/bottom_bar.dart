@@ -17,75 +17,62 @@ class SliderDrawerAndBottomNavigation extends StatefulWidget {
   const SliderDrawerAndBottomNavigation({super.key});
 
   @override
-  State<SliderDrawerAndBottomNavigation> createState() =>
-      _SliderDrawerAndBottomNavigationState();
+  State<SliderDrawerAndBottomNavigation> createState() => _SliderDrawerAndBottomNavigationState();
 }
 
-class _SliderDrawerAndBottomNavigationState
-    extends State<SliderDrawerAndBottomNavigation>
-    with TickerProviderStateMixin {
-  final GlobalKey<SliderDrawerState> _sliderDrawerKey =
-      GlobalKey<SliderDrawerState>();
+class _SliderDrawerAndBottomNavigationState extends State<SliderDrawerAndBottomNavigation> with TickerProviderStateMixin {
+  final GlobalKey<SliderDrawerState> _sliderDrawerKey = GlobalKey<SliderDrawerState>();
   String barTitle = 'Home'.toUpperCase();
   late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400));
-        
+    animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value:const SystemUiOverlayStyle(
-        statusBarColor: colorLightOrange,
-        statusBarBrightness: Brightness.dark
-      ),
+      value: const SystemUiOverlayStyle(statusBarColor: colorLightOrange, statusBarBrightness: Brightness.dark),
       child: Container(
         color: colorLightOrange,
         child: SafeArea(
           top: true,
           bottom: false,
           child: Scaffold(
-            
             body: SliderDrawer(
                 key: _sliderDrawerKey,
                 animationController: animationController,
                 sliderBoxShadow: SliderBoxShadow(color: Colors.black12),
                 appBar: AppBar(
-                  elevation: 0,
-                  automaticallyImplyLeading: false,
-                  centerTitle: true,
-                  leading: IconButton(
-                    icon: AnimatedIcon(
-                      progress: CurvedAnimation(
-                          parent: animationController, curve: Curves.linear),
-                      icon: AnimatedIcons.menu_close,
-                      color: Colors.white,
-                      size: 25,
+                    elevation: 0,
+                    automaticallyImplyLeading: false,
+                    centerTitle: true,
+                    leading: IconButton(
+                      icon: AnimatedIcon(
+                        progress: CurvedAnimation(parent: animationController, curve: Curves.linear),
+                        icon: AnimatedIcons.menu_close,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                      splashRadius: 20,
+                      onPressed: () {
+                        _sliderDrawerKey.currentState?.toggle();
+                      },
                     ),
-                    splashRadius: 20,
-                    onPressed: () {
-                      _sliderDrawerKey.currentState?.toggle();
-                    },
-                  ),
-                  title: Text(
-                    barTitle,
-                    style: textTheme.bodyMedium?.copyWith(letterSpacing: 0),
-                  ),
-                  flexibleSpace: Image(
-  height: Platform.isIOS ? 60 : 60, //
-  // height: 115,
-  width: double.infinity,
-  image: const AssetImage(
-      'assets/images/bg_appbar.png'), // Replace with your image path
-  fit: BoxFit.cover,
-)
-                ),
+                    title: Text(
+                      barTitle,
+                      style: textTheme.bodyMedium?.copyWith(letterSpacing: 0),
+                    ),
+                    flexibleSpace: Image(
+                      height: Platform.isIOS ? 60 : 60, //
+                      // height: 115,
+                      width: double.infinity,
+                      image: const AssetImage('assets/images/bg_appbar.png'), // Replace with your image path
+                      fit: BoxFit.cover,
+                    )),
                 slider: CustomDrawer(
                   trigger: (value) {
                     _onTriggerCustomDrawerButton(value);
@@ -185,13 +172,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon:
-                _buildIcon('assets/icons/ic_car.svg', 'Services', 1, textTheme),
+            icon: _buildIcon('assets/icons/ic_car.svg', 'Services', 1, textTheme),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: _buildIcon(
-                'assets/icons/ic_heart.svg', 'Favourite', 2, textTheme),
+            icon: _buildIcon('assets/icons/ic_heart.svg', 'Favourite', 2, textTheme),
             label: '',
           ),
         ],
@@ -199,12 +184,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 
-  Color _getItemColor(int index) =>
-      bodyIndex == index ? _selectedItemColor : _unselectedItemColor;
+  Color _getItemColor(int index) => bodyIndex == index ? _selectedItemColor : _unselectedItemColor;
 
-  Widget _buildIcon(
-          String iconData, String text, int index, TextTheme textTheme) =>
-      SizedBox(
+  Widget _buildIcon(String iconData, String text, int index, TextTheme textTheme) => SizedBox(
         width: double.infinity,
         height: kBottomNavigationBarHeight,
         child: InkWell(
@@ -214,14 +196,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             children: <Widget>[
               SvgPicture.asset(
                 iconData,
-                colorFilter:
-                    ColorFilter.mode(_getItemColor(index), BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(_getItemColor(index), BlendMode.srcIn),
               ),
               Text(
                 text,
                 // style: TextStyle(fontSize: 12, color: _getItemColor(index))
-                style:
-                    textTheme.bodySmall?.copyWith(color: _getItemColor(index)),
+                style: textTheme.bodySmall?.copyWith(color: _getItemColor(index)),
               ),
             ],
           ),

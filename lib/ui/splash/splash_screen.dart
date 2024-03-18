@@ -18,32 +18,23 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: DeviceInfo(context).height,
         width: DeviceInfo(context).width,
-        decoration:const BoxDecoration(
-          color: Colors.green,
-          gradient: LinearGradient(
-          colors: [
-            colorLightOrange,
-            colorDeepOrange
+        decoration: const BoxDecoration(
+            color: Colors.green,
+            gradient: LinearGradient(
+              colors: [colorLightOrange, colorDeepOrange],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              // stops: [
+              //   0.5,
+              //   0.6
+              // ],
+            )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 150, width: 150, child: ImageHelper.icLogo),
           ],
-          begin:Alignment.topCenter ,
-          end:Alignment.bottomCenter ,
-          // stops: [
-          //   0.5,
-          //   0.6
-          // ],
-          
-          
-          )
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 150,
-                width: 150,
-                child: ImageHelper.icLogo),
-            ],
-          ),
+        ),
       ),
     );
   }

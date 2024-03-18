@@ -55,10 +55,7 @@ class SAppBar extends StatelessWidget {
                 onPressed: () => onTap())
       else
         sliderAppBar.drawerIcon!,
-      Expanded(
-          child: sliderAppBar.isTitleCenter
-              ? Center(child: sliderAppBar.title)
-              : sliderAppBar.title),
+      Expanded(child: sliderAppBar.isTitleCenter ? Center(child: sliderAppBar.title) : sliderAppBar.title),
       sliderAppBar.trailing ?? SizedBox(width: 35)
     ];
 
@@ -73,9 +70,7 @@ class AnimatedCupertinoIcon extends StatefulWidget {
   final Animation<double> progress;
   final VoidCallback onTap;
 
-  const AnimatedCupertinoIcon(
-      {Key? key, required this.progress, required this.onTap})
-      : super(key: key);
+  const AnimatedCupertinoIcon({Key? key, required this.progress, required this.onTap}) : super(key: key);
 
   @override
   State<AnimatedCupertinoIcon> createState() => _AnimatedCupertinoIconState();
@@ -99,12 +94,7 @@ class _AnimatedCupertinoIconState extends State<AnimatedCupertinoIcon> {
       onTap: widget.onTap,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Icon(
-            isCompleted
-                ? CupertinoIcons.clear_thick
-                : CupertinoIcons.line_horizontal_3,
-            color: Colors.grey,
-            size: 25.0),
+        child: Icon(isCompleted ? CupertinoIcons.clear_thick : CupertinoIcons.line_horizontal_3, color: Colors.grey, size: 25.0),
       ),
     );
   }

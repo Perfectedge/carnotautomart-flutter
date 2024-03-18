@@ -72,8 +72,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: AppTextTheme().lightTextTheme,
           fontFamily: 'Roboto',
         ),
-        home:
-            SliderDrawerAndBottomNavigation() //BottomBarScreen() //AllChomphonent() //SplashScreen() ,
+        home: SliderDrawerAndBottomNavigation() //BottomBarScreen() //AllChomphonent() //SplashScreen() ,
 
         );
   }

@@ -1,14 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 import '../utils/helper/spacing_helper.dart';
 import 'chat_controller.dart';
 
 class ChatMessage extends StatelessWidget {
-  const ChatMessage({
-    super.key,
-    required this.message
-  });
+  const ChatMessage({super.key, required this.message});
   final MessageResponse message;
 
   @override
@@ -20,7 +16,7 @@ class ChatMessage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            message.currentDateTime??'',
+            message.currentDateTime ?? '',
             style: textTheme.bodySmall?.copyWith(color: Colors.grey),
           ),
           SpaceHelper.verticalSpace(2),
@@ -37,7 +33,7 @@ class ChatMessage extends StatelessWidget {
               padding: const EdgeInsets.all(6),
               // decoration: BoxDecoration(color: colorLightOrange,),
               child: Text(
-               message.message??'',
+                message.message ?? '',
                 style: textTheme.bodySmall?.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.normal,

@@ -46,9 +46,7 @@ class _AllChomphonentState extends State<AllChomphonent> {
           height: 20,
           width: 20,
           padding: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: colorDeepOrange),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: colorDeepOrange),
           child: Image.asset('assets/images/ic_flame.png'),
         ),
         SpaceHelper.horizontalSpaceSmall,
@@ -118,14 +116,10 @@ class _AllChomphonentState extends State<AllChomphonent> {
               style: textTheme.bodyMedium?.copyWith(letterSpacing: 2),
               decoration: InputDecoration(
                   hintText: 'First Name'.toUpperCase(),
-                  hintStyle: textTheme.bodyMedium?.copyWith(
-                      letterSpacing: 1, fontWeight: FontWeight.normal),
-                  border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
-                  enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
-                  focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
+                  hintStyle: textTheme.bodyMedium?.copyWith(letterSpacing: 1, fontWeight: FontWeight.normal),
+                  border: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                  enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                  focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
                   suffixIcon: Icon(Icons.invert_colors_on_rounded)),
             ),
             SpaceHelper.verticalSpaceMedium,
@@ -141,8 +135,7 @@ class _AllChomphonentState extends State<AllChomphonent> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: MaterialButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 color: Colors.white,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 highlightElevation: .5,
@@ -216,9 +209,7 @@ class MyAppBarClipper extends CustomClipper<Path> {
 
       ..lineTo(size.width, 0) // device width(dx),0(dy)
       ..lineTo(size.width, size.height - radius) //deviceWidth, 100
-      ..arcToPoint(
-          Offset(size.width - radius,
-              size.height - (radius * 2)), //deviceWidth-20,160
+      ..arcToPoint(Offset(size.width - radius, size.height - (radius * 2)), //deviceWidth-20,160
           radius: Radius.circular(radius),
           clockwise: false)
       ..lineTo(radius, size.height - (radius * 2)) //20,100

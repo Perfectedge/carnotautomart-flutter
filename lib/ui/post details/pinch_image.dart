@@ -24,8 +24,7 @@ class PinchImageScreen extends StatefulWidget {
   State<PinchImageScreen> createState() => _PinchImageScreenState();
 }
 
-class _PinchImageScreenState extends State<PinchImageScreen>
-    with SingleTickerProviderStateMixin {
+class _PinchImageScreenState extends State<PinchImageScreen> with SingleTickerProviderStateMixin {
   final double minScale = 1;
   final double maxScale = 4;
   late TransformationController _transformationController;
@@ -39,8 +38,7 @@ class _PinchImageScreenState extends State<PinchImageScreen>
     print('Image patha ${widget.image}');
     _transformationController = TransformationController();
     _pageController = PageController(initialPage: widget.currentIndex);
-    animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 200))
+    animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200))
       ..addListener(() => _transformationController.value = animation!.value);
   }
 
@@ -89,14 +87,10 @@ class _PinchImageScreenState extends State<PinchImageScreen>
           final zoomed = Matrix4.identity()
             ..translate(x, y)
             ..scale(scale);
-          final end = _transformationController.value.isIdentity()
-              ? zoomed
-              : Matrix4.identity();
+          final end = _transformationController.value.isIdentity() ? zoomed : Matrix4.identity();
           // _transformationController.value = value;
           animation =
-              Matrix4Tween(begin: _transformationController.value, end: end)
-                  .animate(CurveTween(curve: Curves.easeOut)
-                      .animate(animationController));
+              Matrix4Tween(begin: _transformationController.value, end: end).animate(CurveTween(curve: Curves.easeOut).animate(animationController));
           animationController.forward(from: 0);
         },
         onDoubleTapDown: (details) {
@@ -141,9 +135,7 @@ class _PinchImageScreenState extends State<PinchImageScreen>
                         child: Center(
                             child: Text(
                           'No Image Found',
-                          style: textTheme.labelMedium?.copyWith(
-                              color: colorDeepGray,
-                              fontWeight: FontWeight.bold),
+                          style: textTheme.labelMedium?.copyWith(color: colorDeepGray, fontWeight: FontWeight.bold),
                         ))),
                   );
                 }),
@@ -154,10 +146,8 @@ class _PinchImageScreenState extends State<PinchImageScreen>
   }
 
   void resetAnimation() {
-    animation = Matrix4Tween(
-            begin: _transformationController.value, end: Matrix4.identity())
-        .animate(CurvedAnimation(
-            parent: animationController, curve: Curves.easeInOut));
+    animation = Matrix4Tween(begin: _transformationController.value, end: Matrix4.identity())
+        .animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
     animationController.forward(from: 0);
   }
 }

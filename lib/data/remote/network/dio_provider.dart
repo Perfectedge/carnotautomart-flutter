@@ -13,13 +13,7 @@ class DioProvider {
 
   static const int _maxLineWidth = 90;
   static final _prettyDioLogger = PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      error: true,
-      compact: true,
-      maxWidth: _maxLineWidth);
+      requestHeader: true, requestBody: true, responseBody: true, responseHeader: false, error: true, compact: true, maxWidth: _maxLineWidth);
 
   static final BaseOptions _options = BaseOptions(
     baseUrl: baseUrl,
@@ -77,10 +71,7 @@ class DioProvider {
   }
 }
 
-
-
 //Network Constants
-
 
 class NetworkConstants {
   static const ACCEPT = "Accept";

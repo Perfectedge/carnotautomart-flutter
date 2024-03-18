@@ -17,15 +17,13 @@ class ChatController extends GetxController {
   }
 
   addMessage(String text) {
-    message.add(
-      MessageResponse(timeFormat(DateTime.now().toString()),text));
+    message.add(MessageResponse(timeFormat(DateTime.now().toString()), text));
     scrollToBottom();
   }
 }
 
 class MessageResponse {
-  
   String? currentDateTime;
   String? message;
-  MessageResponse(this.currentDateTime,this.message);
+  MessageResponse(this.currentDateTime, this.message);
 }

@@ -49,7 +49,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               buttonName: 'Account',
               onPressed: () {
                 widget.trigger('home');
-                Get.to(() =>const OnBordingScreen(),transition: Transition.rightToLeft);
+                Get.to(() => const OnBordingScreen(), transition: Transition.rightToLeft);
               }),
           SpaceHelper.verticalSpaceSmall,
           _drawerTileButton(
@@ -81,10 +81,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   }
 
   Padding _drawerTileButton(
-      {required TextTheme textTheme,
-      required String imageName,
-      required String buttonName,
-      required void Function()? onPressed}) {
+      {required TextTheme textTheme, required String imageName, required String buttonName, required void Function()? onPressed}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: CupertinoButton(
@@ -101,10 +98,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             SpaceHelper.horizontalSpaceMedium,
             Text(
               buttonName,
-              style: textTheme.bodyMedium?.copyWith(
-                  color: colorDarkAsh,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16),
+              style: textTheme.bodyMedium?.copyWith(color: colorDarkAsh, fontWeight: FontWeight.normal, fontSize: 16),
             )
           ],
         ),

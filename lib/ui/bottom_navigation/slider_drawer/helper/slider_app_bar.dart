@@ -40,8 +40,7 @@ class SliderAppBar extends StatefulWidget {
 
   const SliderAppBar({
     this.appBarHeight = 70,
-    this.title = const Text('AppBar',
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
+    this.title = const Text('AppBar', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
     this.isTitleCenter = true,
     this.appBarColor = const Color(0xffffffff),
     this.appBarPadding = const EdgeInsets.only(top: 24),

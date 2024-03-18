@@ -27,12 +27,11 @@ class _FilterScreenState extends State<FilterScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   late RangeValues rangeValue;
 
-
   @override
   void initState() {
     super.initState();
     _filterController = Get.find<FilterController>();
-     rangeValue =RangeValues(double.parse(_filterController.manufacturingYears.last) , double.parse(_filterController.manufacturingYears.first));
+    rangeValue = RangeValues(double.parse(_filterController.manufacturingYears.last), double.parse(_filterController.manufacturingYears.first));
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       // await _filterController.getDropDownData();
       log(_filterController.manufacturingYears.first.toString());
@@ -41,8 +40,8 @@ class _FilterScreenState extends State<FilterScreen> {
       _filterController.model.value = 'Model';
       _filterController.fuels.value = 'Select fuel';
       _filterController.condition.value = 'Select condition';
-      _filterController.carColor.value ='Select color';
-      _filterController.gearBox.value ='Select gearbox';
+      _filterController.carColor.value = 'Select color';
+      _filterController.gearBox.value = 'Select gearbox';
     });
   }
 
@@ -54,14 +53,13 @@ class _FilterScreenState extends State<FilterScreen> {
     _filterController.model.value = 'Model';
     _filterController.fuels.value == 'Select Fuel';
     _filterController.condition.value = 'Select condition';
-    _filterController.carColor.value ='Select color';
-    _filterController.gearBox.value ='Select gearbox';
+    _filterController.carColor.value = 'Select color';
+    _filterController.gearBox.value = 'Select gearbox';
   }
-
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;     
+    final textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: const BoxDecoration(color: colorLightOrange),
       child: GestureDetector(
@@ -84,24 +82,18 @@ class _FilterScreenState extends State<FilterScreen> {
                   children: [
                     SpaceHelper.verticalSpaceMedium,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Location',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
 
                     /// Location
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -118,8 +110,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                     // log('Selected result: ${seletedData['name']}');
                                     _filterController.selectLocationName.value = seletedData['name'];
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownLocations,
+                                  findFromSearch: _filterController.dropDownLocations,
                                 );
                               });
                         },
@@ -128,7 +119,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.selectLocationName.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController.selectLocationName.value == 'Select State'? colorDeepGray : Colors.black,
+                                  color: _filterController.selectLocationName.value == 'Select State' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -143,22 +134,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Brand
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Brand',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -173,12 +158,10 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Brand',
                                   notifier: (seletedData) {
                                     log('Selected result: ${seletedData['name']}');
-                                    _filterController.brands.value =
-                                        seletedData['name'];
+                                    _filterController.brands.value = seletedData['name'];
                                     //Get Model Data
                                     _filterController.model.value = 'Model';
-                                    _filterController.getModelByBrand(
-                                        brandId: seletedData['id']);
+                                    _filterController.getModelByBrand(brandId: seletedData['id']);
                                   },
                                   findFromSearch: _filterController.dropDownBrand,
                                 );
@@ -189,8 +172,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.brands.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color:_filterController.brands.value == 'Brand'? colorDeepGray: Colors.black,
-                                  fontWeight: FontWeight.normal),
+                                  color: _filterController.brands.value == 'Brand' ? colorDeepGray : Colors.black, fontWeight: FontWeight.normal),
                             ),
                           ),
                           const Spacer(),
@@ -204,29 +186,22 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Model
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Model',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
                         elevation: 0,
                         onPressed: () {
-                          if (_filterController.brands.isEmpty ||
-                              _filterController.brands.value == 'Brand') {
+                          if (_filterController.brands.isEmpty || _filterController.brands.value == 'Brand') {
                             log('Select Brand');
 
                             errorDialog(textTheme);
@@ -240,11 +215,9 @@ class _FilterScreenState extends State<FilterScreen> {
                                     selectionType: 'Model',
                                     notifier: (selectedData) {
                                       log('Selected result: ${selectedData['name']}');
-                                      _filterController.model.value =
-                                          selectedData['name'];
+                                      _filterController.model.value = selectedData['name'];
                                     },
-                                    findFromSearch:
-                                        _filterController.dropDownModel,
+                                    findFromSearch: _filterController.dropDownModel,
                                   );
                                 });
                           }
@@ -253,11 +226,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           Obx(
                             () => Text(
                               _filterController.model.value,
-                              style: textTheme.bodySmall?.copyWith(
-                                  color:
-                                      _filterController.model.value == 'Model'
-                                          ? colorDeepGray
-                                          : Colors.black),
+                              style: textTheme.bodySmall?.copyWith(color: _filterController.model.value == 'Model' ? colorDeepGray : Colors.black),
                             ),
                           ),
                           const Spacer(),
@@ -270,8 +239,8 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     //Price
                     SpaceHelper.verticalSpaceSmall,
-                     Padding(
-                      padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Row(
                         children: [
                           TextBoxtWithTitle(
@@ -280,7 +249,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             width: DeviceInfo(context).width / 2 - 20,
                             keyboardType: TextInputType.number,
                           ),
-                         const Spacer(),
+                          const Spacer(),
                           TextBoxtWithTitle(
                             headerTitle: 'Price',
                             title: 'Max',
@@ -293,23 +262,17 @@ class _FilterScreenState extends State<FilterScreen> {
                     SpaceHelper.verticalSpaceSmall,
                     //Menufacture year
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Menufacture year',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       height: 50,
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         elevation: 0,
                         child: SliderTheme(
@@ -334,8 +297,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Row(
                         children: [
                           TextBoxtWithTitle(
@@ -357,22 +319,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     SpaceHelper.verticalSpaceSmall,
                     //Fuel Type
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Fuel Type',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -387,7 +343,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Fuel',
                                   notifier: (seletedData) {
                                     log('Selected result: ${seletedData['name']}');
-                                   _filterController.fuels.value=seletedData['name'];
+                                    _filterController.fuels.value = seletedData['name'];
                                   },
                                   findFromSearch: _filterController.dropDownFuels,
                                 );
@@ -399,9 +355,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               _filterController.fuels.value,
                               // 'Fule',
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController.fuels.value =='Select fuel'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.fuels.value == 'Select fuel' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -417,22 +371,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Condition
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Condition',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -447,9 +395,9 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Condition',
                                   onSelected: (seletedData) {
                                     log('Selected result: ${seletedData}');
-                                    _filterController.condition.value =seletedData??'';
+                                    _filterController.condition.value = seletedData ?? '';
                                   },
-                                  findFromSearch:_filterController.dropDownVehicleConditions,
+                                  findFromSearch: _filterController.dropDownVehicleConditions,
                                 );
                               });
                         },
@@ -458,9 +406,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.condition.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController.condition.value =='Select condition'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.condition.value == 'Select condition' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -475,22 +421,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Color
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Color',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -507,7 +447,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                     // log('Selected result: ${seletedData['name']}');
                                     _filterController.carColor.value = seletedData['name'];
                                   },
-                                  findFromSearch:_filterController.dropDownCarColors,
+                                  findFromSearch: _filterController.dropDownCarColors,
                                 );
                               });
                         },
@@ -516,9 +456,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.carColor.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController.carColor.value =='Select color'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.carColor.value == 'Select color' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -533,22 +471,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //GearBox
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Gear box',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -563,10 +495,9 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Location',
                                   onSelected: (seletedData) {
                                     log('Selected result: ${seletedData}');
-                                    _filterController.gearBox.value =seletedData.toString();
+                                    _filterController.gearBox.value = seletedData.toString();
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownGareBox,
+                                  findFromSearch: _filterController.dropDownGareBox,
                                 );
                               });
                         },
@@ -575,9 +506,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.gearBox.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController.gearBox.value =='Select gearbox'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.gearBox.value == 'Select gearbox' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -593,23 +522,17 @@ class _FilterScreenState extends State<FilterScreen> {
                     //'Sort By'
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Sort By',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         elevation: 0,
                         child: Row(
@@ -618,18 +541,15 @@ class _FilterScreenState extends State<FilterScreen> {
                               child: RadioListTile(
                                 title: const Text("Date"),
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 activeColor: colorDeepOrange,
                                 splashRadius: 10,
                                 value: "date",
                                 groupValue: _filterController.sortValue.value,
                                 onChanged: (value) {
                                   setState(() {
-                                     _filterController.sortValue.value = value.toString();
+                                    _filterController.sortValue.value = value.toString();
                                   });
                                 },
                               ),
@@ -637,11 +557,8 @@ class _FilterScreenState extends State<FilterScreen> {
                             Expanded(
                               child: RadioListTile(
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 title: const Text("Price"),
                                 value: "price",
                                 groupValue: _filterController.sortValue.value,
@@ -660,23 +577,17 @@ class _FilterScreenState extends State<FilterScreen> {
                     //'Sort By'
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Order By',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         elevation: 0,
                         child: Row(
@@ -685,17 +596,14 @@ class _FilterScreenState extends State<FilterScreen> {
                               child: RadioListTile(
                                 title: const Text("Ascending"),
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 activeColor: colorDeepOrange,
                                 value: "ascending",
-                                groupValue:  _filterController.orderBy.value,
+                                groupValue: _filterController.orderBy.value,
                                 onChanged: (value) {
                                   setState(() {
-                                     _filterController.orderBy.value = value.toString();
+                                    _filterController.orderBy.value = value.toString();
                                   });
                                 },
                               ),
@@ -703,17 +611,14 @@ class _FilterScreenState extends State<FilterScreen> {
                             Expanded(
                               child: RadioListTile(
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 title: const Text("Descending"),
                                 value: "descending",
-                                groupValue:  _filterController.orderBy.value,
+                                groupValue: _filterController.orderBy.value,
                                 onChanged: (value) {
                                   setState(() {
-                                     _filterController.orderBy.value = value.toString();
+                                    _filterController.orderBy.value = value.toString();
                                   });
                                 },
                               ),
@@ -730,8 +635,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             onPress: () {},
                             title: 'Apply',
                             backgroundColor: colorDeepOrange,
-                            textStyle: textTheme.bodyMedium
-                                ?.copyWith(color: Colors.white)),
+                            textStyle: textTheme.bodyMedium?.copyWith(color: Colors.white)),
                       ),
                     ),
 
