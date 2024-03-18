@@ -7,6 +7,8 @@ import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/animated_dialog.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
 import 'package:carnotautomart/ui/widget/carnotmart_appbabr.dart';
+import 'package:carnotautomart/ui/widget/checklogin_dialog.dart';
+import 'package:carnotautomart/ui/widget/state_and_city_search_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,8 @@ class PostDetailsScreen extends StatefulWidget {
 }
 
 class _PostDetailsScreenState extends State<PostDetailsScreen> {
-  final filterController = Get.find<FilterController>();
+late FilterController _filterController;
+
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -41,11 +44,13 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
   String featureIdsString = "18,17,16,15,14,10,9,8,7,6,5,4,3,2,1";
   List<int> featureIdsList = [];
   GlobalKey _globalKey = GlobalKey();
+  
 
   //for just text login status
-  bool isLogingUser = true;
+  bool isLogingUser = false;
   @override
   void initState() {
+     _filterController = Get.find<FilterController>();
     _imageSliders = List.generate(
       imgList.length,
       (index) => CachedNetworkImage(
@@ -70,8 +75,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
       // Image.network(imgList[index],
       //     fit: BoxFit.cover, width: double.infinity)
     );
-
-    log(filterController.allFeature.length.toString());
+    _filterController.brands.value = 'Brand';
+    _filterController.model.value = 'Model';
+    log(_filterController.allFeature.length.toString());
     featureIdsList = featureIdsString.split(',').map((e) => int.parse(e)).toList();
 
     print(featureIdsList);
@@ -138,7 +144,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                             width: 95,
                             child: RoundedRectangleButton(
                                 onPress: () {
-                                  showAnimatedDialog(context, contact(context));
+                                  showAnimatedDialog(context, contactSeller(context));
                                 },
                                 title: 'Contact seller',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
@@ -148,10 +154,12 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                             width: 95,
                             child: RoundedRectangleButton(
                                 onPress: () {
-                                  showAnimatedDialog(
-                                    context,
-                                    const CheckLoginDialog(),
-                                  );
+                                  isLogingUser == false
+                                      ? makeAnOffer(context)
+                                      : showAnimatedDialog(
+                                          context,
+                                          const CheckLoginDialog(),
+                                        );
                                 },
                                 title: 'Make an offer',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
@@ -160,7 +168,67 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                             height: 30,
                             width: 95,
                             child: RoundedRectangleButton(
-                                onPress: () {},
+                                onPress: () {
+                                  showAnimateDialogWithBox(
+                                      context,
+                                      "Compare",
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                                            child: Text(
+                                              'Brand',
+                                              style: textTheme.bodySmall
+                                                  ?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+                                            child: MaterialButton(
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                              color: Colors.white,
+                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                              highlightElevation: .5,
+                                              elevation: 0,
+                                              onPressed: () {
+                                                showCupertinoModalPopup(
+                                                    context: context,
+                                                    barrierDismissible: false,
+                                                    builder: (_) {
+                                                      return StateAndCitySearchWidget(
+                                                        appBarTitle: 'Select Brand',
+                                                        selectionType: 'Brand',
+                                                        notifier: (seletedData) {
+                                                          log('Selected result: ${seletedData['name']}');
+                                                          _filterController.brands.value = seletedData['name'];
+                                                          //Get Model Data
+                                                          _filterController.model.value = 'Model';
+                                                          _filterController.getModelByBrand(brandId: seletedData['id']);
+                                                        },
+                                                        findFromSearch: _filterController.dropDownBrand,
+                                                      );
+                                                    });
+                                              },
+                                              child: Row(children: [
+                                                Obx(
+                                                  () => Text(
+                                                    _filterController.brands.value,
+                                                    style: textTheme.bodySmall?.copyWith(
+                                                        color: _filterController.brands.value == 'Brand' ? colorDeepGray : Colors.black,
+                                                        fontWeight: FontWeight.normal),
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                const Icon(
+                                                  Icons.keyboard_arrow_down_rounded,
+                                                  color: colorDeepGray,
+                                                )
+                                              ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ));
+                                },
                                 title: 'Compare',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
                                 textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
@@ -250,7 +318,93 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         ));
   }
 
-  contact(BuildContext context) {
+  makeAnOffer(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    showAnimateDialogWithBox(
+        context,
+        "Make an offer",
+        Column(
+          children: [
+            Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: colorDeepGray.withOpacity(.2),
+                ),
+                child: RichText(
+                  text: TextSpan(
+                      style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+                      text: "Original Price :",
+                      children: [
+                        TextSpan(
+                          style: textTheme.bodySmall?.copyWith(color: colorDeepOrange),
+                          text: "₦ 7,500000,000",
+                        )
+                      ]),
+                )),
+            SpaceHelper.verticalSpaceMedium,
+            TextBoxtWithTitle(
+              headerTitle: 'Offer Price',
+              title: 'Offer Price',
+              width: (DeviceInfo(context).width - 40) - 20,
+              keyboardType: TextInputType.text,
+            ),
+            SpaceHelper.verticalSpaceSmall,
+            TextBoxtWithTitle(
+              headerTitle: 'Full Name',
+              title: 'Full Name',
+              width: (DeviceInfo(context).width - 40) - 20,
+              keyboardType: TextInputType.text,
+            ),
+            SpaceHelper.verticalSpaceSmall,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Message',
+                  style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+                ),
+              ),
+            ),
+            SpaceHelper.verticalSpaceSmall,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Material(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                color: Colors.white,
+                child: TextFormField(
+                  scrollPhysics: BouncingScrollPhysics(),
+                  key: _globalKey,
+                  // controller: _chatController.messageController,
+                  autofocus: false,
+                  maxLines: 5,
+                  // minLines: 5,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.zero,
+                    border: InputBorder.none,
+                    //  border:_border ,
+                    // enabledBorder: _border,
+                    //  focusedBorder: _border,
+
+                    hintStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
+                  ),
+                  keyboardType: TextInputType.text,
+                  style: const TextStyle(fontSize: 16.0, color: Colors.black),
+                  onChanged: (text) {},
+                  onTapOutside: (value) {
+                    // log('onTapOutside called');
+                  },
+                ),
+              ),
+            ),
+            SpaceHelper.verticalSpaceMedium,
+          ],
+        ));
+  }
+
+  contactSeller(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Center(
       child: Material(
@@ -333,9 +487,12 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     keyboardType: TextInputType.number,
                   ),
                   SpaceHelper.verticalSpaceSmall,
-                  Text(
-                    'Message',
-                    style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Message',
+                      style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+                    ),
                   ),
                   SpaceHelper.verticalSpaceSmall,
                   Material(
@@ -401,7 +558,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             direction: Axis.horizontal,
             children: List.generate(featureIdsList.length, (index) {
               final featureId = featureIdsList[index].toString();
-              final feature = filterController.allFeature.firstWhere((item) => item.id == featureId);
+              final feature = _filterController.allFeature.firstWhere((item) => item.id == featureId);
               return SizedBox(
                 width: DeviceInfo(context).width * .40,
                 child: Row(
@@ -1027,33 +1184,4 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
 //           }),
 //     );
 //   }
-}
-
-class CheckLoginDialog extends StatelessWidget {
-  const CheckLoginDialog({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoAlertDialog(
-      content: Text(
-        "Do You Want To Logout Your Account?",
-      ),
-      actions: [
-        CupertinoDialogAction(
-            isDefaultAction: true,
-            onPressed: () {
-              Get.back();
-            },
-            child: const Text("No")),
-        CupertinoDialogAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              // Get.offAll(() => const HomeScreen(), transition: Transition.cupertino);
-            },
-            child: const Text("Yes")),
-      ],
-    );
-  }
 }
