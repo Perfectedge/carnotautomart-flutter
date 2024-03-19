@@ -160,7 +160,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                     log('Selected result: ${seletedData['name']}');
                                     _filterController.brands.value = seletedData['name'];
                                     //Get Model Data
-                                    _filterController.model.value = 'Model';
+                                     _filterController.model.value = 'Model';
                                     _filterController.getModelByBrand(brandId: seletedData['id']);
                                   },
                                   findFromSearch: _filterController.dropDownBrand,

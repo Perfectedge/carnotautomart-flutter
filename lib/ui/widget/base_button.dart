@@ -6,9 +6,11 @@ class BaseButton extends StatefulWidget {
   final Color backgroundColor;
   final TextStyle? textStyle;
   final bool? isBorder;
+  final double? width ;
+  final double? height ;
 
   const BaseButton(
-      {Key? key, required this.onPress, required this.title, required this.backgroundColor, required this.textStyle, this.isBorder = false})
+      {Key? key, required this.onPress, required this.title, required this.backgroundColor, required this.textStyle, this.isBorder = false, this.width, this.height})
       : super(key: key);
 
   @override
@@ -19,8 +21,8 @@ class _BaseBuState extends State<BaseButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: 40.0,
+      width: widget.width ?? double.infinity,
+      height: widget.height ??  40.0,
       child: ElevatedButton(
         onPressed: widget.onPress,
         style: widget.onPress != null

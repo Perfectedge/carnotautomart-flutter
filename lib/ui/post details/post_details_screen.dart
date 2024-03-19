@@ -28,7 +28,7 @@ class PostDetailsScreen extends StatefulWidget {
 }
 
 class _PostDetailsScreenState extends State<PostDetailsScreen> {
-late FilterController _filterController;
+  late FilterController _filterController;
 
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -44,13 +44,12 @@ late FilterController _filterController;
   String featureIdsString = "18,17,16,15,14,10,9,8,7,6,5,4,3,2,1";
   List<int> featureIdsList = [];
   GlobalKey _globalKey = GlobalKey();
-  
 
   //for just text login status
   bool isLogingUser = false;
   @override
   void initState() {
-     _filterController = Get.find<FilterController>();
+    _filterController = Get.find<FilterController>();
     _imageSliders = List.generate(
       imgList.length,
       (index) => CachedNetworkImage(
@@ -169,65 +168,9 @@ late FilterController _filterController;
                             width: 95,
                             child: RoundedRectangleButton(
                                 onPress: () {
-                                  showAnimateDialogWithBox(
-                                      context,
-                                      "Compare",
-                                      Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                                            child: Text(
-                                              'Brand',
-                                              style: textTheme.bodySmall
-                                                  ?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                                            child: MaterialButton(
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                              color: Colors.white,
-                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                              highlightElevation: .5,
-                                              elevation: 0,
-                                              onPressed: () {
-                                                showCupertinoModalPopup(
-                                                    context: context,
-                                                    barrierDismissible: false,
-                                                    builder: (_) {
-                                                      return StateAndCitySearchWidget(
-                                                        appBarTitle: 'Select Brand',
-                                                        selectionType: 'Brand',
-                                                        notifier: (seletedData) {
-                                                          log('Selected result: ${seletedData['name']}');
-                                                          _filterController.brands.value = seletedData['name'];
-                                                          //Get Model Data
-                                                          _filterController.model.value = 'Model';
-                                                          _filterController.getModelByBrand(brandId: seletedData['id']);
-                                                        },
-                                                        findFromSearch: _filterController.dropDownBrand,
-                                                      );
-                                                    });
-                                              },
-                                              child: Row(children: [
-                                                Obx(
-                                                  () => Text(
-                                                    _filterController.brands.value,
-                                                    style: textTheme.bodySmall?.copyWith(
-                                                        color: _filterController.brands.value == 'Brand' ? colorDeepGray : Colors.black,
-                                                        fontWeight: FontWeight.normal),
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                const Icon(
-                                                  Icons.keyboard_arrow_down_rounded,
-                                                  color: colorDeepGray,
-                                                )
-                                              ]),
-                                            ),
-                                          ),
-                                        ],
-                                      ));
+                                  compare(
+                                    context,
+                                  );
                                 },
                                 title: 'Compare',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
@@ -236,7 +179,133 @@ late FilterController _filterController;
                             height: 30,
                             width: 95,
                             child: RoundedRectangleButton(
-                                onPress: () {},
+                                onPress: () {
+                                  showCupertinoModalPopup(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (_) {
+                                        final textTheme = Theme.of(context).textTheme;
+                                        return Scaffold(
+                                          appBar: AppBar(
+                                            backgroundColor: colorLightOrange,
+                                            automaticallyImplyLeading: false,
+                                            elevation: 0,
+                                            centerTitle: true,
+                                            leading: IconButton(
+                                              splashRadius: 30,
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                                            ),
+                                            title: Text("LOAN PROVIDER"),
+                                          ),
+                                          body: Padding(
+                                            padding: EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                CachedNetworkImage(
+                                                  height: 90,
+                                                  width: 117,
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                                                  placeholder: (context, url) => const Center(
+                                                    child: CupertinoActivityIndicator(
+                                                      color: colorDarkAsh,
+                                                    ),
+                                                  ),
+                                                  errorWidget: (context, url, error) => ClipRRect(
+                                                    borderRadius:
+                                                        const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                                                    child: Image.asset(
+                                                      'assets/images/default.png',
+                                                      fit: BoxFit.cover,
+                                                      height: 65,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SpaceHelper.horizontalSpaceSmall,
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Fina Trust icrofinance Bank",
+                                                        maxLines: 1,
+                                                        textAlign: TextAlign.left,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
+                                                      ),
+                                                      SpaceHelper.verticalSpace(5.0),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            "Vehicle Amount",
+                                                            style: textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
+                                                          ),
+                                                          Text(
+                                                            "Comapre",
+                                                            style: textTheme.labelSmall
+                                                                ?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SpaceHelper.verticalSpace(10.0),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          Text("LTV",
+                                                              style:
+                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                          Text("Interest",
+                                                              style:
+                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                          Text("Terms",
+                                                              style:
+                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                        ],
+                                                      ),
+                                                      SpaceHelper.verticalSpace(5.0),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          Text("3%",
+                                                              style:
+                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                          Text("45.00%",
+                                                              style:
+                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                          Text("3 Months",
+                                                              style:
+                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                        ],
+                                                      ),
+                                                      SpaceHelper.verticalSpace(5.0),
+                                                      Row(
+                                                        children: [
+                                                          Container(
+                                                            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(10.0),
+                                                                color: Colors.red.withOpacity(0.2),
+                                                                border: Border.all(width: 0.5, color: Colors.red)),
+                                                            child: Text("data",
+                                                                style: textTheme.labelSmall
+                                                                    ?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal)),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
                                 title: 'Finance',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
                                 textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
@@ -314,6 +383,161 @@ late FilterController _filterController;
                     width: 25,
                   )),
             ),
+          ),
+        ));
+  }
+
+  Future<dynamic> compare(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return customCupertinoModelPopup(
+        context,
+        "Compare",
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Brand',
+                style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+              ),
+              SpaceHelper.verticalSpace(5.0),
+              MaterialButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                color: Colors.white,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                highlightElevation: .5,
+                elevation: 0,
+                onPressed: () {
+                  showCupertinoModalPopup(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) {
+                        return StateAndCitySearchWidget(
+                          appBarTitle: 'Select Brand',
+                          selectionType: 'Brand',
+                          notifier: (seletedData) {
+                            log('Selected result: ${seletedData['name']}');
+                            _filterController.brands.value = seletedData['name'];
+                          },
+                          findFromSearch: _filterController.dropDownBrand,
+                        );
+                      });
+                },
+                child: Row(children: [
+                  Obx(
+                    () => Text(
+                      _filterController.brands.value,
+                      style: textTheme.bodySmall
+                          ?.copyWith(color: _filterController.brands.value == 'Brand' ? colorDeepGray : Colors.black, fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: colorDeepGray,
+                  )
+                ]),
+              ),
+              SpaceHelper.verticalSpaceSmall,
+              Text(
+                'Model',
+                style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+              ),
+              SpaceHelper.verticalSpace(5.0),
+              MaterialButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                color: Colors.white,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                highlightElevation: .5,
+                elevation: 0,
+                onPressed: () {
+                  showCupertinoModalPopup(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) {
+                        return StateAndCitySearchWidget(
+                          appBarTitle: 'Select Model',
+                          selectionType: 'Model',
+                          notifier: (seletedData) {
+                            log('Selected result: ${seletedData['name']}');
+                            _filterController.model.value = seletedData['name'];
+                          },
+                          findFromSearch: _filterController.dropDownModel,
+                        );
+                      });
+                },
+                child: Row(children: [
+                  Obx(
+                    () => Text(
+                      _filterController.model.value,
+                      style: textTheme.bodySmall
+                          ?.copyWith(color: _filterController.model.value == 'Model' ? colorDeepGray : Colors.black, fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: colorDeepGray,
+                  )
+                ]),
+              ),
+              SpaceHelper.verticalSpaceSmall,
+              Text(
+                'Select Year',
+                style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+              ),
+              SpaceHelper.verticalSpace(5.0),
+              MaterialButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                color: Colors.white,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                highlightElevation: .5,
+                elevation: 0,
+                onPressed: () {
+                  showCupertinoModalPopup(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) {
+                        return StateAndCitySearchWidget(
+                          appBarTitle: 'Select Year',
+                          selectionType: 'Select Year',
+                          notifier: (seletedData) {
+                            log('Selected result: ${seletedData['name']}');
+                            _filterController.model.value = seletedData['name'];
+                          },
+                          findFromSearch: _filterController.dropDownModel,
+                        );
+                      });
+                },
+                child: Row(children: [
+                  Obx(
+                    () => Text(
+                      _filterController.model.value,
+                      style: textTheme.bodySmall
+                          ?.copyWith(color: _filterController.model.value == 'Model' ? colorDeepGray : Colors.black, fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: colorDeepGray,
+                  )
+                ]),
+              ),
+              SpaceHelper.verticalSpaceMedium,
+              Align(
+                alignment: Alignment.center,
+                child: BaseButton(
+                    onPress: () {},
+                    height: 30.0,
+                    width: 90.0,
+                    title: "Search",
+                    backgroundColor: Colors.red,
+                    textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
+              ),
+              SpaceHelper.verticalSpace(10.0),
+            ],
           ),
         ));
   }
@@ -400,6 +624,17 @@ late FilterController _filterController;
               ),
             ),
             SpaceHelper.verticalSpaceMedium,
+            Align(
+              alignment: Alignment.center,
+              child: BaseButton(
+                  onPress: () {},
+                  height: 30.0,
+                  width: 90.0,
+                  title: "Send",
+                  backgroundColor: Colors.red,
+                  textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
+            ),
+            SpaceHelper.verticalSpace(10.0),
           ],
         ));
   }
@@ -524,6 +759,17 @@ late FilterController _filterController;
                     ),
                   ),
                   SpaceHelper.verticalSpaceMedium,
+                  Align(
+                    alignment: Alignment.center,
+                    child: BaseButton(
+                        onPress: () {},
+                        height: 30.0,
+                        width: 90.0,
+                        title: "Send",
+                        backgroundColor: Colors.red,
+                        textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
+                  ),
+                  SpaceHelper.verticalSpace(10.0),
                 ],
               ),
             ),
