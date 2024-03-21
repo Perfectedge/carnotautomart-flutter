@@ -40,6 +40,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
   ];
   int _current = 0;
   final CarouselController _carouselController = CarouselController();
+  final PageController pageController = PageController();
   List<Widget> _imageSliders = [];
   String featureIdsString = "18,17,16,15,14,10,9,8,7,6,5,4,3,2,1";
   List<int> featureIdsList = [];
@@ -47,6 +48,10 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
 
   //for just text login status
   bool isLogingUser = false;
+  //for text
+
+  String? yearsValue;
+
   @override
   void initState() {
     _filterController = Get.find<FilterController>();
@@ -180,140 +185,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                             width: 95,
                             child: RoundedRectangleButton(
                                 onPress: () {
-                                  showCupertinoModalPopup(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (_) {
-                                        final textTheme = Theme.of(context).textTheme;
-                                        return Scaffold(
-                                          appBar: AppBar(
-                                            backgroundColor: colorLightOrange,
-                                            automaticallyImplyLeading: false,
-                                            elevation: 0,
-                                            centerTitle: true,
-                                            leading: IconButton(
-                                              splashRadius: 30,
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                                            ),
-                                            title: Text("LOAN PROVIDER",style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
-                                          ),
-                                          body: Padding(
-                                            padding: EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                CachedNetworkImage(
-                                                  height: 88,
-                                                  width: 114,
-                                                  fit: BoxFit.cover,
-                                                  imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
-                                                  placeholder: (context, url) => const Center(
-                                                    child: CupertinoActivityIndicator(
-                                                      color: colorDarkAsh,
-                                                    ),
-                                                  ),
-                                                  errorWidget: (context, url, error) => ClipRRect(
-                                                    borderRadius:
-                                                        const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                                                    child: Image.asset(
-                                                      'assets/images/default.png',
-                                                      fit: BoxFit.cover,
-                                                      height: 65,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SpaceHelper.horizontalSpaceSmall,
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        "Fina Trust icrofinance Bank",
-                                                        maxLines: 1,
-                                                        textAlign: TextAlign.left,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,fontSize: 12.0,color: Colors.black),
-                                                      ),
-                                                      SpaceHelper.verticalSpace(5.0),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            "Vehicle Amount",
-                                                            style: textTheme.bodySmall?.copyWith(
-                                                              color: colorDeepGray,
-                                                              fontSize: 10,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(right: 10.0),
-                                                            child: Text(
-                                                              "Comapre",
-                                                              style: textTheme.bodySmall
-                                                                  ?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SpaceHelper.verticalSpace(5.0),
-
-                                            
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Text("LTV",
-                                                              style:
-                                                                  textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 10.0)),
-                                                          Text("Interest",
-                                                              style:
-                                                                  textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 10.0)),
-                                                          Text("Terms",
-                                                              style:
-                                                                  textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 10.0)),
-                                                        ],
-                                                      ),
-                                                      SpaceHelper.verticalSpace(5.0),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                         crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Text("3%",
-                                                              style:
-                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
-                                                          Text("45.00%",
-                                                              style:
-                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
-                                                          Text("3 Months",
-                                                              style:
-                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
-                                                        ],
-                                                      ),
-                                                      SpaceHelper.verticalSpace(5.0),
-                                                      Row(
-                                                        children: [
-                                                          Container(
-                                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                                                            decoration: BoxDecoration(
-                                                                color: colorLightOrange.withOpacity(.1),
-                                                                borderRadius: BorderRadius.circular(25),
-                                                                border: Border.all(color: colorLightOrange)),
-                                                            child: Text('Documents',
-                                                                style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      });
+                                  financePopup(context);
                                 },
                                 title: 'Finance',
                                 backgroundColor: colorDeepGray.withOpacity(.2),
@@ -394,6 +266,315 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             ),
           ),
         ));
+  }
+
+  Future<dynamic> financePopup(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return dynamicCupertinoModelPopWithAppBar(
+      context: context,
+      appbarName: "LOAN PROVIDER",
+      body: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
+          child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemCount: 5,
+            itemBuilder: (BuildContext context, index) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CachedNetworkImage(
+                    height: 88,
+                    width: 114,
+                    fit: BoxFit.cover,
+                    imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                    placeholder: (context, url) => const Center(
+                      child: CupertinoActivityIndicator(
+                        color: colorDarkAsh,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => ClipRRect(
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                      child: Image.asset(
+                        'assets/images/default.png',
+                        fit: BoxFit.cover,
+                        height: 65,
+                      ),
+                    ),
+                  ),
+                  SpaceHelper.horizontalSpaceSmall,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Fina Trust icrofinance Bank",
+                          maxLines: 1,
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, fontSize: 12.0, color: Colors.black),
+                        ),
+                        SpaceHelper.verticalSpace(5.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Vehicle Amount",
+                              style: textTheme.bodySmall?.copyWith(
+                                color: colorDeepGray,
+                                fontSize: 10,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                "Comapre",
+                                style: textTheme.bodySmall?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SpaceHelper.verticalSpace(5.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                columnTitle("LTV"),
+                                columnTitle("30 %"),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                columnTitle("Interest"),
+                                columnTitle("35.00 %"),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                columnTitle("Terms"),
+                                columnTitle("12"),
+                              ],
+                            )
+                          ],
+                        ),
+                        SpaceHelper.verticalSpace(5.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                showBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(25.0),
+                                        topRight: Radius.circular(25.0),
+                                      ),
+                                    ),
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                          width: MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context).size.height - 200.0,
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "Required Documents",
+                                                    style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 12.0),
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.clear,
+                                                        color: Colors.black,
+                                                      ))
+                                                ],
+                                              )
+                                            ],
+                                          ));
+                                    });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                                decoration: BoxDecoration(
+                                    color: colorLightOrange.withOpacity(.1),
+                                    borderRadius: BorderRadius.circular(25),
+                                    border: Border.all(color: colorLightOrange)),
+                                child: Text('Documents', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                dynamicCupertinoModelPopWithAppBar(
+                                    context: context,
+                                    appbarName: "Eligibility Question".toUpperCase(),
+                                    body: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            textAlign: TextAlign.center,
+                                            "Please answer a few questions to determine if you're eligible or not",
+                                            style: textTheme.bodySmall?.copyWith(
+                                              color: colorDeepGray,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            textAlign: TextAlign.center,
+                                            "Question 1 of 5",
+                                            style: textTheme.bodySmall?.copyWith(
+                                              color: colorDeepOrange,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: PageView(
+                                            allowImplicitScrolling: true,
+                                            onPageChanged: (value) {},
+                                            controller: pageController,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    "Are you 18 years and above ?",
+                                                    style: textTheme.bodySmall?.copyWith(
+                                                      color: Colors.black,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                  SpaceHelper.verticalSpace(5.0),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      CupertinoRadio(
+                                                        value: "yes", 
+                                                        groupValue: yearsValue, 
+                                                        onChanged: (value){
+                                                          yearsValue =value;
+                                                        }
+                                                        ),
+                                                        SpaceHelper.horizontalSpace(5.0),
+                                                        Text("Yes",style: textTheme.bodySmall?.copyWith(
+                                                        color: Colors.black,
+                                                       fontWeight: FontWeight.normal,
+                                                       fontSize: 10,
+                                                    ),)
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      CupertinoRadio(
+                                                        value: "No", 
+                                                        groupValue: yearsValue, 
+                                                        onChanged: (value){
+                                                          yearsValue =value;
+                                                        }
+                                                        ),
+                                                        SpaceHelper.horizontalSpace(5.0),
+                                                        Text("No",style: textTheme.bodySmall?.copyWith(
+                                                        color: Colors.black,
+                                                       fontWeight: FontWeight.normal,
+                                                       fontSize: 10,
+                                                    ),)
+                                                    ],
+                                                  ),
+                                                  SpaceHelper.verticalSpace(10.0),
+                                                  BaseButton(
+                                                    height: 30.0,
+                                                    width: 250,
+                                                    onPress: (){
+
+                                                    }, 
+                                                    title: "Next Question", 
+                                                    backgroundColor: Colors.redAccent, 
+                                                    textStyle: TextStyle(fontSize: 10.0)
+                                                    ),
+
+
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+                                                      },
+                                                      child: Text("next"))
+                                                ],
+                                              ),
+                                              Container(
+                                                height: 200,
+                                                width: 200,
+                                                child: Text("2222"),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                                decoration: BoxDecoration(
+                                    color: colorLightOrange.withOpacity(.1),
+                                    borderRadius: BorderRadius.circular(25),
+                                    border: Border.all(color: colorLightOrange)),
+                                child: Text('Check Eligibility', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return SpaceHelper.verticalSpace(10.0);
+            },
+          )),
+    );
+  }
+
+  //appbar with scafold
+  Future<dynamic> dynamicCupertinoModelPopWithAppBar({required BuildContext context, required String appbarName, required Widget body}) {
+    return showCupertinoModalPopup(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          final textTheme = Theme.of(context).textTheme;
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: colorLightOrange,
+                automaticallyImplyLeading: false,
+                elevation: 0,
+                centerTitle: true,
+                leading: IconButton(
+                  splashRadius: 30,
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                ),
+                title: Text(appbarName, style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
+              ),
+              body: body);
+        });
+  }
+
+//text title with 1 column two tex
+  Text columnTitle(String text) {
+    final textTheme = Theme.of(context).textTheme;
+    return Text(text, style: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 10.0));
   }
 
   Future<dynamic> compare(BuildContext context) {
