@@ -198,7 +198,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                               },
                                               icon: const Icon(Icons.arrow_back_ios_new_rounded),
                                             ),
-                                            title: Text("LOAN PROVIDER"),
+                                            title: Text("LOAN PROVIDER",style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
                                           ),
                                           body: Padding(
                                             padding: EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
@@ -206,8 +206,8 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 CachedNetworkImage(
-                                                  height: 90,
-                                                  width: 117,
+                                                  height: 88,
+                                                  width: 114,
                                                   fit: BoxFit.cover,
                                                   imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
                                                   placeholder: (context, url) => const Center(
@@ -235,7 +235,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                                         maxLines: 1,
                                                         textAlign: TextAlign.left,
                                                         overflow: TextOverflow.ellipsis,
-                                                        style: textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
+                                                        style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,fontSize: 12.0,color: Colors.black),
                                                       ),
                                                       SpaceHelper.verticalSpace(5.0),
                                                       Row(
@@ -243,33 +243,43 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                                         children: [
                                                           Text(
                                                             "Vehicle Amount",
-                                                            style: textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
+                                                            style: textTheme.bodySmall?.copyWith(
+                                                              color: colorDeepGray,
+                                                              fontSize: 10,
+                                                            ),
                                                           ),
-                                                          Text(
-                                                            "Comapre",
-                                                            style: textTheme.labelSmall
-                                                                ?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(right: 10.0),
+                                                            child: Text(
+                                                              "Comapre",
+                                                              style: textTheme.bodySmall
+                                                                  ?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
-                                                      SpaceHelper.verticalSpace(10.0),
+                                                      SpaceHelper.verticalSpace(5.0),
+
+                                            
                                                       Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
                                                         children: [
                                                           Text("LTV",
                                                               style:
-                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                                  textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 10.0)),
                                                           Text("Interest",
                                                               style:
-                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                                  textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 10.0)),
                                                           Text("Terms",
                                                               style:
-                                                                  textTheme.labelSmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal)),
+                                                                  textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal,fontSize: 10.0)),
                                                         ],
                                                       ),
                                                       SpaceHelper.verticalSpace(5.0),
                                                       Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                         children: [
                                                           Text("3%",
                                                               style:
@@ -286,14 +296,13 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                                       Row(
                                                         children: [
                                                           Container(
-                                                            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                                                             decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                color: Colors.red.withOpacity(0.2),
-                                                                border: Border.all(width: 0.5, color: Colors.red)),
-                                                            child: Text("data",
-                                                                style: textTheme.labelSmall
-                                                                    ?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal)),
+                                                                color: colorLightOrange.withOpacity(.1),
+                                                                borderRadius: BorderRadius.circular(25),
+                                                                border: Border.all(color: colorLightOrange)),
+                                                            child: Text('Documents',
+                                                                style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
                                                           ),
                                                         ],
                                                       )
