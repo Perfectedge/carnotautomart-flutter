@@ -49,8 +49,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
   //for just text login status
   bool isLogingUser = false;
   //for text
-
   String? yearsValue;
+  //checkBox value
+  bool? isCheckBoxValue;
 
   @override
   void initState() {
@@ -440,80 +441,139 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                         ),
                                         Expanded(
                                           child: PageView(
-                                            allowImplicitScrolling: true,
                                             onPageChanged: (value) {},
                                             controller: pageController,
                                             children: [
-                                              Column(
-                                                children: [
-                                                  Text(
-                                                    "Are you 18 years and above ?",
-                                                    style: textTheme.bodySmall?.copyWith(
-                                                      color: Colors.black,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                  SpaceHelper.verticalSpace(5.0),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      CupertinoRadio(
-                                                        value: "yes", 
-                                                        groupValue: yearsValue, 
-                                                        onChanged: (value){
-                                                          yearsValue =value;
-                                                        }
-                                                        ),
-                                                        SpaceHelper.horizontalSpace(5.0),
-                                                        Text("Yes",style: textTheme.bodySmall?.copyWith(
-                                                        color: Colors.black,
-                                                       fontWeight: FontWeight.normal,
-                                                       fontSize: 10,
-                                                    ),)
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      CupertinoRadio(
-                                                        value: "No", 
-                                                        groupValue: yearsValue, 
-                                                        onChanged: (value){
-                                                          yearsValue =value;
-                                                        }
-                                                        ),
-                                                        SpaceHelper.horizontalSpace(5.0),
-                                                        Text("No",style: textTheme.bodySmall?.copyWith(
-                                                        color: Colors.black,
-                                                       fontWeight: FontWeight.normal,
-                                                       fontSize: 10,
-                                                    ),)
-                                                    ],
-                                                  ),
-                                                  SpaceHelper.verticalSpace(10.0),
-                                                  BaseButton(
-                                                    height: 30.0,
-                                                    width: 250,
-                                                    onPress: (){
-
-                                                    }, 
-                                                    title: "Next Question", 
-                                                    backgroundColor: Colors.redAccent, 
-                                                    textStyle: TextStyle(fontSize: 10.0)
-                                                    ),
-
-
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
-                                                      },
-                                                      child: Text("next"))
-                                                ],
-                                              ),
+                                              radioButtonQuestion(context, "Are you 18 years and above ?"),
+                                              radioButtonQuestion(context, "Are you a salary earner ?"),
+                                              textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
+                                              checkBoxButtonQuestion(context),
                                               Container(
-                                                height: 200,
-                                                width: 200,
-                                                child: Text("2222"),
+                                                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          "Affordability Question",
+                                                          style: textTheme.bodySmall?.copyWith(
+                                                            color: Colors.black,
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SpaceHelper.verticalSpace(15.0),
+                                                      Text(
+                                                        "Vehicle Amount",
+                                                        style: textTheme.bodySmall?.copyWith(
+                                                          color: colorDeepGray,
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                      SpaceHelper.verticalSpace(5.0),
+                                                      Text(
+                                                        "N 18,000,000",
+                                                        style: textTheme.bodySmall?.copyWith(
+                                                          color: colorDeepOrange,
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                      Divider(),
+                                                      SpaceHelper.verticalSpace(5.0),
+                                                      Text(
+                                                        "Maximum Loan Amount",
+                                                        style: textTheme.bodySmall?.copyWith(
+                                                          color: colorDeepGray,
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                      SpaceHelper.verticalSpace(5.0),
+                                                      Text(
+                                                        "N 12,600,000",
+                                                        style: textTheme.bodySmall?.copyWith(
+                                                          color: colorDeepOrange,
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                      Divider(),
+                                                      SpaceHelper.verticalSpace(20.0),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          CupertinoRadio(
+                                                              value: "yes",
+                                                              groupValue: yearsValue,
+                                                              onChanged: (value) {
+                                                                yearsValue = value;
+                                                              }),
+                                                          SpaceHelper.horizontalSpace(5.0),
+                                                          Text(
+                                                            "Take Max Amount",
+                                                            style: textTheme.bodySmall?.copyWith(
+                                                              color: Colors.black,
+                                                              fontWeight: FontWeight.normal,
+                                                              fontSize: 10,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      SpaceHelper.verticalSpace(15.0),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          CupertinoRadio(
+                                                              value: "No",
+                                                              groupValue: yearsValue,
+                                                              onChanged: (value) {
+                                                                yearsValue = value;
+                                                              }),
+                                                          SpaceHelper.horizontalSpace(5.0),
+                                                          Text(
+                                                            "Custom Loan Amount",
+                                                            style: textTheme.bodySmall?.copyWith(
+                                                              color: Colors.black,
+                                                              fontWeight: FontWeight.normal,
+                                                              fontSize: 10,
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      SpaceHelper.verticalSpace(10.0),
+                                                      Visibility(child: 
+                                                      CupertinoTextField(
+                                                        decoration: BoxDecoration(
+                                                          color: colorDeepGray.withOpacity(.2)
+                                                        ),
+                                                        prefix: Text("data"),
+                                                        placeholder: "kkj",
+                                                      ),
+                                                      ),
+                                                       SpaceHelper.verticalSpace(10.0),
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: nextButton(
+                                                            context: context,
+                                                            onPress: () {
+                                                              pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+                                                            }),
+                                                      ),
+                                                      SpaceHelper.verticalSpace(10.0),
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: previousButton(
+                                                            context: context,
+                                                            onPress: () {
+                                                              pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+                                                            }),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               )
                                             ],
                                           ),
@@ -542,6 +602,205 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
               return SpaceHelper.verticalSpace(10.0);
             },
           )),
+    );
+  }
+
+  Column checkBoxButtonQuestion(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      children: [
+        Text(
+          "Are you a business owner or an employee?",
+          style: textTheme.bodySmall?.copyWith(
+            color: Colors.black,
+            fontSize: 12,
+          ),
+        ),
+        SpaceHelper.verticalSpace(10.0),
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Checkbox(
+                      side: BorderSide(color: Colors.redAccent),
+                      value: false,
+                      onChanged: (value) {
+                        print(value);
+                      }),
+                  Text(
+                    "data",
+                    style: textTheme.bodySmall?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
+              );
+            }),
+        SpaceHelper.verticalSpace(15.0),
+        nextButton(
+            context: context,
+            onPress: () {
+              pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+            }),
+        SpaceHelper.verticalSpace(10.0),
+        previousButton(
+            context: context,
+            onPress: () {
+              pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+            }),
+      ],
+    );
+  }
+
+  Column textButtonQuestion({required BuildContext context, required String question}) {
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      children: [
+        Text(
+          question,
+          style: textTheme.bodySmall?.copyWith(
+            color: Colors.black,
+            fontSize: 12,
+          ),
+        ),
+        SpaceHelper.verticalSpace(10.0),
+        TextFormField(
+          scrollPadding: EdgeInsets.zero,
+          textAlign: TextAlign.center,
+          style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 12.0),
+          maxLines: 1,
+          decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
+              border: InputBorder.none,
+              hintText: "Answer",
+              hintStyle: textTheme.bodySmall?.copyWith(
+                color: colorDeepGray,
+                fontSize: 10.0,
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Container(
+            height: 0.2,
+            color: Colors.black,
+          ),
+        ),
+        SpaceHelper.verticalSpace(15.0),
+        nextButton(
+            context: context,
+            onPress: () {
+              pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+            }),
+        SpaceHelper.verticalSpace(10.0),
+        previousButton(
+            context: context,
+            onPress: () {
+              pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+            }),
+      ],
+    );
+  }
+
+  Column radioButtonQuestion(BuildContext context, String question) {
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      children: [
+        Text(
+          question,
+          style: textTheme.bodySmall?.copyWith(
+            color: Colors.black,
+            fontSize: 12,
+          ),
+        ),
+        SpaceHelper.verticalSpace(5.0),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CupertinoRadio(
+                    value: "yes",
+                    groupValue: yearsValue,
+                    onChanged: (value) {
+                      yearsValue = value;
+                    }),
+                SpaceHelper.horizontalSpace(5.0),
+                Text(
+                  "Yes",
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 10,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CupertinoRadio(
+                    value: "No",
+                    groupValue: yearsValue,
+                    onChanged: (value) {
+                      yearsValue = value;
+                    }),
+                SpaceHelper.horizontalSpace(5.0),
+                Text(
+                  "No ",
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 10,
+                  ),
+                )
+              ],
+            ),
+            SpaceHelper.verticalSpace(10.0),
+            nextButton(
+                context: context,
+                onPress: () {
+                  pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+                }),
+            SpaceHelper.verticalSpace(10.0),
+            previousButton(
+                context: context,
+                onPress: () {
+                  pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+                }),
+          ],
+        ),
+      ],
+    );
+  }
+
+  BaseButton nextButton({required BuildContext context, void Function()? onPress}) {
+    return BaseButton(
+      height: 30.0,
+      width: 250,
+      onPress: onPress,
+      title: "Next Question",
+      backgroundColor: Colors.redAccent,
+      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0),
+    );
+  }
+
+  BaseButton previousButton({required BuildContext context, void Function()? onPress}) {
+    return BaseButton(
+      borderColor: Colors.redAccent,
+      isBorder: true,
+      height: 30.0,
+      width: 250,
+      onPress: onPress,
+      title: "Previous Question",
+      backgroundColor: Colors.transparent,
+      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0, color: colorDeepGray),
     );
   }
 

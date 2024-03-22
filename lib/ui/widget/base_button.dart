@@ -8,9 +8,10 @@ class BaseButton extends StatefulWidget {
   final bool? isBorder;
   final double? width ;
   final double? height ;
+  final Color? borderColor;
 
   const BaseButton(
-      {Key? key, required this.onPress, required this.title, required this.backgroundColor, required this.textStyle, this.isBorder = false, this.width, this.height})
+      {Key? key, required this.onPress, required this.title, required this.backgroundColor, required this.textStyle, this.isBorder = false, this.width, this.height, this.borderColor})
       : super(key: key);
 
   @override
@@ -28,7 +29,7 @@ class _BaseBuState extends State<BaseButton> {
         style: widget.onPress != null
             ? ElevatedButton.styleFrom(
                 backgroundColor: widget.backgroundColor,
-                shape: widget.isBorder == false ? const StadiumBorder() : const StadiumBorder(side: BorderSide(color: Colors.white, width: 2)),
+                shape: widget.isBorder == false ? const StadiumBorder() :  StadiumBorder(side: BorderSide(color: widget.borderColor?? Colors.white, width: 1)),
                 elevation: 0,
                 // shadowColor: AppColors.button1Color,
               )
