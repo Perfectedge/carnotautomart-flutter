@@ -109,146 +109,149 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     Icons.favorite_border_sharp,
                   )),
             ),
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildCarouselSlider(imageSliders: _imageSliders, carouselController: _carouselController, theme: theme),
-                  _buildIdYearAndPriceSection(textTheme),
-                  SpaceHelper.verticalSpace(5),
-                  //Title
-                  Padding(
+            body: Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildCarouselSlider(imageSliders: _imageSliders, carouselController: _carouselController, theme: theme),
+                    _buildIdYearAndPriceSection(textTheme),
+                    SpaceHelper.verticalSpace(5),
+                    //Title
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        child: Text(
+                          'Foreign Used 2012 Ford Explorer 7 WD With DVD And Reverse Camera',
+                          style: textTheme.labelMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Row(children: [
+                        SvgPicture.asset('assets/icons/ic_location_grey.svg'),
+                        SpaceHelper.horizontalSpace(5),
+                        Text(
+                          'Maryland',
+                          style: textTheme.bodySmall?.copyWith(color: colorDeepGray, fontWeight: FontWeight.normal, fontSize: 12),
+                        )
+                      ]),
+                    ),
+                    Wrap(
+                        spacing: 10,
+                        alignment: WrapAlignment.center,
+                        direction: Axis.horizontal,
+                        runAlignment: WrapAlignment.center,
+                        runSpacing: 10,
+                        children: [
+                          SizedBox(
+                              height: 30,
+                              width: 95,
+                              child: RoundedRectangleButton(
+                                  onPress: () {
+                                    showAnimatedDialog(context, contactSeller(context));
+                                  },
+                                  title: 'Contact seller',
+                                  backgroundColor: colorDeepGray.withOpacity(.2),
+                                  textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
+                          SizedBox(
+                              height: 30,
+                              width: 95,
+                              child: RoundedRectangleButton(
+                                  onPress: () {
+                                    isLogingUser == false
+                                        ? makeAnOffer(context)
+                                        : showAnimatedDialog(
+                                            context,
+                                            const CheckLoginDialog(),
+                                          );
+                                  },
+                                  title: 'Make an offer',
+                                  backgroundColor: colorDeepGray.withOpacity(.2),
+                                  textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
+                          SizedBox(
+                              height: 30,
+                              width: 95,
+                              child: RoundedRectangleButton(
+                                  onPress: () {
+                                    compare(
+                                      context,
+                                    );
+                                  },
+                                  title: 'Compare',
+                                  backgroundColor: colorDeepGray.withOpacity(.2),
+                                  textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
+                          SizedBox(
+                              height: 30,
+                              width: 95,
+                              child: RoundedRectangleButton(
+                                  onPress: () {
+                                    financePopup(context);
+                                  },
+                                  title: 'Finance',
+                                  backgroundColor: colorDeepGray.withOpacity(.2),
+                                  textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
+                          SizedBox(
+                              height: 30,
+                              width: 95,
+                              child: RoundedRectangleButton(
+                                  onPress: () {},
+                                  title: 'Insurance',
+                                  backgroundColor: colorDeepGray.withOpacity(.2),
+                                  textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
+                          SizedBox(
+                              height: 30,
+                              width: 95,
+                              child: RoundedRectangleButton(
+                                  onPress: () {},
+                                  title: 'Review',
+                                  backgroundColor: colorDeepGray.withOpacity(.2),
+                                  textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
+                          SizedBox(
+                              height: 30,
+                              width: 180,
+                              child: RoundedRectangleButton(
+                                  onPress: () {},
+                                  title: 'More from this seller',
+                                  backgroundColor: colorLightOrange,
+                                  textStyle: textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.normal))),
+                        ]),
+                    SpaceHelper.verticalSpaceMedium,
+                    buildBrandTable(textTheme),
+                    SpaceHelper.verticalSpaceMedium,
+                    buildDescriptionBox(textTheme),
+                    SpaceHelper.verticalSpaceMedium,
+                    buildRegistrationInfo(textTheme),
+                    SpaceHelper.verticalSpaceMedium,
+                    buildOthersInfo(textTheme),
+                    SpaceHelper.verticalSpaceMedium,
+                    //Special Feature
+                    SpaceHelper.verticalSpaceMedium,
+                    buildSpecialFeature(context, textTheme),
+                    SpaceHelper.verticalSpaceMedium,
+                    Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
-                      child: Text(
-                        'Foreign Used 2012 Ford Explorer 7 WD With DVD And Reverse Camera',
-                        style: textTheme.labelMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Row(children: [
-                      SvgPicture.asset('assets/icons/ic_location_grey.svg'),
-                      SpaceHelper.horizontalSpace(5),
-                      Text(
-                        'Maryland',
-                        style: textTheme.bodySmall?.copyWith(color: colorDeepGray, fontWeight: FontWeight.normal, fontSize: 12),
-                      )
-                    ]),
-                  ),
-                  Wrap(
-                      spacing: 10,
-                      alignment: WrapAlignment.center,
-                      direction: Axis.horizontal,
-                      runAlignment: WrapAlignment.center,
-                      runSpacing: 10,
-                      children: [
-                        SizedBox(
-                            height: 30,
-                            width: 95,
-                            child: RoundedRectangleButton(
-                                onPress: () {
-                                  showAnimatedDialog(context, contactSeller(context));
-                                },
-                                title: 'Contact seller',
-                                backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
-                        SizedBox(
-                            height: 30,
-                            width: 95,
-                            child: RoundedRectangleButton(
-                                onPress: () {
-                                  isLogingUser == false
-                                      ? makeAnOffer(context)
-                                      : showAnimatedDialog(
-                                          context,
-                                          const CheckLoginDialog(),
-                                        );
-                                },
-                                title: 'Make an offer',
-                                backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
-                        SizedBox(
-                            height: 30,
-                            width: 95,
-                            child: RoundedRectangleButton(
-                                onPress: () {
-                                  compare(
-                                    context,
-                                  );
-                                },
-                                title: 'Compare',
-                                backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
-                        SizedBox(
-                            height: 30,
-                            width: 95,
-                            child: RoundedRectangleButton(
-                                onPress: () {
-                                  financePopup(context);
-                                },
-                                title: 'Finance',
-                                backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
-                        SizedBox(
-                            height: 30,
-                            width: 95,
-                            child: RoundedRectangleButton(
-                                onPress: () {},
-                                title: 'Insurance',
-                                backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
-                        SizedBox(
-                            height: 30,
-                            width: 95,
-                            child: RoundedRectangleButton(
-                                onPress: () {},
-                                title: 'Review',
-                                backgroundColor: colorDeepGray.withOpacity(.2),
-                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
-                        SizedBox(
-                            height: 30,
-                            width: 180,
-                            child: RoundedRectangleButton(
-                                onPress: () {},
-                                title: 'More from this seller',
-                                backgroundColor: colorLightOrange,
-                                textStyle: textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.normal))),
-                      ]),
-                  SpaceHelper.verticalSpaceMedium,
-                  buildBrandTable(textTheme),
-                  SpaceHelper.verticalSpaceMedium,
-                  buildDescriptionBox(textTheme),
-                  SpaceHelper.verticalSpaceMedium,
-                  buildRegistrationInfo(textTheme),
-                  SpaceHelper.verticalSpaceMedium,
-                  buildOthersInfo(textTheme),
-                  SpaceHelper.verticalSpaceMedium,
-                  //Special Feature
-                  SpaceHelper.verticalSpaceMedium,
-                  buildSpecialFeature(context, textTheme),
-                  SpaceHelper.verticalSpaceMedium,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Similar Products',
+                            style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Similar Products',
-                          style: textTheme.bodySmall?.copyWith(color: colorLightOrange, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ),
 
-                  //  _buildSimilarProducts
-                  SpaceHelper.verticalSpaceLarge,
-                  SpaceHelper.verticalSpaceLarge,
-                  SpaceHelper.verticalSpaceLarge,
-                ],
+                    //  _buildSimilarProducts
+                    SpaceHelper.verticalSpaceLarge,
+                    SpaceHelper.verticalSpaceLarge,
+                    SpaceHelper.verticalSpaceLarge,
+                  ],
+                ),
               ),
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -441,6 +444,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                         ),
                                         Expanded(
                                           child: PageView(
+                                            physics: NeverScrollableScrollPhysics(),
                                             onPageChanged: (value) {},
                                             controller: pageController,
                                             children: [
@@ -448,133 +452,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                                               radioButtonQuestion(context, "Are you a salary earner ?"),
                                               textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
                                               checkBoxButtonQuestion(context),
-                                              Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                                child: SingleChildScrollView(
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text(
-                                                          "Affordability Question",
-                                                          style: textTheme.bodySmall?.copyWith(
-                                                            color: Colors.black,
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SpaceHelper.verticalSpace(15.0),
-                                                      Text(
-                                                        "Vehicle Amount",
-                                                        style: textTheme.bodySmall?.copyWith(
-                                                          color: colorDeepGray,
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.normal,
-                                                        ),
-                                                      ),
-                                                      SpaceHelper.verticalSpace(5.0),
-                                                      Text(
-                                                        "N 18,000,000",
-                                                        style: textTheme.bodySmall?.copyWith(
-                                                          color: colorDeepOrange,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                      Divider(),
-                                                      SpaceHelper.verticalSpace(5.0),
-                                                      Text(
-                                                        "Maximum Loan Amount",
-                                                        style: textTheme.bodySmall?.copyWith(
-                                                          color: colorDeepGray,
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.normal,
-                                                        ),
-                                                      ),
-                                                      SpaceHelper.verticalSpace(5.0),
-                                                      Text(
-                                                        "N 12,600,000",
-                                                        style: textTheme.bodySmall?.copyWith(
-                                                          color: colorDeepOrange,
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                      Divider(),
-                                                      SpaceHelper.verticalSpace(20.0),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          CupertinoRadio(
-                                                              value: "yes",
-                                                              groupValue: yearsValue,
-                                                              onChanged: (value) {
-                                                                yearsValue = value;
-                                                              }),
-                                                          SpaceHelper.horizontalSpace(5.0),
-                                                          Text(
-                                                            "Take Max Amount",
-                                                            style: textTheme.bodySmall?.copyWith(
-                                                              color: Colors.black,
-                                                              fontWeight: FontWeight.normal,
-                                                              fontSize: 10,
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      SpaceHelper.verticalSpace(15.0),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          CupertinoRadio(
-                                                              value: "No",
-                                                              groupValue: yearsValue,
-                                                              onChanged: (value) {
-                                                                yearsValue = value;
-                                                              }),
-                                                          SpaceHelper.horizontalSpace(5.0),
-                                                          Text(
-                                                            "Custom Loan Amount",
-                                                            style: textTheme.bodySmall?.copyWith(
-                                                              color: Colors.black,
-                                                              fontWeight: FontWeight.normal,
-                                                              fontSize: 10,
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      SpaceHelper.verticalSpace(10.0),
-                                                      Visibility(child: 
-                                                      CupertinoTextField(
-                                                        decoration: BoxDecoration(
-                                                          color: colorDeepGray.withOpacity(.2)
-                                                        ),
-                                                        prefix: Text("data"),
-                                                        placeholder: "kkj",
-                                                      ),
-                                                      ),
-                                                       SpaceHelper.verticalSpace(10.0),
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: nextButton(
-                                                            context: context,
-                                                            onPress: () {
-                                                              pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
-                                                            }),
-                                                      ),
-                                                      SpaceHelper.verticalSpace(10.0),
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: previousButton(
-                                                            context: context,
-                                                            onPress: () {
-                                                              pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
-                                                            }),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
+                                              submitBottonQuestion(context)
                                             ],
                                           ),
                                         ),
@@ -602,6 +480,174 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
               return SpaceHelper.verticalSpace(10.0);
             },
           )),
+    );
+  }
+
+  Container submitBottonQuestion(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Affordability Question",
+                style: textTheme.bodySmall?.copyWith(
+                  color: Colors.black,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            SpaceHelper.verticalSpace(15.0),
+            Text(
+              "Vehicle Amount",
+              style: textTheme.bodySmall?.copyWith(
+                color: colorDeepGray,
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SpaceHelper.verticalSpace(5.0),
+            Text(
+              "₦ 18,000,000",
+              style: textTheme.bodySmall?.copyWith(
+                color: colorDeepOrange,
+                fontSize: 10,
+              ),
+            ),
+            const Divider(),
+            SpaceHelper.verticalSpace(5.0),
+            Text(
+              "Maximum Loan Amount",
+              style: textTheme.bodySmall?.copyWith(
+                color: colorDeepGray,
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SpaceHelper.verticalSpace(5.0),
+            Text(
+              "₦ 12,600,000",
+              style: textTheme.bodySmall?.copyWith(
+                color: colorDeepOrange,
+                fontSize: 10,
+              ),
+            ),
+            const Divider(),
+            SpaceHelper.verticalSpace(20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CupertinoRadio(
+                    value: "yes",
+                    groupValue: yearsValue,
+                    onChanged: (value) {
+                      yearsValue = value;
+                    }),
+                SpaceHelper.horizontalSpace(5.0),
+                Text(
+                  "Take Max Amount",
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 10,
+                  ),
+                )
+              ],
+            ),
+            SpaceHelper.verticalSpace(15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CupertinoRadio(
+                    value: "No",
+                    groupValue: yearsValue,
+                    onChanged: (value) {
+                      yearsValue = value;
+                    }),
+                SpaceHelper.horizontalSpace(5.0),
+                Text(
+                  "Custom Loan Amount",
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 10,
+                  ),
+                )
+              ],
+            ),
+            SpaceHelper.verticalSpace(10.0),
+            monthlyIncomeTextFiled(autoFocus: false, labelText: "Monthly Income"),
+            SpaceHelper.verticalSpace(5.0),
+            monthlyIncomeTextFiled(autoFocus: false, labelText: "Custom Amount"),
+            SpaceHelper.verticalSpace(10.0),
+            Align(
+              alignment: Alignment.center,
+              child: nextButton(
+                  title: "Submit",
+                  context: context,
+                  onPress: () async{
+                   await showDialog(context: context, builder: (BuildContext ){
+                       return CupertinoAlertDialog(
+                        title: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Congratulations",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.black),)),
+                          content: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text ("You are eligible for apply!",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12.0),)),
+                         actions: [
+                              TextButton(onPressed: (){}, child: Text("kjihj")),
+                         ],
+                       
+                       );
+                   });
+                  }),
+            ),
+            SpaceHelper.verticalSpace(10.0),
+            Align(
+              alignment: Alignment.center,
+              child: previousButton(
+                  context: context,
+                  onPress: () {
+                    pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+                  }),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container monthlyIncomeTextFiled({required bool autoFocus, required String labelText}) {
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+      color: colorDeepGray.withOpacity(0.2),
+      child: TextFormField(
+        autofocus: autoFocus,
+        scrollPadding: EdgeInsets.zero,
+        style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal),
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.fromLTRB(6, 6, 6, 6),
+          border: InputBorder.none,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(
+              "₦",
+              style: textTheme.bodySmall?.copyWith(
+                color: colorDeepOrange,
+                fontSize: 12,
+              ),
+            ),
+          ),
+          prefixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 25),
+          labelText: labelText,
+          labelStyle: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12, fontWeight: FontWeight.normal),
+        ),
+      ),
     );
   }
 
@@ -780,12 +826,12 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     );
   }
 
-  BaseButton nextButton({required BuildContext context, void Function()? onPress}) {
+  BaseButton nextButton({required BuildContext context, void Function()? onPress, String? title}) {
     return BaseButton(
       height: 30.0,
       width: 250,
       onPress: onPress,
-      title: "Next Question",
+      title: title ?? "Next Question",
       backgroundColor: Colors.redAccent,
       textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0),
     );
