@@ -1,12 +1,9 @@
-import 'dart:developer';
 
 import 'package:carnotautomart/ui/filter/filter_controller.dart';
 import 'package:carnotautomart/ui/post%20details/apply_for_loan.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
-import 'package:carnotautomart/ui/widget/state_and_city_search_widget.dart';
-import 'package:carnotautomart/ui/widget/title_and_textbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

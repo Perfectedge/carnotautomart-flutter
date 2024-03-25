@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 
- GlobalKey _globalKey = GlobalKey();
+GlobalKey _globalKey = GlobalKey();
 contactSeller(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Center(
