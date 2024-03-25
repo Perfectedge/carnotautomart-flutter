@@ -1,12 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/helper/device_info.dart';
 import '../utils/helper/spacing_helper.dart';
 
 class TextBoxtWithTitle extends StatelessWidget {
-  const TextBoxtWithTitle({super.key, required this.headerTitle, required this.title, required this.width, required this.keyboardType});
-  final String headerTitle;
+  const TextBoxtWithTitle({super.key,  this.headerTitle, required this.title, required this.width, required this.keyboardType});
+  final String? headerTitle;
   final String title;
   final double width;
   final TextInputType keyboardType;
@@ -17,11 +19,16 @@ class TextBoxtWithTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          headerTitle,
-          style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+        Visibility(
+          visible: headerTitle?.isNotEmpty==true,
+          child: Text(
+            headerTitle?? '',
+            style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+          ),
         ),
-        SpaceHelper.verticalSpaceSmall,
+        Visibility(
+          visible: headerTitle?.isNotEmpty==true,
+          child: SpaceHelper.verticalSpaceSmall),
         Material(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           color: Colors.white,

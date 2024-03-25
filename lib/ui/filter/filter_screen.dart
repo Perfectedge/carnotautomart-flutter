@@ -539,7 +539,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           children: [
                             Expanded(
                               child: RadioListTile(
-                                title: const Text("Date"),
+                                title:  Text("Date",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 contentPadding: const EdgeInsets.all(0),
                                 visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -559,7 +559,8 @@ class _FilterScreenState extends State<FilterScreen> {
                                 contentPadding: const EdgeInsets.all(0),
                                 visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                title: const Text("Price"),
+                                activeColor: colorDeepOrange,
+                                title:  Text("Price",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 value: "price",
                                 groupValue: _filterController.sortValue.value,
                                 onChanged: (value) {
@@ -594,7 +595,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           children: [
                             Expanded(
                               child: RadioListTile(
-                                title: const Text("Ascending"),
+                                title:  Text("Ascending",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 contentPadding: const EdgeInsets.all(0),
                                 visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -613,7 +614,8 @@ class _FilterScreenState extends State<FilterScreen> {
                                 contentPadding: const EdgeInsets.all(0),
                                 visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                title: const Text("Descending"),
+                                 activeColor: colorDeepOrange,
+                                title:  Text("Descending",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 value: "descending",
                                 groupValue: _filterController.orderBy.value,
                                 onChanged: (value) {

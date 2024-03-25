@@ -2,7 +2,12 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carnotautomart/ui/filter/filter_controller.dart';
+import 'package:carnotautomart/ui/post%20details/apply_for_loan.dart';
+import 'package:carnotautomart/ui/post%20details/loan_provider.dart';
 import 'package:carnotautomart/ui/post%20details/pinch_image.dart';
+import 'package:carnotautomart/ui/utils/common_method.dart/common_method.dart';
+import 'package:carnotautomart/ui/utils/common_method.dart/contact_part.dart';
+import 'package:carnotautomart/ui/utils/common_method.dart/make_an_offer.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/animated_dialog.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
@@ -188,7 +193,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                               width: 95,
                               child: RoundedRectangleButton(
                                   onPress: () {
-                                    financePopup(context);
+                                    Get.to(()=> LoadProviderScreen(),transition: Transition.downToUp,duration: Duration(seconds: 1));
                                   },
                                   title: 'Finance',
                                   backgroundColor: colorDeepGray.withOpacity(.2),
@@ -272,615 +277,621 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         ));
   }
 
-  Future<dynamic> financePopup(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return dynamicCupertinoModelPopWithAppBar(
-      context: context,
-      appbarName: "LOAN PROVIDER",
-      body: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (BuildContext context, index) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CachedNetworkImage(
-                    height: 88,
-                    width: 114,
-                    fit: BoxFit.cover,
-                    imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
-                    placeholder: (context, url) => const Center(
-                      child: CupertinoActivityIndicator(
-                        color: colorDarkAsh,
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => ClipRRect(
-                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                      child: Image.asset(
-                        'assets/images/default.png',
-                        fit: BoxFit.cover,
-                        height: 65,
-                      ),
-                    ),
-                  ),
-                  SpaceHelper.horizontalSpaceSmall,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Fina Trust icrofinance Bank",
-                          maxLines: 1,
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, fontSize: 12.0, color: Colors.black),
-                        ),
-                        SpaceHelper.verticalSpace(5.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Vehicle Amount",
-                              style: textTheme.bodySmall?.copyWith(
-                                color: colorDeepGray,
-                                fontSize: 10,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: Text(
-                                "Comapre",
-                                style: textTheme.bodySmall?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SpaceHelper.verticalSpace(5.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                columnTitle("LTV"),
-                                columnTitle("30 %"),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                columnTitle("Interest"),
-                                columnTitle("35.00 %"),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                columnTitle("Terms"),
-                                columnTitle("12"),
-                              ],
-                            )
-                          ],
-                        ),
-                        SpaceHelper.verticalSpace(5.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25.0),
-                                        topRight: Radius.circular(25.0),
-                                      ),
-                                    ),
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                          width: MediaQuery.of(context).size.width,
-                                          height: MediaQuery.of(context).size.height - 200.0,
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Required Documents",
-                                                    style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 12.0),
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        Get.back();
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.clear,
-                                                        color: Colors.black,
-                                                      ))
-                                                ],
-                                              )
-                                            ],
-                                          ));
-                                    });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                                decoration: BoxDecoration(
-                                    color: colorLightOrange.withOpacity(.1),
-                                    borderRadius: BorderRadius.circular(25),
-                                    border: Border.all(color: colorLightOrange)),
-                                child: Text('Documents', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                dynamicCupertinoModelPopWithAppBar(
-                                    context: context,
-                                    appbarName: "Eligibility Question".toUpperCase(),
-                                    body: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            textAlign: TextAlign.center,
-                                            "Please answer a few questions to determine if you're eligible or not",
-                                            style: textTheme.bodySmall?.copyWith(
-                                              color: colorDeepGray,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            textAlign: TextAlign.center,
-                                            "Question 1 of 5",
-                                            style: textTheme.bodySmall?.copyWith(
-                                              color: colorDeepOrange,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: PageView(
-                                            physics: NeverScrollableScrollPhysics(),
-                                            onPageChanged: (value) {},
-                                            controller: pageController,
-                                            children: [
-                                              radioButtonQuestion(context, "Are you 18 years and above ?"),
-                                              radioButtonQuestion(context, "Are you a salary earner ?"),
-                                              textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
-                                              checkBoxButtonQuestion(context),
-                                              submitBottonQuestion(context)
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ));
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                                decoration: BoxDecoration(
-                                    color: colorLightOrange.withOpacity(.1),
-                                    borderRadius: BorderRadius.circular(25),
-                                    border: Border.all(color: colorLightOrange)),
-                                child: Text('Check Eligibility', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return SpaceHelper.verticalSpace(10.0);
-            },
-          )),
-    );
-  }
+  // Future<dynamic> financePopup(BuildContext context) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return dynamicCupertinoModelPopWithAppBar(
+  //     context: context,
+  //     appbarName: "LOAN PROVIDER",
+  //     body: Padding(
+  //         padding: const EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
+  //         child: ListView.separated(
+  //           physics: const BouncingScrollPhysics(),
+  //           itemCount: 5,
+  //           itemBuilder: (BuildContext context, index) {
+  //             return Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 CachedNetworkImage(
+  //                   height: 88,
+  //                   width: 114,
+  //                   fit: BoxFit.cover,
+  //                   imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+  //                   placeholder: (context, url) => const Center(
+  //                     child: CupertinoActivityIndicator(
+  //                       color: colorDarkAsh,
+  //                     ),
+  //                   ),
+  //                   errorWidget: (context, url, error) => ClipRRect(
+  //                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+  //                     child: Image.asset(
+  //                       'assets/images/default.png',
+  //                       fit: BoxFit.cover,
+  //                       height: 65,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 SpaceHelper.horizontalSpaceSmall,
+  //                 Expanded(
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(
+  //                         "Fina Trust icrofinance Bank",
+  //                         maxLines: 1,
+  //                         textAlign: TextAlign.left,
+  //                         overflow: TextOverflow.ellipsis,
+  //                         style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, fontSize: 12.0, color: Colors.black),
+  //                       ),
+  //                       SpaceHelper.verticalSpace(5.0),
+  //                       Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                         children: [
+  //                           Text(
+  //                             "Vehicle Amount",
+  //                             style: textTheme.bodySmall?.copyWith(
+  //                               color: colorDeepGray,
+  //                               fontSize: 10,
+  //                             ),
+  //                           ),
+  //                           Padding(
+  //                             padding: const EdgeInsets.only(right: 10.0),
+  //                             child: Text(
+  //                               "Comapre",
+  //                               style: textTheme.bodySmall?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                       SpaceHelper.verticalSpace(5.0),
+  //                       Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //                         children: [
+  //                           Column(
+  //                             children: [
+  //                               columnTitle("LTV"),
+  //                               columnTitle("30 %"),
+  //                             ],
+  //                           ),
+  //                           Column(
+  //                             children: [
+  //                               columnTitle("Interest"),
+  //                               columnTitle("35.00 %"),
+  //                             ],
+  //                           ),
+  //                           Column(
+  //                             children: [
+  //                               columnTitle("Terms"),
+  //                               columnTitle("12"),
+  //                             ],
+  //                           )
+  //                         ],
+  //                       ),
+  //                       SpaceHelper.verticalSpace(5.0),
+  //                       Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                         children: [
+  //                           GestureDetector(
+  //                             onTap: () {
+  //                               showBottomSheet(
+  //                                   shape: const RoundedRectangleBorder(
+  //                                     borderRadius: BorderRadius.only(
+  //                                       topLeft: Radius.circular(25.0),
+  //                                       topRight: Radius.circular(25.0),
+  //                                     ),
+  //                                   ),
+  //                                   context: context,
+  //                                   builder: (BuildContext context) {
+  //                                     return Container(
+  //                                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
+  //                                         width: MediaQuery.of(context).size.width,
+  //                                         height: MediaQuery.of(context).size.height - 200.0,
+  //                                         child: Column(
+  //                                           children: [
+  //                                             Row(
+  //                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                                               children: [
+  //                                                 Text(
+  //                                                   "Required Documents",
+  //                                                   style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 12.0),
+  //                                                 ),
+  //                                                 IconButton(
+  //                                                     onPressed: () {
+  //                                                       Get.back();
+  //                                                     },
+  //                                                     icon: const Icon(
+  //                                                       Icons.clear,
+  //                                                       color: Colors.black,
+  //                                                     ))
+  //                                               ],
+  //                                             )
+  //                                           ],
+  //                                         ));
+  //                                   });
+  //                             },
+  //                             child: Container(
+  //                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+  //                               decoration: BoxDecoration(
+  //                                   color: colorLightOrange.withOpacity(.1),
+  //                                   borderRadius: BorderRadius.circular(25),
+  //                                   border: Border.all(color: colorLightOrange)),
+  //                               child: Text('Documents', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
+  //                             ),
+  //                           ),
+  //                           GestureDetector(
+  //                             onTap: () {
+  //                               dynamicCupertinoModelPopWithAppBar(
+  //                                   context: context,
+  //                                   appbarName: "Eligibility Question".toUpperCase(),
+  //                                   body: Column(
+  //                                     mainAxisAlignment: MainAxisAlignment.center,
+  //                                     children: [
+  //                                       Padding(
+  //                                         padding: const EdgeInsets.all(8.0),
+  //                                         child: Text(
+  //                                           textAlign: TextAlign.center,
+  //                                           "Please answer a few questions to determine if you're eligible or not",
+  //                                           style: textTheme.bodySmall?.copyWith(
+  //                                             color: colorDeepGray,
+  //                                             fontSize: 12,
+  //                                           ),
+  //                                         ),
+  //                                       ),
+  //                                       Padding(
+  //                                         padding: const EdgeInsets.all(8.0),
+  //                                         child: Text(
+  //                                           textAlign: TextAlign.center,
+  //                                           "Question 1 of 5",
+  //                                           style: textTheme.bodySmall?.copyWith(
+  //                                             color: colorDeepOrange,
+  //                                             fontSize: 12,
+  //                                           ),
+  //                                         ),
+  //                                       ),
+  //                                       Expanded(
+  //                                         child: PageView(
+  //                                           physics: NeverScrollableScrollPhysics(),
+  //                                           onPageChanged: (value) {},
+  //                                           controller: pageController,
+  //                                           children: [
+  //                                             radioButtonQuestion(context, "Are you 18 years and above ?"),
+  //                                             radioButtonQuestion(context, "Are you a salary earner ?"),
+  //                                             textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
+  //                                             checkBoxButtonQuestion(context),
+  //                                             submitBottonQuestion(context)
+  //                                           ],
+  //                                         ),
+  //                                       ),
+  //                                     ],
+  //                                   ));
+  //                             },
+  //                             child: Container(
+  //                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+  //                               decoration: BoxDecoration(
+  //                                   color: colorLightOrange.withOpacity(.1),
+  //                                   borderRadius: BorderRadius.circular(25),
+  //                                   border: Border.all(color: colorLightOrange)),
+  //                               child: Text('Check Eligibility', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       )
+  //                     ],
+  //                   ),
+  //                 )
+  //               ],
+  //             );
+  //           },
+  //           separatorBuilder: (BuildContext context, int index) {
+  //             return SpaceHelper.verticalSpace(10.0);
+  //           },
+  //          )
+  //         ),
+  //   );
+  // }
 
-  Container submitBottonQuestion(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Affordability Question",
-                style: textTheme.bodySmall?.copyWith(
-                  color: Colors.black,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            SpaceHelper.verticalSpace(15.0),
-            Text(
-              "Vehicle Amount",
-              style: textTheme.bodySmall?.copyWith(
-                color: colorDeepGray,
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SpaceHelper.verticalSpace(5.0),
-            Text(
-              "₦ 18,000,000",
-              style: textTheme.bodySmall?.copyWith(
-                color: colorDeepOrange,
-                fontSize: 10,
-              ),
-            ),
-            const Divider(),
-            SpaceHelper.verticalSpace(5.0),
-            Text(
-              "Maximum Loan Amount",
-              style: textTheme.bodySmall?.copyWith(
-                color: colorDeepGray,
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SpaceHelper.verticalSpace(5.0),
-            Text(
-              "₦ 12,600,000",
-              style: textTheme.bodySmall?.copyWith(
-                color: colorDeepOrange,
-                fontSize: 10,
-              ),
-            ),
-            const Divider(),
-            SpaceHelper.verticalSpace(20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CupertinoRadio(
-                    value: "yes",
-                    groupValue: yearsValue,
-                    onChanged: (value) {
-                      yearsValue = value;
-                    }),
-                SpaceHelper.horizontalSpace(5.0),
-                Text(
-                  "Take Max Amount",
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 10,
-                  ),
-                )
-              ],
-            ),
-            SpaceHelper.verticalSpace(15.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CupertinoRadio(
-                    value: "No",
-                    groupValue: yearsValue,
-                    onChanged: (value) {
-                      yearsValue = value;
-                    }),
-                SpaceHelper.horizontalSpace(5.0),
-                Text(
-                  "Custom Loan Amount",
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 10,
-                  ),
-                )
-              ],
-            ),
-            SpaceHelper.verticalSpace(10.0),
-            monthlyIncomeTextFiled(autoFocus: false, labelText: "Monthly Income"),
-            SpaceHelper.verticalSpace(5.0),
-            monthlyIncomeTextFiled(autoFocus: false, labelText: "Custom Amount"),
-            SpaceHelper.verticalSpace(10.0),
-            Align(
-              alignment: Alignment.center,
-              child: nextButton(
-                  title: "Submit",
-                  context: context,
-                  onPress: () async{
-                   await showDialog(context: context, builder: (BuildContext ){
-                       return CupertinoAlertDialog(
-                        title: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("Congratulations",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.black),)),
-                          content: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text ("You are eligible for apply!",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12.0),)),
-                         actions: [
-                              TextButton(onPressed: (){}, child: Text("kjihj")),
-                         ],
+  // Container submitBottonQuestion(BuildContext context) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
+  //     child: SingleChildScrollView(
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           Align(
+  //             alignment: Alignment.center,
+  //             child: Text(
+  //               "Affordability Question",
+  //               style: textTheme.bodySmall?.copyWith(
+  //                 color: Colors.black,
+  //                 fontSize: 12,
+  //               ),
+  //             ),
+  //           ),
+  //           SpaceHelper.verticalSpace(15.0),
+  //           Text(
+  //             "Vehicle Amount",
+  //             style: textTheme.bodySmall?.copyWith(
+  //               color: colorDeepGray,
+  //               fontSize: 12,
+  //               fontWeight: FontWeight.normal,
+  //             ),
+  //           ),
+  //           SpaceHelper.verticalSpace(5.0),
+  //           Text(
+  //             "₦ 18,000,000",
+  //             style: textTheme.bodySmall?.copyWith(
+  //               color: colorDeepOrange,
+  //               fontSize: 10,
+  //             ),
+  //           ),
+  //           const Divider(),
+  //           SpaceHelper.verticalSpace(5.0),
+  //           Text(
+  //             "Maximum Loan Amount",
+  //             style: textTheme.bodySmall?.copyWith(
+  //               color: colorDeepGray,
+  //               fontSize: 12,
+  //               fontWeight: FontWeight.normal,
+  //             ),
+  //           ),
+  //           SpaceHelper.verticalSpace(5.0),
+  //           Text(
+  //             "₦ 12,600,000",
+  //             style: textTheme.bodySmall?.copyWith(
+  //               color: colorDeepOrange,
+  //               fontSize: 10,
+  //             ),
+  //           ),
+  //           const Divider(),
+  //           SpaceHelper.verticalSpace(20.0),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.start,
+  //             children: [
+  //               CupertinoRadio(
+  //                   value: "yes",
+  //                   groupValue: yearsValue,
+  //                   onChanged: (value) {
+  //                     yearsValue = value;
+  //                   }),
+  //               SpaceHelper.horizontalSpace(5.0),
+  //               Text(
+  //                 "Take Max Amount",
+  //                 style: textTheme.bodySmall?.copyWith(
+  //                   color: Colors.black,
+  //                   fontWeight: FontWeight.normal,
+  //                   fontSize: 10,
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //           SpaceHelper.verticalSpace(15.0),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.start,
+  //             children: [
+  //               CupertinoRadio(
+  //                   value: "No",
+  //                   groupValue: yearsValue,
+  //                   onChanged: (value) {
+  //                     yearsValue = value;
+  //                   }),
+  //               SpaceHelper.horizontalSpace(5.0),
+  //               Text(
+  //                 "Custom Loan Amount",
+  //                 style: textTheme.bodySmall?.copyWith(
+  //                   color: Colors.black,
+  //                   fontWeight: FontWeight.normal,
+  //                   fontSize: 10,
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //           SpaceHelper.verticalSpace(10.0),
+  //           monthlyIncomeTextFiled(autoFocus: false, labelText: "Monthly Income"),
+  //           SpaceHelper.verticalSpace(5.0),
+  //           monthlyIncomeTextFiled(autoFocus: false, labelText: "Custom Amount"),
+  //           SpaceHelper.verticalSpace(10.0),
+  //           Align(
+  //             alignment: Alignment.center,
+  //             child: nextButton(
+  //                 title: "Submit",
+  //                 context: context,
+  //                 onPress: () async{
+  //                  await showDialog(context: context, builder: (BuildContext ){
+  //                      return CupertinoAlertDialog(
+  //                       title: Align(
+  //                         alignment: Alignment.centerLeft,
+  //                         child: Text("Congratulations",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 16.0),)),
+  //                         content: Align(
+  //                           alignment: Alignment.centerLeft,
+  //                           child: Text ("You are eligible for apply!",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12.0),)),
+  //                        actions: [
+  //                             TextButton(onPressed: (){
+  //                               Get.back();
+  //                             }, child: Text("CANCEL",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.redAccent,fontSize: 10.0),)),
+  //                             TextButton(onPressed: (){
+  //                                Get.to(()=> ApplyForLoan(),transition: Transition.downToUp,duration: Duration(seconds: 1));
+  //                             }, child: Text("APPLY",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.redAccent,fontSize: 10.0),)),
+  //                        ],
                        
-                       );
-                   });
-                  }),
-            ),
-            SpaceHelper.verticalSpace(10.0),
-            Align(
-              alignment: Alignment.center,
-              child: previousButton(
-                  context: context,
-                  onPress: () {
-                    pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
-                  }),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  //                      );
+  //                  });
+  //                 }),
+  //           ),
+  //           SpaceHelper.verticalSpace(10.0),
+  //           Align(
+  //             alignment: Alignment.center,
+  //             child: previousButton(
+  //                 context: context,
+  //                 onPress: () {
+  //                   pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+  //                 }),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Container monthlyIncomeTextFiled({required bool autoFocus, required String labelText}) {
-    final textTheme = Theme.of(context).textTheme;
-    return Container(
-      color: colorDeepGray.withOpacity(0.2),
-      child: TextFormField(
-        autofocus: autoFocus,
-        scrollPadding: EdgeInsets.zero,
-        style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal),
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(6, 6, 6, 6),
-          border: InputBorder.none,
-          prefixIcon: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: Text(
-              "₦",
-              style: textTheme.bodySmall?.copyWith(
-                color: colorDeepOrange,
-                fontSize: 12,
-              ),
-            ),
-          ),
-          prefixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 25),
-          labelText: labelText,
-          labelStyle: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12, fontWeight: FontWeight.normal),
-        ),
-      ),
-    );
-  }
+  // Container monthlyIncomeTextFiled({required bool autoFocus, required String labelText}) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return Container(
+  //     color: colorDeepGray.withOpacity(0.2),
+  //     child: TextFormField(
+  //       autofocus: autoFocus,
+  //       scrollPadding: EdgeInsets.zero,
+  //       style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal),
+  //       decoration: InputDecoration(
+  //         contentPadding: const EdgeInsets.fromLTRB(6, 6, 6, 6),
+  //         border: InputBorder.none,
+  //         prefixIcon: Padding(
+  //           padding: const EdgeInsets.symmetric(horizontal: 5.0),
+  //           child: Text(
+  //             "₦",
+  //             style: textTheme.bodySmall?.copyWith(
+  //               color: colorDeepOrange,
+  //               fontSize: 12,
+  //             ),
+  //           ),
+  //         ),
+  //         prefixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 25),
+  //         labelText: labelText,
+  //         labelStyle: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12, fontWeight: FontWeight.normal),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Column checkBoxButtonQuestion(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Column(
-      children: [
-        Text(
-          "Are you a business owner or an employee?",
-          style: textTheme.bodySmall?.copyWith(
-            color: Colors.black,
-            fontSize: 12,
-          ),
-        ),
-        SpaceHelper.verticalSpace(10.0),
-        ListView.builder(
-            shrinkWrap: true,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                      side: BorderSide(color: Colors.redAccent),
-                      value: false,
-                      onChanged: (value) {
-                        print(value);
-                      }),
-                  Text(
-                    "data",
-                    style: textTheme.bodySmall?.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              );
-            }),
-        SpaceHelper.verticalSpace(15.0),
-        nextButton(
-            context: context,
-            onPress: () {
-              pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
-            }),
-        SpaceHelper.verticalSpace(10.0),
-        previousButton(
-            context: context,
-            onPress: () {
-              pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
-            }),
-      ],
-    );
-  }
+  // Column checkBoxButtonQuestion(BuildContext context) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return Column(
+  //     children: [
+  //       Text(
+  //         "Are you a business owner or an employee?",
+  //         style: textTheme.bodySmall?.copyWith(
+  //           color: Colors.black,
+  //           fontSize: 12,
+  //         ),
+  //       ),
+  //       SpaceHelper.verticalSpace(10.0),
+  //       ListView.builder(
+  //           shrinkWrap: true,
+  //           itemCount: 3,
+  //           itemBuilder: (context, index) {
+  //             return Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 Checkbox(
+  //                     side: BorderSide(color: Colors.redAccent),
+  //                     value: false,
+  //                     onChanged: (value) {
+  //                       print(value);
+  //                     }),
+  //                 Text(
+  //                   "data",
+  //                   style: textTheme.bodySmall?.copyWith(
+  //                     color: Colors.black,
+  //                     fontWeight: FontWeight.normal,
+  //                     fontSize: 10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             );
+  //           }),
+  //       SpaceHelper.verticalSpace(15.0),
+  //       nextButton(
+  //           context: context,
+  //           onPress: () {
+  //             pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+  //           }),
+  //       SpaceHelper.verticalSpace(10.0),
+  //       previousButton(
+  //           context: context,
+  //           onPress: () {
+  //             pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+  //           }),
+  //     ],
+  //   );
+  // }
 
-  Column textButtonQuestion({required BuildContext context, required String question}) {
-    final textTheme = Theme.of(context).textTheme;
-    return Column(
-      children: [
-        Text(
-          question,
-          style: textTheme.bodySmall?.copyWith(
-            color: Colors.black,
-            fontSize: 12,
-          ),
-        ),
-        SpaceHelper.verticalSpace(10.0),
-        TextFormField(
-          scrollPadding: EdgeInsets.zero,
-          textAlign: TextAlign.center,
-          style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 12.0),
-          maxLines: 1,
-          decoration: InputDecoration(
-              isDense: true,
-              contentPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
-              border: InputBorder.none,
-              hintText: "Answer",
-              hintStyle: textTheme.bodySmall?.copyWith(
-                color: colorDeepGray,
-                fontSize: 10.0,
-              )),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Container(
-            height: 0.2,
-            color: Colors.black,
-          ),
-        ),
-        SpaceHelper.verticalSpace(15.0),
-        nextButton(
-            context: context,
-            onPress: () {
-              pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
-            }),
-        SpaceHelper.verticalSpace(10.0),
-        previousButton(
-            context: context,
-            onPress: () {
-              pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
-            }),
-      ],
-    );
-  }
+  // Column textButtonQuestion({required BuildContext context, required String question}) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return Column(
+  //     children: [
+  //       Text(
+  //         question,
+  //         style: textTheme.bodySmall?.copyWith(
+  //           color: Colors.black,
+  //           fontSize: 12,
+  //         ),
+  //       ),
+  //       SpaceHelper.verticalSpace(10.0),
+  //       TextFormField(
+  //         scrollPadding: EdgeInsets.zero,
+  //         textAlign: TextAlign.center,
+  //         style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 12.0),
+  //         maxLines: 1,
+  //         decoration: InputDecoration(
+  //             isDense: true,
+  //             contentPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
+  //             border: InputBorder.none,
+  //             hintText: "Answer",
+  //             hintStyle: textTheme.bodySmall?.copyWith(
+  //               color: colorDeepGray,
+  //               fontSize: 10.0,
+  //             )),
+  //       ),
+  //       Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+  //         child: Container(
+  //           height: 0.2,
+  //           color: Colors.black,
+  //         ),
+  //       ),
+  //       SpaceHelper.verticalSpace(15.0),
+  //       nextButton(
+  //           context: context,
+  //           onPress: () {
+  //             pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+  //           }),
+  //       SpaceHelper.verticalSpace(10.0),
+  //       previousButton(
+  //           context: context,
+  //           onPress: () {
+  //             pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+  //           }),
+  //     ],
+  //   );
+  // }
 
-  Column radioButtonQuestion(BuildContext context, String question) {
-    final textTheme = Theme.of(context).textTheme;
-    return Column(
-      children: [
-        Text(
-          question,
-          style: textTheme.bodySmall?.copyWith(
-            color: Colors.black,
-            fontSize: 12,
-          ),
-        ),
-        SpaceHelper.verticalSpace(5.0),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CupertinoRadio(
-                    value: "yes",
-                    groupValue: yearsValue,
-                    onChanged: (value) {
-                      yearsValue = value;
-                    }),
-                SpaceHelper.horizontalSpace(5.0),
-                Text(
-                  "Yes",
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 10,
-                  ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CupertinoRadio(
-                    value: "No",
-                    groupValue: yearsValue,
-                    onChanged: (value) {
-                      yearsValue = value;
-                    }),
-                SpaceHelper.horizontalSpace(5.0),
-                Text(
-                  "No ",
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 10,
-                  ),
-                )
-              ],
-            ),
-            SpaceHelper.verticalSpace(10.0),
-            nextButton(
-                context: context,
-                onPress: () {
-                  pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
-                }),
-            SpaceHelper.verticalSpace(10.0),
-            previousButton(
-                context: context,
-                onPress: () {
-                  pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
-                }),
-          ],
-        ),
-      ],
-    );
-  }
+  // Column radioButtonQuestion(BuildContext context, String question) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return Column(
+  //     children: [
+  //       Text(
+  //         question,
+  //         style: textTheme.bodySmall?.copyWith(
+  //           color: Colors.black,
+  //           fontSize: 12,
+  //         ),
+  //       ),
+  //       SpaceHelper.verticalSpace(5.0),
+  //       Column(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         children: [
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               CupertinoRadio(
+  //                   value: "yes",
+  //                   groupValue: yearsValue,
+  //                   onChanged: (value) {
+  //                     yearsValue = value;
+  //                   }),
+  //               SpaceHelper.horizontalSpace(5.0),
+  //               Text(
+  //                 "Yes",
+  //                 style: textTheme.bodySmall?.copyWith(
+  //                   color: Colors.black,
+  //                   fontWeight: FontWeight.normal,
+  //                   fontSize: 10,
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               CupertinoRadio(
+  //                   value: "No",
+  //                   groupValue: yearsValue,
+  //                   onChanged: (value) {
+  //                     yearsValue = value;
+  //                   }),
+  //               SpaceHelper.horizontalSpace(5.0),
+  //               Text(
+  //                 "No ",
+  //                 style: textTheme.bodySmall?.copyWith(
+  //                   color: Colors.black,
+  //                   fontWeight: FontWeight.normal,
+  //                   fontSize: 10,
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //           SpaceHelper.verticalSpace(10.0),
+  //           nextButton(
+  //               context: context,
+  //               onPress: () {
+  //                 pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.ease);
+  //               }),
+  //           SpaceHelper.verticalSpace(10.0),
+  //           previousButton(
+  //               context: context,
+  //               onPress: () {
+  //                 pageController.previousPage(duration: Duration(seconds: 1), curve: Curves.ease);
+  //               }),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  BaseButton nextButton({required BuildContext context, void Function()? onPress, String? title}) {
-    return BaseButton(
-      height: 30.0,
-      width: 250,
-      onPress: onPress,
-      title: title ?? "Next Question",
-      backgroundColor: Colors.redAccent,
-      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0),
-    );
-  }
+  // BaseButton nextButton({required BuildContext context, void Function()? onPress, String? title}) {
+  //   return BaseButton(
+  //     height: 30.0,
+  //     width: 250,
+  //     onPress: onPress,
+  //     title: title ?? "Next Question",
+  //     backgroundColor: Colors.redAccent,
+  //     textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0),
+  //   );
+  // }
 
-  BaseButton previousButton({required BuildContext context, void Function()? onPress}) {
-    return BaseButton(
-      borderColor: Colors.redAccent,
-      isBorder: true,
-      height: 30.0,
-      width: 250,
-      onPress: onPress,
-      title: "Previous Question",
-      backgroundColor: Colors.transparent,
-      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0, color: colorDeepGray),
-    );
-  }
+  // BaseButton previousButton({required BuildContext context, void Function()? onPress}) {
+  //   return BaseButton(
+  //     borderColor: Colors.redAccent,
+  //     isBorder: true,
+  //     height: 30.0,
+  //     width: 250,
+  //     onPress: onPress,
+  //     title: "Previous Question",
+  //     backgroundColor: Colors.transparent,
+  //     textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0, color: colorDeepGray),
+  //   );
+  // }
 
   //appbar with scafold
-  Future<dynamic> dynamicCupertinoModelPopWithAppBar({required BuildContext context, required String appbarName, required Widget body}) {
-    return showCupertinoModalPopup(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) {
-          final textTheme = Theme.of(context).textTheme;
-          return Scaffold(
-              appBar: AppBar(
-                backgroundColor: colorLightOrange,
-                automaticallyImplyLeading: false,
-                elevation: 0,
-                centerTitle: true,
-                leading: IconButton(
-                  splashRadius: 30,
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                ),
-                title: Text(appbarName, style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
-              ),
-              body: body);
-        });
-  }
+  // Future<dynamic> dynamicCupertinoModelPopWithAppBar({required BuildContext context, required String appbarName, required Widget body}) {
+  //   return showCupertinoModalPopup(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (_) {
+  //         final textTheme = Theme.of(context).textTheme;
+  //         return Scaffold(
+  //             appBar: AppBar(
+  //               backgroundColor: colorLightOrange,
+  //               automaticallyImplyLeading: false,
+  //               elevation: 0,
+  //               centerTitle: true,
+  //               leading: IconButton(
+  //                 splashRadius: 30,
+  //                 onPressed: () {
+  //                   Get.back();
+  //                 },
+  //                 icon: const Icon(Icons.arrow_back_ios_new_rounded),
+  //               ),
+  //               title: Text(appbarName, style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
+  //             ),
+  //             body: body);
+  //       });
+  // }
 
 //text title with 1 column two tex
-  Text columnTitle(String text) {
-    final textTheme = Theme.of(context).textTheme;
-    return Text(text, style: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 10.0));
-  }
+  // Text columnTitle(String text) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return Text(text, style: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 10.0));
+  // }
 
   Future<dynamic> compare(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -1037,242 +1048,242 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         ));
   }
 
-  makeAnOffer(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    showAnimateDialogWithBox(
-        context,
-        "Make an offer",
-        Column(
-          children: [
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  color: colorDeepGray.withOpacity(.2),
-                ),
-                child: RichText(
-                  text: TextSpan(
-                      style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
-                      text: "Original Price :",
-                      children: [
-                        TextSpan(
-                          style: textTheme.bodySmall?.copyWith(color: colorDeepOrange),
-                          text: "₦ 7,500000,000",
-                        )
-                      ]),
-                )),
-            SpaceHelper.verticalSpaceMedium,
-            TextBoxtWithTitle(
-              headerTitle: 'Offer Price',
-              title: 'Offer Price',
-              width: (DeviceInfo(context).width - 40) - 20,
-              keyboardType: TextInputType.text,
-            ),
-            SpaceHelper.verticalSpaceSmall,
-            TextBoxtWithTitle(
-              headerTitle: 'Full Name',
-              title: 'Full Name',
-              width: (DeviceInfo(context).width - 40) - 20,
-              keyboardType: TextInputType.text,
-            ),
-            SpaceHelper.verticalSpaceSmall,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Message',
-                  style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
-                ),
-              ),
-            ),
-            SpaceHelper.verticalSpaceSmall,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Material(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                color: Colors.white,
-                child: TextFormField(
-                  scrollPhysics: BouncingScrollPhysics(),
-                  key: _globalKey,
-                  // controller: _chatController.messageController,
-                  autofocus: false,
-                  maxLines: 5,
-                  // minLines: 5,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.zero,
-                    border: InputBorder.none,
-                    //  border:_border ,
-                    // enabledBorder: _border,
-                    //  focusedBorder: _border,
+  // makeAnOffer(BuildContext context) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   showAnimateDialogWithBox(
+  //       context,
+  //       "Make an offer",
+  //       Column(
+  //         children: [
+  //           Container(
+  //               padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(15.0),
+  //                 color: colorDeepGray.withOpacity(.2),
+  //               ),
+  //               child: RichText(
+  //                 text: TextSpan(
+  //                     style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+  //                     text: "Original Price :",
+  //                     children: [
+  //                       TextSpan(
+  //                         style: textTheme.bodySmall?.copyWith(color: colorDeepOrange),
+  //                         text: "₦ 7,500000,000",
+  //                       )
+  //                     ]),
+  //               )),
+  //           SpaceHelper.verticalSpaceMedium,
+  //           TextBoxtWithTitle(
+  //             headerTitle: 'Offer Price',
+  //             title: 'Offer Price',
+  //             width: (DeviceInfo(context).width - 40) - 20,
+  //             keyboardType: TextInputType.text,
+  //           ),
+  //           SpaceHelper.verticalSpaceSmall,
+  //           TextBoxtWithTitle(
+  //             headerTitle: 'Full Name',
+  //             title: 'Full Name',
+  //             width: (DeviceInfo(context).width - 40) - 20,
+  //             keyboardType: TextInputType.text,
+  //           ),
+  //           SpaceHelper.verticalSpaceSmall,
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 10.0),
+  //             child: Align(
+  //               alignment: Alignment.centerLeft,
+  //               child: Text(
+  //                 'Message',
+  //                 style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+  //               ),
+  //             ),
+  //           ),
+  //           SpaceHelper.verticalSpaceSmall,
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 10.0),
+  //             child: Material(
+  //               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+  //               color: Colors.white,
+  //               child: TextFormField(
+  //                 scrollPhysics: BouncingScrollPhysics(),
+  //                 key: _globalKey,
+  //                 // controller: _chatController.messageController,
+  //                 autofocus: false,
+  //                 maxLines: 5,
+  //                 // minLines: 5,
+  //                 decoration: InputDecoration(
+  //                   isDense: true,
+  //                   contentPadding: EdgeInsets.zero,
+  //                   border: InputBorder.none,
+  //                   //  border:_border ,
+  //                   // enabledBorder: _border,
+  //                   //  focusedBorder: _border,
 
-                    hintStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
-                  ),
-                  keyboardType: TextInputType.text,
-                  style: const TextStyle(fontSize: 16.0, color: Colors.black),
-                  onChanged: (text) {},
-                  onTapOutside: (value) {
-                    // log('onTapOutside called');
-                  },
-                ),
-              ),
-            ),
-            SpaceHelper.verticalSpaceMedium,
-            Align(
-              alignment: Alignment.center,
-              child: BaseButton(
-                  onPress: () {},
-                  height: 30.0,
-                  width: 90.0,
-                  title: "Send",
-                  backgroundColor: Colors.red,
-                  textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
-            ),
-            SpaceHelper.verticalSpace(10.0),
-          ],
-        ));
-  }
+  //                   hintStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
+  //                 ),
+  //                 keyboardType: TextInputType.text,
+  //                 style: const TextStyle(fontSize: 16.0, color: Colors.black),
+  //                 onChanged: (text) {},
+  //                 onTapOutside: (value) {
+  //                   // log('onTapOutside called');
+  //                 },
+  //               ),
+  //             ),
+  //           ),
+  //           SpaceHelper.verticalSpaceMedium,
+  //           Align(
+  //             alignment: Alignment.center,
+  //             child: BaseButton(
+  //                 onPress: () {},
+  //                 height: 30.0,
+  //                 width: 90.0,
+  //                 title: "Send",
+  //                 backgroundColor: Colors.red,
+  //                 textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
+  //           ),
+  //           SpaceHelper.verticalSpace(10.0),
+  //         ],
+  //       ));
+  // }
 
-  contactSeller(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Center(
-      child: Material(
-        color: Colors.grey.shade100,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: double.infinity, maxWidth: DeviceInfo(context).width - 40),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Spacer(),
-                      Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Contact Seller',
-                            style: textTheme.bodyMedium?.copyWith(color: Colors.black54),
-                          )),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: IconButton(
-                            splashRadius: 20,
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(Icons.cancel),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // SpaceHelper.verticalSpaceSmall,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          padding: const EdgeInsets.all(0), splashRadius: 20, onPressed: () {}, icon: SvgPicture.asset('assets/icons/ic_call.svg')),
-                      SpaceHelper.horizontalSpaceSmall,
-                      IconButton(
-                          padding: const EdgeInsets.all(0),
-                          splashRadius: 20,
-                          onPressed: () {},
-                          icon: SvgPicture.asset('assets/icons/ic_whatsapp.svg')),
-                      SpaceHelper.horizontalSpaceSmall,
-                      IconButton(
-                          padding: const EdgeInsets.all(0), splashRadius: 20, onPressed: () {}, icon: SvgPicture.asset('assets/icons/ic_chat.svg')),
-                    ],
-                  ),
-                  SpaceHelper.verticalSpaceSmall,
-                  Row(
-                    children: [
-                      TextBoxtWithTitle(
-                        headerTitle: 'Full Name',
-                        title: 'Full Name',
-                        width: (DeviceInfo(context).width - 40) / 2 - 20,
-                        keyboardType: TextInputType.text,
-                      ),
-                      const Spacer(),
-                      TextBoxtWithTitle(
-                        headerTitle: 'Email Address',
-                        title: 'Email',
-                        width: (DeviceInfo(context).width - 40) / 2 - 20,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ],
-                  ),
-                  SpaceHelper.verticalSpaceSmall,
-                  const TextBoxtWithTitle(
-                    headerTitle: 'Phone Number',
-                    title: 'Phone Number',
-                    width: double.infinity,
-                    keyboardType: TextInputType.number,
-                  ),
-                  SpaceHelper.verticalSpaceSmall,
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Message',
-                      style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                  SpaceHelper.verticalSpaceSmall,
-                  Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                    color: Colors.white,
-                    child: TextFormField(
-                      scrollPhysics: BouncingScrollPhysics(),
-                      key: _globalKey,
-                      // controller: _chatController.messageController,
-                      autofocus: false,
-                      maxLines: 5,
-                      // minLines: 5,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.zero,
-                        border: InputBorder.none,
-                        //  border:_border ,
-                        // enabledBorder: _border,
-                        //  focusedBorder: _border,
+  // contactSeller(BuildContext context) {
+  //   final textTheme = Theme.of(context).textTheme;
+  //   return Center(
+  //     child: Material(
+  //       color: Colors.grey.shade100,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  //       child: SingleChildScrollView(
+  //         child: ConstrainedBox(
+  //           constraints: BoxConstraints(maxHeight: double.infinity, maxWidth: DeviceInfo(context).width - 40),
+  //           child: Padding(
+  //             padding: const EdgeInsets.symmetric(
+  //               horizontal: 10,
+  //             ),
+  //             child: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     Spacer(),
+  //                     Align(
+  //                         alignment: Alignment.center,
+  //                         child: Text(
+  //                           'Contact Seller',
+  //                           style: textTheme.bodyMedium?.copyWith(color: Colors.black54),
+  //                         )),
+  //                     Expanded(
+  //                       child: Align(
+  //                         alignment: Alignment.centerRight,
+  //                         child: IconButton(
+  //                           splashRadius: 20,
+  //                           onPressed: () {
+  //                             Get.back();
+  //                           },
+  //                           icon: Icon(Icons.cancel),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 // SpaceHelper.verticalSpaceSmall,
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     IconButton(
+  //                         padding: const EdgeInsets.all(0), splashRadius: 20, onPressed: () {}, icon: SvgPicture.asset('assets/icons/ic_call.svg')),
+  //                     SpaceHelper.horizontalSpaceSmall,
+  //                     IconButton(
+  //                         padding: const EdgeInsets.all(0),
+  //                         splashRadius: 20,
+  //                         onPressed: () {},
+  //                         icon: SvgPicture.asset('assets/icons/ic_whatsapp.svg')),
+  //                     SpaceHelper.horizontalSpaceSmall,
+  //                     IconButton(
+  //                         padding: const EdgeInsets.all(0), splashRadius: 20, onPressed: () {}, icon: SvgPicture.asset('assets/icons/ic_chat.svg')),
+  //                   ],
+  //                 ),
+  //                 SpaceHelper.verticalSpaceSmall,
+  //                 Row(
+  //                   children: [
+  //                     TextBoxtWithTitle(
+  //                       headerTitle: 'Full Name',
+  //                       title: 'Full Name',
+  //                       width: (DeviceInfo(context).width - 40) / 2 - 20,
+  //                       keyboardType: TextInputType.text,
+  //                     ),
+  //                     const Spacer(),
+  //                     TextBoxtWithTitle(
+  //                       headerTitle: 'Email Address',
+  //                       title: 'Email',
+  //                       width: (DeviceInfo(context).width - 40) / 2 - 20,
+  //                       keyboardType: TextInputType.emailAddress,
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 SpaceHelper.verticalSpaceSmall,
+  //                 const TextBoxtWithTitle(
+  //                   headerTitle: 'Phone Number',
+  //                   title: 'Phone Number',
+  //                   width: double.infinity,
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //                 SpaceHelper.verticalSpaceSmall,
+  //                 Align(
+  //                   alignment: Alignment.centerLeft,
+  //                   child: Text(
+  //                     'Message',
+  //                     style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
+  //                   ),
+  //                 ),
+  //                 SpaceHelper.verticalSpaceSmall,
+  //                 Material(
+  //                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+  //                   color: Colors.white,
+  //                   child: TextFormField(
+  //                     scrollPhysics: BouncingScrollPhysics(),
+  //                     key: _globalKey,
+  //                     // controller: _chatController.messageController,
+  //                     autofocus: false,
+  //                     maxLines: 5,
+  //                     // minLines: 5,
+  //                     decoration: InputDecoration(
+  //                       isDense: true,
+  //                       contentPadding: EdgeInsets.zero,
+  //                       border: InputBorder.none,
+  //                       //  border:_border ,
+  //                       // enabledBorder: _border,
+  //                       //  focusedBorder: _border,
 
-                        hintStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
-                      ),
-                      keyboardType: TextInputType.text,
-                      style: const TextStyle(fontSize: 16.0, color: Colors.black),
-                      onChanged: (text) {},
-                      onTapOutside: (value) {
-                        // log('onTapOutside called');
-                      },
-                    ),
-                  ),
-                  SpaceHelper.verticalSpaceMedium,
-                  Align(
-                    alignment: Alignment.center,
-                    child: BaseButton(
-                        onPress: () {},
-                        height: 30.0,
-                        width: 90.0,
-                        title: "Send",
-                        backgroundColor: Colors.red,
-                        textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
-                  ),
-                  SpaceHelper.verticalSpace(10.0),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  //                       hintStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
+  //                     ),
+  //                     keyboardType: TextInputType.text,
+  //                     style: const TextStyle(fontSize: 16.0, color: Colors.black),
+  //                     onChanged: (text) {},
+  //                     onTapOutside: (value) {
+  //                       // log('onTapOutside called');
+  //                     },
+  //                   ),
+  //                 ),
+  //                 SpaceHelper.verticalSpaceMedium,
+  //                 Align(
+  //                   alignment: Alignment.center,
+  //                   child: BaseButton(
+  //                       onPress: () {},
+  //                       height: 30.0,
+  //                       width: 90.0,
+  //                       title: "Send",
+  //                       backgroundColor: Colors.red,
+  //                       textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
+  //                 ),
+  //                 SpaceHelper.verticalSpace(10.0),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Container buildSpecialFeature(BuildContext context, TextTheme textTheme) {
     return Container(
