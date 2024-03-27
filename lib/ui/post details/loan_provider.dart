@@ -1,10 +1,12 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carnotautomart/ui/filter/filter_controller.dart';
 import 'package:carnotautomart/ui/post%20details/eligilility_screen.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/common_method.dart';
+import 'package:carnotautomart/ui/utils/common_method.dart/documents.dart';
+import 'package:carnotautomart/ui/utils/common_method.dart/eligibbility.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
+import 'package:carnotautomart/ui/widget/carnotmart_appbabr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +21,7 @@ class LoadProviderScreen extends StatefulWidget {
 class _LoadProviderScreenState extends State<LoadProviderScreen> {
   late FilterController _filterController;
 
-      // String? yearsValue;
+  // String? yearsValue;
   @override
   void initState() {
     _filterController = Get.find<FilterController>();
@@ -31,21 +33,10 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: colorLightOrange,
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          centerTitle: true,
-          leading: IconButton(
-            splashRadius: 30,
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          ),
-          title: Text("Loan Provider", style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
-        ),
-        body: Padding(
+      appBar: CarnotMartAppbar(
+        title: 'Loan provider',
+      ),
+      body: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
@@ -111,20 +102,20 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
                           children: [
                             Column(
                               children: [
-                                loanProviderTitle(context,"LTV"),
-                                loanProviderTitle(context,"30 %"),
+                                loanProviderTitle(context, "LTV"),
+                                loanProviderTitle(context, "30 %"),
                               ],
                             ),
                             Column(
                               children: [
-                                loanProviderTitle(context,"Interest"),
-                                loanProviderTitle(context,"35.00 %"),
+                                loanProviderTitle(context, "Interest"),
+                                loanProviderTitle(context, "35.00 %"),
                               ],
                             ),
                             Column(
                               children: [
-                                loanProviderTitle(context,"Terms"),
-                                loanProviderTitle(context,"12"),
+                                loanProviderTitle(context, "Terms"),
+                                loanProviderTitle(context, "12"),
                               ],
                             )
                           ],
@@ -133,68 +124,8 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                showBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25.0),
-                                        topRight: Radius.circular(25.0),
-                                      ),
-                                    ),
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                                          width: MediaQuery.of(context).size.width,
-                                          height: MediaQuery.of(context).size.height - 200.0,
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Required Documents",
-                                                    style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 12.0),
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {
-                                                        Get.back();
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.clear,
-                                                        color: Colors.black,
-                                                      ))
-                                                ],
-                                              )
-                                            ],
-                                          ));
-                                    });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                decoration: BoxDecoration(
-                                    color: colorLightOrange.withOpacity(.1),
-                                    borderRadius: BorderRadius.circular(25),
-                                    border: Border.all(color: colorLightOrange)),
-                                child: Text('Documents', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-
-                                Get.to(()=> EligibilityScreen(),transition: Transition.downToUp,duration: Duration(seconds: 1));
-                                
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                                decoration: BoxDecoration(
-                                    color: colorLightOrange.withOpacity(.1),
-                                    borderRadius: BorderRadius.circular(25),
-                                    border: Border.all(color: colorLightOrange)),
-                                child: Text('Check Eligibility', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
-                              ),
-                            ),
+                            documents(context: context, buttonName: "Documents"),
+                            eligibbility(context),
                           ],
                         )
                       ],
@@ -206,14 +137,10 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
             separatorBuilder: (BuildContext context, int index) {
               return SpaceHelper.verticalSpace(10.0);
             },
-           )
-          ),
-    
-        
-        );
+          )),
+    );
   }
 
-  
 
 
   // Future<dynamic> dynamicCupertinoModelPopWithAppBar({required BuildContext context, required String appbarName, required Widget body}) {
@@ -338,7 +265,6 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
 //     );
 //   }
 
- 
 //  Column textButtonQuestion({required BuildContext context, required String question}) {
 //     final textTheme = Theme.of(context).textTheme;
 //     return Column(
@@ -388,7 +314,6 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
 //       ],
 //     );
 //   }
-
 
 // Column checkBoxButtonQuestion(BuildContext context) {
 //     final textTheme = Theme.of(context).textTheme;
@@ -441,7 +366,6 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
 //       ],
 //     );
 //   }
-
 
 //   Container submitBottonQuestion(BuildContext context) {
 //     final textTheme = Theme.of(context).textTheme;
@@ -567,7 +491,7 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
 //                                  Get.to(()=> ApplyForLoan(),transition: Transition.downToUp,duration: Duration(seconds: 1));
 //                               }, child: Text("APPLY",style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.normal,color: Colors.redAccent,fontSize: 10.0),)),
 //                          ],
-                       
+
 //                        );
 //                    });
 //                   }),
@@ -586,7 +510,6 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
 //       ),
 //     );
 //   }
-
 
 // Container monthlyIncomeTextFiled({required bool autoFocus, required String labelText}) {
 //     final textTheme = Theme.of(context).textTheme;
@@ -616,7 +539,4 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
 //       ),
 //     );
 //   }
-
-
-
 }

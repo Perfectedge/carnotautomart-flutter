@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carnotautomart/ui/filter/filter_controller.dart';
 import 'package:carnotautomart/ui/post%20details/apply_for_loan.dart';
+import 'package:carnotautomart/ui/post%20details/insurance_provider.dart';
 import 'package:carnotautomart/ui/post%20details/loan_provider.dart';
 import 'package:carnotautomart/ui/post%20details/pinch_image.dart';
+import 'package:carnotautomart/ui/post%20details/review_screen.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/common_method.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/contact_part.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/make_an_offer.dart';
@@ -193,7 +195,8 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                               width: 95,
                               child: RoundedRectangleButton(
                                   onPress: () {
-                                    Get.to(()=> LoadProviderScreen(),transition: Transition.downToUp,duration: Duration(seconds: 1));
+                                    
+                                    Get.to(()=> LoadProviderScreen(),transition: Transition.downToUp,duration: Duration(milliseconds: 400));
                                   },
                                   title: 'Finance',
                                   backgroundColor: colorDeepGray.withOpacity(.2),
@@ -202,7 +205,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                               height: 30,
                               width: 95,
                               child: RoundedRectangleButton(
-                                  onPress: () {},
+                                  onPress: () {
+                                    Get.to(()=> const InsuranceProviderScreen(),transition: Transition.downToUp,duration: Duration(milliseconds: 400));
+                                  },
                                   title: 'Insurance',
                                   backgroundColor: colorDeepGray.withOpacity(.2),
                                   textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),
@@ -210,7 +215,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                               height: 30,
                               width: 95,
                               child: RoundedRectangleButton(
-                                  onPress: () {},
+                                  onPress: () {
+                                    Get.to(()=> const ReviewScreen(),transition: Transition.downToUp,duration: Duration(milliseconds: 400));
+                                  },
                                   title: 'Review',
                                   backgroundColor: colorDeepGray.withOpacity(.2),
                                   textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal))),

@@ -69,7 +69,7 @@ makeAnOffer(BuildContext context) {
                   autofocus: false,
                   maxLines: 5,
                   // minLines: 5,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     isDense: true,
                     contentPadding: EdgeInsets.zero,
                     border: InputBorder.none,
@@ -77,7 +77,7 @@ makeAnOffer(BuildContext context) {
                     // enabledBorder: _border,
                     //  focusedBorder: _border,
 
-                    hintStyle: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
+                    hintStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
                   ),
                   keyboardType: TextInputType.text,
                   style: const TextStyle(fontSize: 16.0, color: Colors.black),

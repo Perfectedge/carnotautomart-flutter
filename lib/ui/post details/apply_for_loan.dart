@@ -3,6 +3,7 @@ import 'package:carnotautomart/ui/filter/filter_controller.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
+import 'package:carnotautomart/ui/widget/carnotmart_appbabr.dart';
 import 'package:carnotautomart/ui/widget/state_and_city_search_widget.dart';
 import 'package:carnotautomart/ui/widget/title_and_textbox.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,20 +30,10 @@ class _ApplyForLoanState extends State<ApplyForLoan> {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: colorLightOrange,
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          centerTitle: true,
-          leading: IconButton(
-            splashRadius: 30,
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          ),
-          title: Text("Apply For Finance", style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white)),
-        ),
+        appBar: CarnotMartAppbar(
+              title: 'Apply For Finance',
+              
+            ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
           child: SingleChildScrollView(
