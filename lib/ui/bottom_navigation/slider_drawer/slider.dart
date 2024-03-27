@@ -132,9 +132,7 @@ class SliderDrawerState extends State<SliderDrawer> {
   AnimationController get animationController => _animationDrawerController;
 
   /// Toggle drawer
-  void toggle() => _animationDrawerController.isCompleted
-      ? _animationDrawerController.reverse()
-      : _animationDrawerController.forward();
+  void toggle() => _animationDrawerController.isCompleted ? _animationDrawerController.reverse() : _animationDrawerController.forward();
 
   /// Open slider
   void openSlider() => _animationDrawerController.forward();
@@ -152,12 +150,8 @@ class SliderDrawerState extends State<SliderDrawer> {
     //     vsync: this,
     //     duration: Duration(milliseconds: widget.animationDuration));
 
-    _animation =
-        Tween<double>(begin: widget.sliderCloseSize, end: widget.sliderOpenSize)
-            .animate(CurvedAnimation(
-                parent: _animationDrawerController,
-                curve: Curves.decelerate,
-                reverseCurve: Curves.decelerate));
+    _animation = Tween<double>(begin: widget.sliderCloseSize, end: widget.sliderOpenSize)
+        .animate(CurvedAnimation(parent: _animationDrawerController, curve: Curves.decelerate, reverseCurve: Curves.decelerate));
     if (widget.appBar is SliderAppBar) {
       _appBarColor = (widget.appBar as SliderAppBar).appBarColor;
     }
@@ -191,16 +185,14 @@ class SliderDrawerState extends State<SliderDrawer> {
           animation: _animationDrawerController,
           builder: (_, child) {
             return Transform.translate(
-              offset: GetOffset.getOffsetValues(
-                  widget.slideDirection, _animation.value),
+              offset: GetOffset.getOffsetValues(widget.slideDirection, _animation.value),
               child: child,
             );
           },
           child: GestureDetector(
             onHorizontalDragStart: _onHorizontalDragStart,
             onHorizontalDragEnd: _onHorizontalDragEnd,
-            onHorizontalDragUpdate: (detail) =>
-                _onHorizontalDragUpdate(detail, constrain),
+            onHorizontalDragUpdate: (detail) => _onHorizontalDragUpdate(detail, constrain),
             child: Container(
               width: double.infinity,
               height: double.infinity,
@@ -216,8 +208,7 @@ class SliderDrawerState extends State<SliderDrawer> {
                       splashColor: widget.splashColor,
                       sliderAppBar: widget.appBar as SliderAppBar,
                     ),
-                  if (widget.appBar != null && widget.appBar is! SliderAppBar)
-                    widget.appBar!,
+                  if (widget.appBar != null && widget.appBar is! SliderAppBar) widget.appBar!,
                   Expanded(child: widget.child),
                 ],
               ),
@@ -237,13 +228,10 @@ class SliderDrawerState extends State<SliderDrawer> {
   void _onHorizontalDragStart(DragStartDetails detail) {
     if (!widget.isDraggable) return;
     //Check use start dragging from left edge / right edge then enable dragging
-    final rightSideWidthGesture =
-        MediaQuery.of(context).size.width - WIDTH_GESTURE;
-    if ((widget.slideDirection == SlideDirection.LEFT_TO_RIGHT &&
-                detail.localPosition.dx <= WIDTH_GESTURE) ||
+    final rightSideWidthGesture = MediaQuery.of(context).size.width - WIDTH_GESTURE;
+    if ((widget.slideDirection == SlideDirection.LEFT_TO_RIGHT && detail.localPosition.dx <= WIDTH_GESTURE) ||
             (widget.slideDirection == SlideDirection.RIGHT_TO_LEFT &&
-                detail.localPosition.dx >=
-                    rightSideWidthGesture) /*&&
+                detail.localPosition.dx >= rightSideWidthGesture) /*&&
         detail.localPosition.dy <= widget.appBarHeight*/
         ) {
       this.setState(() {
@@ -251,8 +239,7 @@ class SliderDrawerState extends State<SliderDrawer> {
       });
     }
     //Check use start dragging from top edge / bottom edge then enable dragging
-    if (widget.slideDirection == SlideDirection.TOP_TO_BOTTOM &&
-        detail.localPosition.dy >= HEIGHT_GESTURE) {
+    if (widget.slideDirection == SlideDirection.TOP_TO_BOTTOM && detail.localPosition.dy >= HEIGHT_GESTURE) {
       this.setState(() {
         _isDragging = true;
       });
@@ -275,15 +262,11 @@ class SliderDrawerState extends State<SliderDrawer> {
   ) {
     if (!widget.isDraggable) return;
     // Open Drawer : Slider Open -> Left/Right
-    if (_isDragging &&
-        (widget.slideDirection == SlideDirection.LEFT_TO_RIGHT ||
-            widget.slideDirection == SlideDirection.RIGHT_TO_LEFT)) {
+    if (_isDragging && (widget.slideDirection == SlideDirection.LEFT_TO_RIGHT || widget.slideDirection == SlideDirection.RIGHT_TO_LEFT)) {
       var globalPosition = detail.globalPosition.dx;
       globalPosition = globalPosition < 0 ? 0 : globalPosition;
       double position = globalPosition / constraints.maxWidth;
-      var realPosition = widget.slideDirection == SlideDirection.LEFT_TO_RIGHT
-          ? position
-          : (1 - position);
+      var realPosition = widget.slideDirection == SlideDirection.LEFT_TO_RIGHT ? position : (1 - position);
       move(realPosition);
     }
     // Open Drawer : Slider Open -> Top/Bottom
@@ -299,8 +282,7 @@ class SliderDrawerState extends State<SliderDrawer> {
 
     // Close Drawer : Slider Open -> Left/Right
     if (isDrawerOpen &&
-        (widget.slideDirection == SlideDirection.LEFT_TO_RIGHT ||
-            widget.slideDirection == SlideDirection.RIGHT_TO_LEFT) &&
+        (widget.slideDirection == SlideDirection.LEFT_TO_RIGHT || widget.slideDirection == SlideDirection.RIGHT_TO_LEFT) &&
         detail.delta.dx < 15) {
       closeSlider();
     }

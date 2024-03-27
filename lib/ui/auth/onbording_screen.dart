@@ -24,15 +24,14 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
         top: true,
         bottom: false,
         child: Scaffold(
-          appBar:const CarnotMartAppbar(title:'Account' ,),
+          appBar: const CarnotMartAppbar(
+            title: 'Account',
+          ),
           body: Container(
             height: DeviceInfo(context).height,
             width: DeviceInfo(context).width,
             decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [colorLightOrange, colorDeepOrange])),
+                gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [colorLightOrange, colorDeepOrange])),
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
@@ -48,9 +47,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                   SpaceHelper.verticalSpaceMedium,
                   Container(
                       height: 350,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15)),
                       child: Image.asset('assets/images/onboard_logo.png')),
                   SpaceHelper.verticalSpaceMedium,
                   SizedBox(
@@ -59,21 +56,18 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                         onPress: () {},
                         title: 'Create an account'.toUpperCase(),
                         backgroundColor: Colors.white,
-                        textStyle: textTheme.labelMedium?.copyWith(
-                            color: colorDarkAsh, fontWeight: FontWeight.normal),
+                        textStyle: textTheme.labelMedium?.copyWith(color: colorDarkAsh, fontWeight: FontWeight.normal),
                       )),
                   SpaceHelper.verticalSpaceSmall,
                   SizedBox(
                       width: 250,
                       child: BaseButton(
                         onPress: () {
-                          Get.to(() => LoginScreen(),
-                              transition: Transition.rightToLeft);
+                          Get.to(() => LoginScreen(), transition: Transition.rightToLeft);
                         },
                         title: 'Log in'.toUpperCase(),
                         backgroundColor: Colors.white,
-                        textStyle: textTheme.labelMedium?.copyWith(
-                            color: colorDarkAsh, fontWeight: FontWeight.normal),
+                        textStyle: textTheme.labelMedium?.copyWith(color: colorDarkAsh, fontWeight: FontWeight.normal),
                       ))
                 ],
               ),
@@ -84,4 +78,3 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
     );
   }
 }
-

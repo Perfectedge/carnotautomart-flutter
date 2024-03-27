@@ -10,8 +10,7 @@ class TextBoxWidget extends StatefulWidget {
       this.validator,
       this.isObsecure,
       this.focusNode,
-      this.suffixIconConstraints
-      });
+      this.suffixIconConstraints});
 
   final TextTheme textTheme;
   final String lableText;
@@ -37,8 +36,7 @@ class _TextBoxWidgetState extends State<TextBoxWidget> {
         cursorColor: Colors.white,
         scrollPadding: EdgeInsets.zero,
         obscureText: widget.isObsecure ?? false,
-        style: widget.textTheme.bodyMedium
-            ?.copyWith(letterSpacing: 0, fontWeight: FontWeight.normal),
+        style: widget.textTheme.bodyMedium?.copyWith(letterSpacing: 0, fontWeight: FontWeight.normal),
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(bottom: 5),
             labelText: widget.lableText.toUpperCase(),
@@ -54,13 +52,11 @@ class _TextBoxWidgetState extends State<TextBoxWidget> {
             enabledBorder: _border,
             focusedBorder: _border,
             suffixIcon: widget.suffixIcon,
-            suffixIconConstraints:widget.suffixIconConstraints??
-                const BoxConstraints(maxHeight: 15, maxWidth: 20)),
+            suffixIconConstraints: widget.suffixIconConstraints ?? const BoxConstraints(maxHeight: 15, maxWidth: 20)),
         validator: widget.validator,
       ),
     );
   }
 
-  final _border =
-      const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white));
+  final _border = const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white));
 }

@@ -1,10 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:carnotautomart/ui/auth/auth_controller.dart';
-import 'package:carnotautomart/ui/filter/filter_controller.dart';
-import 'package:carnotautomart/ui/utils/app_colors.dart';
-import 'package:carnotautomart/ui/utils/text_font_style.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +8,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'data/local/pref_keys.dart';
-import 'ui/bottom_navigation /bottom_bar.dart';
+import 'ui/auth/auth_controller.dart';
+import 'ui/bottom_navigation/bottom_bar.dart';
+import 'ui/filter/filter_controller.dart';
 import 'ui/splash/splash_screen.dart';
+import 'ui/utils/app_colors.dart';
+import 'ui/utils/text_font_style.dart';
 import 'ui/widget/all_chomphonent.dart';
 
 void main() async {
@@ -42,7 +41,8 @@ class _MyAppState extends State<MyApp> {
     var deviceinfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       var androidInfo = await deviceinfo.androidInfo;
-      log("Android disply info :${androidInfo.displayMetrics.widthPx} height ${androidInfo.displayMetrics.heightPx}, ${androidInfo.displayMetrics.widthInches} ${androidInfo.displayMetrics.sizeInches} ");
+      log("Android disply info :${androidInfo.display} height");
+      // log("Android disply info :${androidInfo.displayMetrics.widPx} height ${androidInfo.displayMetrics.heightPx}, ${androidInfo.displayMetrics.widthInches} ${androidInfo.displayMetrics.sizeInches} ");
       // log("Android info :${androidInfo.id} ");
       storage.writeIfNull(PrefKeys.deviceToken, androidInfo.id);
     } else if (Platform.isIOS) {
@@ -73,8 +73,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: AppTextTheme().lightTextTheme,
           fontFamily: 'Roboto',
         ),
-        home:
-            SliderDrawerAndBottomNavigation() //BottomBarScreen() //AllChomphonent() //SplashScreen() ,
+        home: SliderDrawerAndBottomNavigation() //BottomBarScreen() //AllChomphonent() //SplashScreen() ,
 
         );
   }

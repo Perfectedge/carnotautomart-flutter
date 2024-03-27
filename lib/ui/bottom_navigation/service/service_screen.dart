@@ -32,23 +32,28 @@ class _ServiceScreenState extends State<ServiceScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SpaceHelper.verticalSpaceMedium,
-              Text('Select a Service',style: textTheme.bodyMedium?.copyWith(color: Colors.black,fontWeight: FontWeight.normal),),
-              if(_serviceController.serviceList.isNotEmpty)
-              Padding(padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8,),
-              child: _serviceSection(textTheme)
-              )
+              Text(
+                'Select a Service',
+                style: textTheme.bodyMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.normal),
+              ),
+              if (_serviceController.serviceList.isNotEmpty)
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 8,
+                    ),
+                    child: _serviceSection(textTheme))
             ],
           ),
         ));
   }
 
-   _serviceSection(TextTheme textTheme) {
+  _serviceSection(TextTheme textTheme) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
-
       ),
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
@@ -59,17 +64,16 @@ class _ServiceScreenState extends State<ServiceScreen> {
         height: 100,
         width: 130,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.white,
-            
-             boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5), // shadow color
-                  spreadRadius: 3, // how wide the shadow should be
-                  blurRadius: 3, // how soft the shadow should be
-                  offset: const Offset(0, 0), // changes the position of the shadow
-                ),
-              ],
+          borderRadius: BorderRadius.circular(5),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // shadow color
+              spreadRadius: 3, // how wide the shadow should be
+              blurRadius: 3, // how soft the shadow should be
+              offset: const Offset(0, 0), // changes the position of the shadow
+            ),
+          ],
         ),
         child: Center(
           child: Column(
@@ -85,15 +89,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 2),
                 child: Text(
                   _serviceController.serviceList[index].name ?? '',
-                  style: textTheme.bodySmall?.copyWith(
-                      color: Colors.black, fontWeight: FontWeight.normal,fontSize: 12),
+                  style: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 12),
                 ),
               )
             ],
           ),
         ),
       ),
-      
     );
   }
 }

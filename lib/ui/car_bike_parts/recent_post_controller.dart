@@ -9,8 +9,7 @@ import '../../data/remote/repository/carnotmart_repository_impl.dart';
 
 class RecentPostController extends GetxController {
   final _repository = Get.put(CarnotMartRepositoryImpl());
-  RxList<RecentBikeCarSpareParts> carsBikeSpareParts =
-      <RecentBikeCarSpareParts>[].obs;
+  RxList<RecentBikeCarSpareParts> carsBikeSpareParts = <RecentBikeCarSpareParts>[].obs;
 
   @override
   void dispose() {
@@ -21,8 +20,7 @@ class RecentPostController extends GetxController {
   getRecentPostData({required String vehicleType, required int page}) async {
     showLoader();
     try {
-      final response = await _repository.getAllCarBikeSpareParts(
-          vehicleType: vehicleType, page: page);
+      final response = await _repository.getAllCarBikeSpareParts(vehicleType: vehicleType, page: page);
       if (response.status == true) {
         Get.back();
         carsBikeSpareParts.addAll(response.carsBikeSpareParts ?? []);

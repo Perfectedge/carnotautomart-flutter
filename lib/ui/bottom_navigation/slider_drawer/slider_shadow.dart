@@ -27,8 +27,7 @@ class SliderShadow extends StatelessWidget {
       animation: _animationDrawerController!,
       builder: (_, child) {
         return Transform.translate(
-          offset: GetOffset.getOffsetValueForShadow(
-              slideDirection, animation.value, sliderOpenSize),
+          offset: GetOffset.getOffsetValueForShadow(slideDirection, animation.value, sliderOpenSize),
           child: child,
         );
       },

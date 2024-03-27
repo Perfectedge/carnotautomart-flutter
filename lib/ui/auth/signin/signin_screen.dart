@@ -64,18 +64,12 @@ class _SignInScreenState extends State<SignInScreen> {
               elevation: 0,
               title: Text(
                 'register'.toUpperCase(),
-                style: textTheme.labelMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline),
+                style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white, decoration: TextDecoration.underline),
               ),
               flexibleSpace: appbarFlexibleSpace,
             ),
             body: Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/bg.jpg'),
-                      fit: BoxFit.cover)),
+              decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.cover)),
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Center(
                 child: SingleChildScrollView(
@@ -89,8 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         controller: firstNameController,
                         lableText: 'First Name',
                         suffixIcon: ImageHelper.icUserName,
-                        suffixIconConstraints:
-                            const BoxConstraints(maxHeight: 25, maxWidth: 25),
+                        suffixIconConstraints: const BoxConstraints(maxHeight: 25, maxWidth: 25),
                       ),
                       SpaceHelper.verticalSpaceMedium,
                       TextBoxWidget(
@@ -98,8 +91,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         controller: lastNameController,
                         lableText: 'Last Name',
                         suffixIcon: ImageHelper.icUserName,
-                        suffixIconConstraints:
-                            const BoxConstraints(maxHeight: 25, maxWidth: 25),
+                        suffixIconConstraints: const BoxConstraints(maxHeight: 25, maxWidth: 25),
                       ),
                       SpaceHelper.verticalSpaceMedium,
                       TextBoxWidget(
@@ -107,8 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         controller: emailController,
                         lableText: 'Email',
                         suffixIcon: ImageHelper.icEmail,
-                        suffixIconConstraints:
-                            const BoxConstraints(maxHeight: 15, maxWidth: 25),
+                        suffixIconConstraints: const BoxConstraints(maxHeight: 15, maxWidth: 25),
                       ),
                       SpaceHelper.verticalSpaceMedium,
                       TextBoxWidget(
@@ -116,8 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         controller: contactController,
                         lableText: 'contact number',
                         suffixIcon: ImageHelper.icPhone,
-                        suffixIconConstraints:
-                            const BoxConstraints(maxHeight: 20, maxWidth: 20),
+                        suffixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
                       ),
                       SpaceHelper.verticalSpaceMedium,
                       TextBoxWidget(
@@ -125,8 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         controller: passwordControlelr,
                         lableText: 'Password',
                         suffixIcon: ImageHelper.icLock,
-                        suffixIconConstraints:
-                            const BoxConstraints(maxHeight: 20, maxWidth: 20),
+                        suffixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
                       ),
                       SpaceHelper.verticalSpaceMedium,
                       TextBoxWidget(
@@ -134,24 +123,21 @@ class _SignInScreenState extends State<SignInScreen> {
                         controller: confirmPasswordControlelr,
                         lableText: 'confirm Password',
                         suffixIcon: ImageHelper.icLock,
-                        suffixIconConstraints:
-                            const BoxConstraints(maxHeight: 20, maxWidth: 20),
+                        suffixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
                       ),
                       SpaceHelper.verticalSpaceMedium,
                       Align(
                           alignment: Alignment.topLeft,
                           child: Text(
                             'account type'.toUpperCase(),
-                            style: textTheme.labelSmall
-                                ?.copyWith(color: Colors.white),
+                            style: textTheme.labelSmall?.copyWith(color: Colors.white),
                           )),
                       SizedBox(
                         height: 40,
                         child: TextFormField(
                           controller: accountTypeController,
                           cursorColor: Colors.white,
-                          style: textTheme.bodyMedium?.copyWith(
-                              letterSpacing: 0, fontWeight: FontWeight.normal),
+                          style: textTheme.bodyMedium?.copyWith(letterSpacing: 0, fontWeight: FontWeight.normal),
                           decoration: InputDecoration(
                             hintText: 'Select Type',
                             hintStyle: textTheme.bodyMedium?.copyWith(
@@ -163,10 +149,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               Icons.keyboard_arrow_down_rounded,
                               color: Colors.white,
                             ),
-                            enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white)),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white)),
+                            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
                           ),
                           readOnly: true,
                           onTap: () {
@@ -183,8 +167,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: BaseButton(
                             onPress: () {},
                             title: 'signup'.toUpperCase(),
-                            backgroundColor:
-                                const Color.fromARGB(255, 0, 41, 74),
+                            backgroundColor: const Color.fromARGB(255, 0, 41, 74),
                             textStyle: textTheme.labelMedium,
                             isBorder: true,
                           )),
@@ -216,8 +199,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<dynamic> _showAccountTypeDialog(BuildContext context,
-      TextTheme textTheme, Function(dynamic data) onTapData) {
+  Future<dynamic> _showAccountTypeDialog(BuildContext context, TextTheme textTheme, Function(dynamic data) onTapData) {
     return showCupertinoDialog(
         context: context,
         barrierDismissible: true,
@@ -229,12 +211,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     child: Text(
                       'Account Type',
-                      style: textTheme.labelMedium?.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                      style: textTheme.labelMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                   ),
                   if (_authController.accountType.isNotEmpty)
@@ -247,15 +227,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           height: 50,
                           child: MaterialButton(
                             onPressed: () {
-                              onTapData({
-                                'id': _authController.accountType[index].id,
-                                'name': _authController.accountType[index].name
-                              });
+                              onTapData({'id': _authController.accountType[index].id, 'name': _authController.accountType[index].name});
                               Get.back();
                             },
-                            padding:const EdgeInsets.only(left: 10),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
+                            padding: const EdgeInsets.only(left: 10),
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             child: Row(
                               children: [
                                 Text(

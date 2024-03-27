@@ -23,8 +23,6 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     _chatController = Get.put(ChatController());
-
-
   }
 
   @override
@@ -41,16 +39,14 @@ class _ChatScreenState extends State<ChatScreen> {
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Column(children: [
             SpaceHelper.verticalSpaceMedium,
             Expanded(
               child: Obx(() {
                 //to scroll  to bottom
                 SchedulerBinding.instance.addPostFrameCallback((_) {
-                  _chatController.chatScrollController.jumpTo(_chatController
-                      .chatScrollController.position.maxScrollExtent);
+                  _chatController.chatScrollController.jumpTo(_chatController.chatScrollController.position.maxScrollExtent);
                 });
                 return ListView.separated(
                   controller: _chatController.chatScrollController,
@@ -74,9 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 // height: 45,
                 // width:DeviceInfo(context).width-120 ,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(width: 1, color: Colors.grey)),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), border: Border.all(width: 1, color: Colors.grey)),
                 child: Row(
                   children: [
                     Expanded(
@@ -92,14 +86,10 @@ class _ChatScreenState extends State<ChatScreen> {
                           // enabledBorder: _border,
                           //  focusedBorder: _border,
                           hintText: 'Type a message',
-                          hintStyle: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.normal,
-                              color: colorDarkAsh),
+                          hintStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, color: colorDarkAsh),
                         ),
                         keyboardType: TextInputType.multiline,
-                        style: const TextStyle(
-                            fontSize: 16.0, color: Colors.black),
+                        style: const TextStyle(fontSize: 16.0, color: Colors.black),
                         onEditingComplete: () {},
                         onFieldSubmitted: (value) {},
                         onChanged: (value) {},
@@ -112,10 +102,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     MaterialButton(
                         splashColor: colorDarkAsh,
                         onPressed: () {
-                          if (_chatController
-                              .messageController.text.isNotEmpty) {
-                            _chatController.addMessage(
-                                _chatController.messageController.text);
+                          if (_chatController.messageController.text.isNotEmpty) {
+                            _chatController.addMessage(_chatController.messageController.text);
                             _chatController.messageController.clear();
                           }
                         },

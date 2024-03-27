@@ -11,8 +11,7 @@ import '../model/model_response.dart';
 import 'carnotmart_repository.dart';
 
 class CarnotMartRepositoryImpl implements CarnotMartRepository {
-  final CarnotAutoMartRemoteDataSource _dataSource =
-      Get.put(CarnotAutoMartRemoteDataSourceImpl());
+  final CarnotAutoMartRemoteDataSource _dataSource = Get.put(CarnotAutoMartRemoteDataSourceImpl());
 
   @override
   Future<AccountTypeResponse> getAccountType() {
@@ -31,10 +30,8 @@ class CarnotMartRepositoryImpl implements CarnotMartRepository {
 
   @override
   //Get CarBikeSparePartsResponse
-  Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts(
-      {required String vehicleType, required int page}) {
-    return _dataSource.getAllCarBikeSpareParts(
-        vehicleType: vehicleType, page: page);
+  Future<CarBikeSparePartsResponse> getAllCarBikeSpareParts({required String vehicleType, required int page}) {
+    return _dataSource.getAllCarBikeSpareParts(vehicleType: vehicleType, page: page);
   }
 
   //Get Brands

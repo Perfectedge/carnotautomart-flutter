@@ -35,8 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     if (Platform.isIOS) {
-      String cleanNumber = '${_storage.read(PrefKeys.iosVersion)}'
-          .replaceAll(RegExp(r'\.\d+$'), '');
+      String cleanNumber = '${_storage.read(PrefKeys.iosVersion)}'.replaceAll(RegExp(r'\.\d+$'), '');
       iOSVersion = double.parse(cleanNumber);
     }
     log(iOSVersion.toString());
@@ -68,8 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Expanded(
                       child: Text(
                     'login'.toUpperCase(),
-                    style: textTheme.labelMedium?.copyWith(
-                        fontWeight: FontWeight.w500, color: Colors.white),
+                    style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),
                   )),
                   InkWell(
                     onTap: () {
@@ -77,8 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Text(
                       'done'.toUpperCase(),
-                      style: textTheme.labelMedium?.copyWith(
-                          fontWeight: FontWeight.w500, color: Colors.white),
+                      style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),
                     ),
                   ),
                 ],
@@ -88,10 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             body: Container(
               // height: double.infinity,
               // width: double.infinity,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/bg.jpg'),
-                      fit: BoxFit.cover)),
+              decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.cover)),
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Center(
                 child: SingleChildScrollView(
@@ -122,11 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           RichText(
-                            text: TextSpan(
-                                text: 'Forgot Password',
-                                style: textTheme.bodySmall,
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {}),
+                            text: TextSpan(text: 'Forgot Password', style: textTheme.bodySmall, recognizer: TapGestureRecognizer()..onTap = () {}),
                           ),
                         ],
                       ),
@@ -134,20 +124,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                           width: 100,
                           child: BaseButton(
-                            onPress: () {
-                             
-                            },
+                            onPress: () {},
                             title: 'Login'.toUpperCase(),
-                            backgroundColor:
-                                const Color.fromARGB(255, 0, 41, 74),
+                            backgroundColor: const Color.fromARGB(255, 0, 41, 74),
                             textStyle: textTheme.labelMedium,
                             isBorder: true,
                           )),
                       SpaceHelper.verticalSpaceSmall,
                       Text(
                         'Login with'.toUpperCase(),
-                        style: textTheme.bodySmall
-                            ?.copyWith(fontStyle: FontStyle.italic),
+                        style: textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
                       ),
                       SpaceHelper.verticalSpaceMedium,
                       Row(
@@ -165,19 +151,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (Platform.isIOS && iOSVersion > 13.0)
                             SocialLoginButton(
                               backgroundColor: Colors.transparent,
-                              child: SvgPicture.asset(
-                                  'assets/icons/ic_apple.svg',
-                                  height: 25,
-                                  width: 25),
+                              child: SvgPicture.asset('assets/icons/ic_apple.svg', height: 25, width: 25),
                               onPressed: () {},
                             ),
                           SpaceHelper.horizontalSpaceSmall,
                           SocialLoginButton(
                             backgroundColor: const Color(0xff0866FF),
-                            child: SvgPicture.asset(
-                                'assets/icons/ic_facebook.svg',
-                                height: 25,
-                                width: 25),
+                            child: SvgPicture.asset('assets/icons/ic_facebook.svg', height: 25, width: 25),
                             onPressed: () {},
                           ),
                         ],
@@ -186,12 +166,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       RichText(
                         text: TextSpan(
                             text: 'Register now'.toUpperCase(),
-                            style: textTheme.bodySmall?.copyWith(
-                                decoration: TextDecoration.underline),
+                            style: textTheme.bodySmall?.copyWith(decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Get.to(() => SignInScreen(),
-                                    transition: Transition.rightToLeft);
+                                Get.to(() => SignInScreen(), transition: Transition.rightToLeft);
                               }),
                       ),
                     ],

@@ -4,19 +4,16 @@ import 'pretty_dio_logger.dart';
 import 'request_headers.dart';
 
 class DioProvider {
-  static const String baseUrl = "https://dev.perfectedgetech.com/all-dev-projects/carnotautomart/api"; // fixme Please change this
+  //Live Url
+  static const String baseUrl = "https://carnotautomart.com/api"; // fixme Please change this
+  //Local
+  // static const String baseUrl = "https://dev.perfectedgetech.com/all-dev-projects/carnotautomart/api"; // fixme Please change this
 
   static Dio? _instance;
 
   static const int _maxLineWidth = 90;
   static final _prettyDioLogger = PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      error: true,
-      compact: true,
-      maxWidth: _maxLineWidth);
+      requestHeader: true, requestBody: true, responseBody: true, responseHeader: false, error: true, compact: true, maxWidth: _maxLineWidth);
 
   static final BaseOptions _options = BaseOptions(
     baseUrl: baseUrl,
@@ -74,10 +71,7 @@ class DioProvider {
   }
 }
 
-
-
 //Network Constants
-
 
 class NetworkConstants {
   static const ACCEPT = "Accept";

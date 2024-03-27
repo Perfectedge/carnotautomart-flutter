@@ -31,13 +31,11 @@ class TextFontStyle {
     fontSize: 20.0,
   );
 
-  static const labelLarge = TextStyle(
-      color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22.0);
+  static const labelLarge = TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22.0);
   // static const hintStyle =
   //     TextStyle(color: colorHint, fontWeight: FontWeight.w400, fontSize: 12.0);
 
-  static const displayLarge =
-      TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold);
+  static const displayLarge = TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold);
 }
 
 class AppTextTheme {

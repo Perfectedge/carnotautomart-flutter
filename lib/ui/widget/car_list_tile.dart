@@ -7,25 +7,9 @@ import '../utils/app_colors.dart';
 import '../utils/helper/spacing_helper.dart';
 
 class CarListTile extends StatelessWidget {
-  const CarListTile({
-    super.key,
-    required this.tileData
-  });
+  const CarListTile({super.key, required this.tileData});
   final dynamic tileData;
 
-// entBikeCarSpareParts({
-//         this.condition,
-//         this.priceinnaira,
-//         this.mileage,
-//         this.vehicleTypeId,
-//         this.id,
-//         this.postSlug,
-//         this.title,
-//         this.featuredPosition,
-//         this.postType,
-//         this.manufactureYear,
-//         this.location,
-//         this.photo,
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -47,16 +31,16 @@ class CarListTile extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: 150,
                 height: 125,
-                imageUrl: tileData?.photo??'',
+                imageUrl: tileData?.photo ?? '',
                 placeholder: (context, url) => const Center(
                   child: CupertinoActivityIndicator(
                     color: colorDarkAsh,
                   ),
                 ),
                 errorWidget: (context, url, error) => Image.asset(
-                   fit: BoxFit.cover,
+                  fit: BoxFit.cover,
                   width: 150,
-                height: 125,
+                  height: 125,
                   'assets/images/default.png',
                 ),
               ),
@@ -68,7 +52,7 @@ class CarListTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                 tileData?.title??''.toUpperCase(),
+                  tileData?.title ?? ''.toUpperCase(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodySmall?.copyWith(color: colorDarkAsh),
@@ -76,24 +60,19 @@ class CarListTile extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       decoration: BoxDecoration(
                           color: colorLightOrange.withOpacity(.1),
                           borderRadius: BorderRadius.circular(25),
                           border: Border.all(color: colorLightOrange)),
-                      child: Text(  tileData?.manufactureYear??'',
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: colorDeepOrange, fontSize: 12)),
+                      child: Text(tileData?.manufactureYear ?? '', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12)),
                     ),
                     SpaceHelper.horizontalSpaceSmall,
-                    Text('${tileData.mileage??''} Mile',
-                        style: textTheme.bodySmall
-                            ?.copyWith(color: colorDeepOrange, fontSize: 12)),
+                    Text('${tileData.mileage ?? ''} Mile', style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12)),
                   ],
                 ),
                 Text(
-                  '₦ ${tileData?.priceinnaira??''}',
+                  '₦ ${tileData?.priceinnaira ?? ''}',
                   softWrap: true,
                   style: textTheme.bodySmall?.copyWith(
                     color: colorDeepGray,
@@ -101,7 +80,7 @@ class CarListTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  tileData?.location??'',
+                  tileData?.location ?? '',
                   softWrap: true,
                   style: textTheme.bodySmall?.copyWith(
                     color: colorDeepGray,

@@ -5,27 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/remote/model/car_bike_spare_parts_response.dart';
+import '../filter/filter_screen.dart';
 import '../utils/app_colors.dart';
 import '../utils/helper/spacing_helper.dart';
 import '../widget/car_list_tile.dart';
 import '../widget/carnotmart_appbabr.dart';
 
 class RecentCarBikeSparePartsScreen extends StatefulWidget {
-  const RecentCarBikeSparePartsScreen({super.key, required this.vehicleType,required this.appbarTitle});
+  const RecentCarBikeSparePartsScreen({super.key, required this.vehicleType, required this.appbarTitle});
 
   final String vehicleType;
   final String appbarTitle;
 
   @override
-  State<RecentCarBikeSparePartsScreen> createState() =>
-      _RecentCarBikeSparePartsScreenState();
+  State<RecentCarBikeSparePartsScreen> createState() => _RecentCarBikeSparePartsScreenState();
 }
 
-class _RecentCarBikeSparePartsScreenState
-    extends State<RecentCarBikeSparePartsScreen> {
+class _RecentCarBikeSparePartsScreenState extends State<RecentCarBikeSparePartsScreen> {
   ScrollController scrollController = ScrollController();
-  final RecentPostController _recentPostController =
-      Get.put(RecentPostController());
+  final RecentPostController _recentPostController = Get.put(RecentPostController());
   int currentPage = 1;
   @override
   void initState() {
@@ -35,13 +33,11 @@ class _RecentCarBikeSparePartsScreenState
     });
 
     scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-       
+      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
         setState(() {
-        currentPage++;
+          currentPage++;
         });
-         log('Scrolling to max');
+        log('Scrolling to max');
         log(currentPage.toString());
         loadInitData(currentPage);
       }
@@ -49,8 +45,7 @@ class _RecentCarBikeSparePartsScreenState
   }
 
   loadInitData(int page) {
-    _recentPostController.getRecentPostData(
-        vehicleType: widget.vehicleType, page: page);
+    _recentPostController.getRecentPostData(vehicleType: widget.vehicleType, page: page);
   }
 
   @override
@@ -62,9 +57,18 @@ class _RecentCarBikeSparePartsScreenState
         top: true,
         bottom: false,
         child: Scaffold(
-          appBar:  CarnotMartAppbar(
+          appBar: CarnotMartAppbar(
             title: widget.appbarTitle,
-            isFilter: true,
+            actionItem: IconButton(
+                splashRadius: 20,
+                onPressed: () {
+                  Get.to(() => const FilterScreen(), transition: Transition.rightToLeft);
+                },
+                icon: const Icon(
+                  Icons.filter_list,
+                  color: Colors.white,
+                  size: 20,
+                )),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -78,11 +82,9 @@ class _RecentCarBikeSparePartsScreenState
                       // controller: scrollController,
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
-                      itemCount:
-                          _recentPostController.carsBikeSpareParts.length,
+                      itemCount: _recentPostController.carsBikeSpareParts.length,
                       itemBuilder: (context, index) {
-                        RecentBikeCarSpareParts carsBikeSpareParts =
-                            _recentPostController.carsBikeSpareParts[index];
+                        RecentBikeCarSpareParts carsBikeSpareParts = _recentPostController.carsBikeSpareParts[index];
                         return CarListTile(
                           tileData: carsBikeSpareParts,
                         );

@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widget/state_and_city_search_widget.dart';
+import '../widget/title_and_textbox.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -22,20 +23,25 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen> {
   late FilterController _filterController;
-  String sortValue = 'date';
-  String orderBy = 'ascending';
+
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  late RangeValues rangeValue;
+
   @override
   void initState() {
     super.initState();
     _filterController = Get.find<FilterController>();
+    rangeValue = RangeValues(double.parse(_filterController.manufacturingYears.last), double.parse(_filterController.manufacturingYears.first));
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       // await _filterController.getDropDownData();
+      log(_filterController.manufacturingYears.first.toString());
       _filterController.selectLocationName.value = 'Select State';
       _filterController.brands.value = 'Brand';
       _filterController.model.value = 'Model';
       _filterController.fuels.value = 'Select fuel';
       _filterController.condition.value = 'Select condition';
+      _filterController.carColor.value = 'Select color';
+      _filterController.gearBox.value = 'Select gearbox';
     });
   }
 
@@ -47,9 +53,10 @@ class _FilterScreenState extends State<FilterScreen> {
     _filterController.model.value = 'Model';
     _filterController.fuels.value == 'Select Fuel';
     _filterController.condition.value = 'Select condition';
+    _filterController.carColor.value = 'Select color';
+    _filterController.gearBox.value = 'Select gearbox';
   }
 
-  RangeValues rangeValue = const RangeValues(1960, 2024);
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -75,24 +82,18 @@ class _FilterScreenState extends State<FilterScreen> {
                   children: [
                     SpaceHelper.verticalSpaceMedium,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Location',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
 
                     /// Location
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -107,11 +108,9 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Location',
                                   notifier: (seletedData) {
                                     // log('Selected result: ${seletedData['name']}');
-                                    _filterController.selectLocationName.value =
-                                        seletedData['name'];
+                                    _filterController.selectLocationName.value = seletedData['name'];
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownLocations,
+                                  findFromSearch: _filterController.dropDownLocations,
                                 );
                               });
                         },
@@ -120,11 +119,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.selectLocationName.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.selectLocationName.value == 'Select State' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -139,22 +134,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Brand
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Brand',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -169,15 +158,12 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Brand',
                                   notifier: (seletedData) {
                                     log('Selected result: ${seletedData['name']}');
-                                    _filterController.brands.value =
-                                        seletedData['name'];
+                                    _filterController.brands.value = seletedData['name'];
                                     //Get Model Data
-                                    _filterController.model.value = 'Model';
-                                    _filterController.getModelByBrand(
-                                        brandId: seletedData['id']);
+                                     _filterController.model.value = 'Model';
+                                    _filterController.getModelByBrand(brandId: seletedData['id']);
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownBrand,
+                                  findFromSearch: _filterController.dropDownBrand,
                                 );
                               });
                         },
@@ -186,11 +172,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             () => Text(
                               _filterController.brands.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color:
-                                      _filterController.brands.value == 'Brand'
-                                          ? colorDeepGray
-                                          : Colors.black,
-                                  fontWeight: FontWeight.normal),
+                                  color: _filterController.brands.value == 'Brand' ? colorDeepGray : Colors.black, fontWeight: FontWeight.normal),
                             ),
                           ),
                           const Spacer(),
@@ -204,29 +186,22 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Model
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Model',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
                         elevation: 0,
                         onPressed: () {
-                          if (_filterController.brands.isEmpty ||
-                              _filterController.brands.value == 'Brand') {
+                          if (_filterController.brands.isEmpty || _filterController.brands.value == 'Brand') {
                             log('Select Brand');
 
                             errorDialog(textTheme);
@@ -240,11 +215,9 @@ class _FilterScreenState extends State<FilterScreen> {
                                     selectionType: 'Model',
                                     notifier: (selectedData) {
                                       log('Selected result: ${selectedData['name']}');
-                                      _filterController.model.value =
-                                          selectedData['name'];
+                                      _filterController.model.value = selectedData['name'];
                                     },
-                                    findFromSearch:
-                                        _filterController.dropDownModel,
+                                    findFromSearch: _filterController.dropDownModel,
                                   );
                                 });
                           }
@@ -253,11 +226,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           Obx(
                             () => Text(
                               _filterController.model.value,
-                              style: textTheme.bodySmall?.copyWith(
-                                  color:
-                                      _filterController.model.value == 'Model'
-                                          ? colorDeepGray
-                                          : Colors.black),
+                              style: textTheme.bodySmall?.copyWith(color: _filterController.model.value == 'Model' ? colorDeepGray : Colors.black),
                             ),
                           ),
                           const Spacer(),
@@ -270,19 +239,22 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     //Price
                     SpaceHelper.verticalSpaceSmall,
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Row(
                         children: [
-                          PriceWIdget(
+                          TextBoxtWithTitle(
                             headerTitle: 'Price',
                             title: 'Min',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
-                          Spacer(),
-                          PriceWIdget(
+                          const Spacer(),
+                          TextBoxtWithTitle(
                             headerTitle: 'Price',
                             title: 'Max',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
                         ],
                       ),
@@ -290,23 +262,17 @@ class _FilterScreenState extends State<FilterScreen> {
                     SpaceHelper.verticalSpaceSmall,
                     //Menufacture year
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Menufacture year',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       height: 50,
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         elevation: 0,
                         child: SliderTheme(
@@ -316,9 +282,9 @@ class _FilterScreenState extends State<FilterScreen> {
                             inactiveTrackColor: Colors.grey.shade300,
                           ),
                           child: RangeSlider(
-                            min: 1960,
-                            max: 2024,
-                            divisions: 2024 - 1960,
+                            min: double.parse(_filterController.manufacturingYears.last),
+                            max: double.parse(_filterController.manufacturingYears.first),
+                            divisions: int.parse(_filterController.manufacturingYears.first) - int.parse(_filterController.manufacturingYears.last),
                             values: rangeValue,
                             onChanged: (value) {
                               setState(() {
@@ -331,18 +297,21 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Row(
                         children: [
-                          PriceWIdget(
+                          TextBoxtWithTitle(
                             headerTitle: 'From',
                             title: '${rangeValue.start.toInt()}',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
                           const Spacer(),
-                          PriceWIdget(
+                          TextBoxtWithTitle(
                             headerTitle: 'To',
                             title: '${rangeValue.end.toInt()}',
+                            width: DeviceInfo(context).width / 2 - 20,
+                            keyboardType: TextInputType.number,
                           ),
                         ],
                       ),
@@ -350,22 +319,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     SpaceHelper.verticalSpaceSmall,
                     //Fuel Type
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Fuel Type',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -380,7 +343,7 @@ class _FilterScreenState extends State<FilterScreen> {
                                   selectionType: 'Fuel',
                                   notifier: (seletedData) {
                                     log('Selected result: ${seletedData['name']}');
-                                   _filterController.fuels.value=seletedData['name'];
+                                    _filterController.fuels.value = seletedData['name'];
                                   },
                                   findFromSearch: _filterController.dropDownFuels,
                                 );
@@ -392,9 +355,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               _filterController.fuels.value,
                               // 'Fule',
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController.fuels.value =='Select Fuel'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.fuels.value == 'Select fuel' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -410,22 +371,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Condition
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Condition',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -435,29 +390,23 @@ class _FilterScreenState extends State<FilterScreen> {
                               context: context,
                               barrierDismissible: false,
                               builder: (_) {
-                                return DropDownStringSearchWidget(
+                                return DropDownStringSearchWidget<String>(
                                   appBarTitle: 'Select Contition',
                                   selectionType: 'Condition',
-                                  notifier: (seletedData) {
+                                  onSelected: (seletedData) {
                                     log('Selected result: ${seletedData}');
-                                    // _filterController.selectLocationName.value =
-                                    //     seletedData['name'];
+                                    _filterController.condition.value = seletedData ?? '';
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownVehicleConditions,
+                                  findFromSearch: _filterController.dropDownVehicleConditions,
                                 );
                               });
                         },
                         child: Row(children: [
                           Obx(
                             () => Text(
-                              _filterController.selectLocationName.value,
+                              _filterController.condition.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.condition.value == 'Select condition' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -472,22 +421,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //Color
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Color',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -498,28 +441,22 @@ class _FilterScreenState extends State<FilterScreen> {
                               barrierDismissible: false,
                               builder: (_) {
                                 return StateAndCitySearchWidget(
-                                  appBarTitle: 'Select State',
-                                  selectionType: 'Location',
+                                  appBarTitle: 'Select Color',
+                                  selectionType: 'Color',
                                   notifier: (seletedData) {
                                     // log('Selected result: ${seletedData['name']}');
-                                    _filterController.selectLocationName.value =
-                                        seletedData['name'];
+                                    _filterController.carColor.value = seletedData['name'];
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownLocations,
+                                  findFromSearch: _filterController.dropDownCarColors,
                                 );
                               });
                         },
                         child: Row(children: [
                           Obx(
                             () => Text(
-                              _filterController.selectLocationName.value,
+                              _filterController.carColor.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.carColor.value == 'Select color' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -534,22 +471,16 @@ class _FilterScreenState extends State<FilterScreen> {
                     //GearBox
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Gear box',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         highlightElevation: .5,
@@ -559,29 +490,23 @@ class _FilterScreenState extends State<FilterScreen> {
                               context: context,
                               barrierDismissible: false,
                               builder: (_) {
-                                return StateAndCitySearchWidget(
+                                return DropDownStringSearchWidget<String>(
                                   appBarTitle: 'Select State',
                                   selectionType: 'Location',
-                                  notifier: (seletedData) {
-                                    // log('Selected result: ${seletedData['name']}');
-                                    _filterController.selectLocationName.value =
-                                        seletedData['name'];
+                                  onSelected: (seletedData) {
+                                    log('Selected result: ${seletedData}');
+                                    _filterController.gearBox.value = seletedData.toString();
                                   },
-                                  findFromSearch:
-                                      _filterController.dropDownLocations,
+                                  findFromSearch: _filterController.dropDownGareBox,
                                 );
                               });
                         },
                         child: Row(children: [
                           Obx(
                             () => Text(
-                              _filterController.selectLocationName.value,
+                              _filterController.gearBox.value,
                               style: textTheme.bodySmall?.copyWith(
-                                  color: _filterController
-                                              .selectLocationName.value ==
-                                          'Select State'
-                                      ? colorDeepGray
-                                      : Colors.black,
+                                  color: _filterController.gearBox.value == 'Select gearbox' ? colorDeepGray : Colors.black,
                                   fontWeight: FontWeight.normal),
                             ),
                           ),
@@ -597,43 +522,34 @@ class _FilterScreenState extends State<FilterScreen> {
                     //'Sort By'
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Sort By',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         elevation: 0,
                         child: Row(
                           children: [
                             Expanded(
                               child: RadioListTile(
-                                title: const Text("Date"),
+                                title:  Text("Date",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 activeColor: colorDeepOrange,
                                 splashRadius: 10,
                                 value: "date",
-                                groupValue: sortValue,
+                                groupValue: _filterController.sortValue.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    sortValue = value.toString();
+                                    _filterController.sortValue.value = value.toString();
                                   });
                                 },
                               ),
@@ -641,17 +557,15 @@ class _FilterScreenState extends State<FilterScreen> {
                             Expanded(
                               child: RadioListTile(
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                title: const Text("Price"),
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                activeColor: colorDeepOrange,
+                                title:  Text("Price",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 value: "price",
-                                groupValue: sortValue,
+                                groupValue: _filterController.sortValue.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    sortValue = value.toString();
+                                    _filterController.sortValue.value = value.toString();
                                   });
                                 },
                               ),
@@ -664,42 +578,33 @@ class _FilterScreenState extends State<FilterScreen> {
                     //'Sort By'
                     SpaceHelper.verticalSpaceSmall,
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Text(
                         'Order By',
-                        style: textTheme.bodySmall?.copyWith(
-                            color: Colors.black,
-                            letterSpacing: .3,
-                            fontWeight: FontWeight.normal),
+                        style: textTheme.bodySmall?.copyWith(color: Colors.black, letterSpacing: .3, fontWeight: FontWeight.normal),
                       ),
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         color: Colors.white,
                         elevation: 0,
                         child: Row(
                           children: [
                             Expanded(
                               child: RadioListTile(
-                                title: const Text("Ascending"),
+                                title:  Text("Ascending",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 activeColor: colorDeepOrange,
                                 value: "ascending",
-                                groupValue: orderBy,
+                                groupValue: _filterController.orderBy.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    orderBy = value.toString();
+                                    _filterController.orderBy.value = value.toString();
                                   });
                                 },
                               ),
@@ -707,17 +612,15 @@ class _FilterScreenState extends State<FilterScreen> {
                             Expanded(
                               child: RadioListTile(
                                 contentPadding: const EdgeInsets.all(0),
-                                visualDensity: const VisualDensity(
-                                    horizontal: VisualDensity.minimumDensity,
-                                    vertical: VisualDensity.minimumDensity),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                title: const Text("Descending"),
+                                visualDensity: const VisualDensity(horizontal: VisualDensity.minimumDensity, vertical: VisualDensity.minimumDensity),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                 activeColor: colorDeepOrange,
+                                title:  Text("Descending",style: textTheme.bodySmall?.copyWith(color: Colors.black),),
                                 value: "descending",
-                                groupValue: orderBy,
+                                groupValue: _filterController.orderBy.value,
                                 onChanged: (value) {
                                   setState(() {
-                                    orderBy = value.toString();
+                                    _filterController.orderBy.value = value.toString();
                                   });
                                 },
                               ),
@@ -734,8 +637,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             onPress: () {},
                             title: 'Apply',
                             backgroundColor: colorDeepOrange,
-                            textStyle: textTheme.bodyMedium
-                                ?.copyWith(color: Colors.white)),
+                            textStyle: textTheme.bodyMedium?.copyWith(color: Colors.white)),
                       ),
                     ),
 
@@ -763,94 +665,5 @@ class _FilterScreenState extends State<FilterScreen> {
         maxWidth: double.infinity,
         backgroundColor: Colors.red,
         padding: const EdgeInsets.only(top: 20, bottom: 10));
-  }
-}
-
-class PriceWIdget extends StatelessWidget {
-  const PriceWIdget(
-      {super.key, required this.headerTitle, required this.title});
-  final String headerTitle;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          headerTitle,
-          style: textTheme.bodySmall?.copyWith(
-              color: Colors.black,
-              letterSpacing: .3,
-              fontWeight: FontWeight.normal),
-        ),
-        SpaceHelper.verticalSpaceSmall,
-        Material(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          color: Colors.white,
-          elevation: 0,
-          child: Container(
-            width: DeviceInfo(context).width / 2 - 20,
-            height: 40,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Center(
-              child: TextFormField(
-                // controller: _chatController.messageController,
-                autofocus: false,
-                maxLines: null,
-                minLines: 1,
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.zero,
-                  border: InputBorder.none,
-                  //  border:_border ,
-                  // enabledBorder: _border,
-                  //  focusedBorder: _border,
-                  hintText: title,
-                  hintStyle: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                      color: colorDarkAsh),
-                ),
-                keyboardType: TextInputType.number,
-                style: const TextStyle(fontSize: 16.0, color: Colors.black),
-                onChanged: (text) {},
-                onTapOutside: (value) {
-                  // log('onTapOutside called');
-                },
-              ),
-            ),
-          ),
-        ),
-        //    TextFormField(
-        //   // controller: _chatController.messageController,
-        //   autofocus: false,
-        //   maxLines: null,
-        //   decoration: const InputDecoration(
-        //     isDense: true,
-        //     contentPadding: EdgeInsets.zero,
-        //     border: InputBorder.none,
-        //     //  border:_border ,
-        //     // enabledBorder: _border,
-        //     //  focusedBorder: _border,
-        //     hintText: 'Type a message',
-        //     hintStyle: TextStyle(
-        //         fontSize: 16.0,
-        //         fontWeight: FontWeight.normal,
-        //         color: colorDarkAsh),
-        //   ),
-        //   keyboardType: TextInputType.multiline,
-        //   style: const TextStyle(
-        //       fontSize: 16.0, color: Colors.black),
-        //   onChanged: (text) {
-
-        //   },
-        //   onTapOutside: (value) {
-        //     // log('onTapOutside called');
-        //   },
-        // ),
-      ],
-    );
   }
 }
