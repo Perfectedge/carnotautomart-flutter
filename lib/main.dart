@@ -41,7 +41,8 @@ class _MyAppState extends State<MyApp> {
     var deviceinfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       var androidInfo = await deviceinfo.androidInfo;
-      log("Android disply info :${androidInfo.displayMetrics.widthPx} height ${androidInfo.displayMetrics.heightPx}, ${androidInfo.displayMetrics.widthInches} ${androidInfo.displayMetrics.sizeInches} ");
+      log("Android disply info :${androidInfo.display} height");
+      // log("Android disply info :${androidInfo.displayMetrics.widPx} height ${androidInfo.displayMetrics.heightPx}, ${androidInfo.displayMetrics.widthInches} ${androidInfo.displayMetrics.sizeInches} ");
       // log("Android info :${androidInfo.id} ");
       storage.writeIfNull(PrefKeys.deviceToken, androidInfo.id);
     } else if (Platform.isIOS) {
