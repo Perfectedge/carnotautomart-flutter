@@ -33,117 +33,124 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: const CarnotMartAppbar(
-        title: 'Loan provider',
+    return Container(
+        decoration: const BoxDecoration(color: colorLightOrange),
+        child: SafeArea(
+          top: true,
+          bottom: false,
+      child: Scaffold(
+        appBar: const CarnotMartAppbar(
+          title: 'Loan provider',
+        ),
+        body: Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (BuildContext context, index) {
+                return GestureDetector(
+                  onTap: (){
+                    Get.to(()=> const LoanCompanyDetailsScreen(),transition: Transition.downToUp,duration: Duration(milliseconds: 400));
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CachedNetworkImage(
+                        height: 88,
+                        width: 114,
+                        fit: BoxFit.cover,
+                        imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
+                        placeholder: (context, url) => const Center(
+                          child: CupertinoActivityIndicator(
+                            color: colorDarkAsh,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => ClipRRect(
+                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                          child: Image.asset(
+                            'assets/images/default.png',
+                            fit: BoxFit.cover,
+                            height: 65,
+                          ),
+                        ),
+                      ),
+                      SpaceHelper.horizontalSpaceSmall,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Fina Trust icrofinance Bank",
+                              maxLines: 1,
+                              textAlign: TextAlign.left,
+                              overflow: TextOverflow.ellipsis,
+                              style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, fontSize: 12.0, color: Colors.black),
+                            ),
+                            SpaceHelper.verticalSpace(5.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Vehicle Amount",
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorDeepGray,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: Text(
+                                    "Comapre",
+                                    style: textTheme.bodySmall?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SpaceHelper.verticalSpace(5.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    loanProviderTitle(context, "LTV"),
+                                    loanProviderTitle(context, "30 %"),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    loanProviderTitle(context, "Interest"),
+                                    loanProviderTitle(context, "35.00 %"),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    loanProviderTitle(context, "Terms"),
+                                    loanProviderTitle(context, "12"),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SpaceHelper.verticalSpace(5.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                documents(context: context, buttonName: "Documents"),
+                                eligibbility(context),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return SpaceHelper.verticalSpace(10.0);
+              },
+            )),
       ),
-      body: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10.0, top: 10.0),
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (BuildContext context, index) {
-              return GestureDetector(
-                onTap: (){
-                  Get.to(()=> const LoanCompanyDetailsScreen(),transition: Transition.downToUp,duration: Duration(milliseconds: 400));
-                },
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CachedNetworkImage(
-                      height: 88,
-                      width: 114,
-                      fit: BoxFit.cover,
-                      imageUrl: 'https://cdn.pixabay.com/photo/2023/11/02/15/58/flower-8360946_1280.jpg',
-                      placeholder: (context, url) => const Center(
-                        child: CupertinoActivityIndicator(
-                          color: colorDarkAsh,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => ClipRRect(
-                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                        child: Image.asset(
-                          'assets/images/default.png',
-                          fit: BoxFit.cover,
-                          height: 65,
-                        ),
-                      ),
-                    ),
-                    SpaceHelper.horizontalSpaceSmall,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Fina Trust icrofinance Bank",
-                            maxLines: 1,
-                            textAlign: TextAlign.left,
-                            overflow: TextOverflow.ellipsis,
-                            style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, fontSize: 12.0, color: Colors.black),
-                          ),
-                          SpaceHelper.verticalSpace(5.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Vehicle Amount",
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: colorDeepGray,
-                                  fontSize: 10,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10.0),
-                                child: Text(
-                                  "Comapre",
-                                  style: textTheme.bodySmall?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SpaceHelper.verticalSpace(5.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                children: [
-                                  loanProviderTitle(context, "LTV"),
-                                  loanProviderTitle(context, "30 %"),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  loanProviderTitle(context, "Interest"),
-                                  loanProviderTitle(context, "35.00 %"),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  loanProviderTitle(context, "Terms"),
-                                  loanProviderTitle(context, "12"),
-                                ],
-                              )
-                            ],
-                          ),
-                          SpaceHelper.verticalSpace(5.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              documents(context: context, buttonName: "Documents"),
-                              eligibbility(context),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return SpaceHelper.verticalSpace(10.0);
-            },
-          )),
+    )
     );
   }
 

@@ -1047,7 +1047,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                     width: 90.0,
                     title: "Search",
                     backgroundColor: Colors.red,
-                    textStyle: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500)),
+                    textStyle: textTheme.bodySmall?.copyWith(color: Colors.white,fontWeight: FontWeight.bold)),
               ),
               SpaceHelper.verticalSpace(10.0),
             ],

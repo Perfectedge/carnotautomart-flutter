@@ -27,7 +27,7 @@ class CarnotMartAppbar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () {
               Get.back();
             },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded,color: Colors.white,)),
         title: Text(
           title.toUpperCase(),
           style: textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500, color: Colors.white),

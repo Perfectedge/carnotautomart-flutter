@@ -31,52 +31,59 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-        appBar: CarnotMartAppbar(
-              title: 'Eligibility Question',
-              
-            ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                textAlign: TextAlign.center,
-                "Please answer a few questions to determine if you're eligible or not",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorDeepGray,
-                  fontSize: 12,
+    return Container(
+        decoration: const BoxDecoration(color: colorLightOrange),
+        child: SafeArea(
+          top: true,
+          bottom: false,
+      child: Scaffold(
+          appBar: CarnotMartAppbar(
+                title: 'Eligibility Question',
+                
+              ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  textAlign: TextAlign.center,
+                  "Please answer a few questions to determine if you're eligible or not",
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorDeepGray,
+                    fontSize: 12,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                textAlign: TextAlign.center,
-                "Question 1 of 5",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorDeepOrange,
-                  fontSize: 12,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  textAlign: TextAlign.center,
+                  "Question 1 of 5",
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorDeepOrange,
+                    fontSize: 12,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: PageView(
-                physics: NeverScrollableScrollPhysics(),
-                onPageChanged: (value) {},
-                controller: pageController,
-                children: [
-                  radioButtonQuestion(context, "Are you 18 years and above ?"),
-                  radioButtonQuestion(context, "Are you a salary earner ?"),
-                  textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
-                  checkBoxButtonQuestion(context),
-                  submitBottonQuestion(context)
-                ],
+              Expanded(
+                child: PageView(
+                  physics: NeverScrollableScrollPhysics(),
+                  onPageChanged: (value) {},
+                  controller: pageController,
+                  children: [
+                    radioButtonQuestion(context, "Are you 18 years and above ?"),
+                    radioButtonQuestion(context, "Are you a salary earner ?"),
+                    textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
+                    checkBoxButtonQuestion(context),
+                    submitBottonQuestion(context)
+                  ],
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+        
+          )  )),
+    );
   }
 
   Column radioButtonQuestion(BuildContext context, String question) {
@@ -153,17 +160,19 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
   }
 
   BaseButton nextButton({required BuildContext context, void Function()? onPress, String? title}) {
+    final textTheme= Theme.of(context).textTheme;
     return BaseButton(
       height: 30.0,
       width: 250,
       onPress: onPress,
       title: title ?? "Next Question",
       backgroundColor: Colors.redAccent,
-      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0),
+      textStyle: textTheme.bodySmall?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),
     );
   }
 
   BaseButton previousButton({required BuildContext context, void Function()? onPress}) {
+    final textTheme= Theme.of(context).textTheme;
     return BaseButton(
       borderColor: Colors.redAccent,
       isBorder: true,
@@ -172,7 +181,7 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
       onPress: onPress,
       title: "Previous Question",
       backgroundColor: Colors.transparent,
-      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.0, color: colorDeepGray),
+      textStyle: textTheme.bodySmall?.copyWith(color: Colors.black,fontWeight: FontWeight.bold),
     );
   }
 

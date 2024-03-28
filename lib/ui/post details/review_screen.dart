@@ -23,49 +23,56 @@ class _ReviewScreenState extends State<ReviewScreen> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-        appBar: const CarnotMartAppbar(
-          title: 'Review',
-        ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SpaceHelper.verticalSpace(15.0),
-                Text(
-                  "Review Data",
-                  style: textTheme.bodySmall?.copyWith(color: Colors.black),
-                ),
-                SpaceHelper.verticalSpace(15.0),
-                Text(
-                  "2 Comments",
-                  style: textTheme.bodySmall?.copyWith(color: Colors.black),
-                ),
-                SpaceHelper.verticalSpace(10.0),
-                ListView.separated(
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 2,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return DynamicCommentShow();
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SpaceHelper.verticalSpace(10.0);
-                  },
-                ),
-                SpaceHelper.verticalSpace(30.0),
-                const CommentBox(
-                  title: "Type your message",
-                )
-              ],
+      child: Container(
+        decoration: const BoxDecoration(color: colorLightOrange),
+        child: SafeArea(
+          top: true,
+          bottom: false,
+        child: Scaffold(
+          appBar: const CarnotMartAppbar(
+            title: 'Review',
+          ),
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SpaceHelper.verticalSpace(15.0),
+                  Text(
+                    "Review Data",
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black),
+                  ),
+                  SpaceHelper.verticalSpace(15.0),
+                  Text(
+                    "2 Comments",
+                    style: textTheme.bodySmall?.copyWith(color: Colors.black),
+                  ),
+                  SpaceHelper.verticalSpace(10.0),
+                  ListView.separated(
+                    padding: EdgeInsets.zero,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 2,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return DynamicCommentShow();
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SpaceHelper.verticalSpace(10.0);
+                    },
+                  ),
+                  SpaceHelper.verticalSpace(30.0),
+                  const CommentBox(
+                    title: "Type your message",
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ),
+      )
     );
   }
 }
