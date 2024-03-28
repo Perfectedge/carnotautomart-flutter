@@ -7,6 +7,7 @@ import 'package:carnotautomart/ui/post%20details/insurance_provider.dart';
 import 'package:carnotautomart/ui/post%20details/loan_provider.dart';
 import 'package:carnotautomart/ui/post%20details/pinch_image.dart';
 import 'package:carnotautomart/ui/post%20details/review_screen.dart';
+import 'package:carnotautomart/ui/post%20details/seller_information.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/common_method.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/contact_part.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/make_an_offer.dart';
@@ -225,7 +226,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                               height: 30,
                               width: 180,
                               child: RoundedRectangleButton(
-                                  onPress: () {},
+                                  onPress: () {
+                                    Get.to(()=> const SellerInformationScreen(),transition: Transition.downToUp,duration: Duration(milliseconds: 400));
+                                  },
                                   title: 'More from this seller',
                                   backgroundColor: colorLightOrange,
                                   textStyle: textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.normal))),

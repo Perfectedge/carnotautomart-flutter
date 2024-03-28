@@ -3,27 +3,28 @@ import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
 import 'package:carnotautomart/ui/widget/comment_box.dart';
+import 'package:carnotautomart/ui/widget/dynamic_post_car_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../widget/carnotmart_appbabr.dart';
 
-class LoanCompanyDetailsScreen extends StatefulWidget {
-  const LoanCompanyDetailsScreen({super.key});
+class SellerInformationScreen extends StatefulWidget {
+  const SellerInformationScreen({super.key});
 
   @override
-  State<LoanCompanyDetailsScreen> createState() => _LoanCompanyDetailsScreenState();
+  State<SellerInformationScreen> createState() => _SellerInformationScreenState();
 }
 
-class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
-  List<String> productReviewList = ["Products (4)", "Review (0)"];
+class _SellerInformationScreenState extends State<SellerInformationScreen> {
+  List<String> productReviewList = ["Car (4)", "Review (0)"];
   var index = 0;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Container(
@@ -33,24 +34,23 @@ class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
             bottom: false,
             child: Scaffold(
               appBar: const CarnotMartAppbar(
-                title: 'Loan company details',
+                title: 'Seller page',
               ),
               body: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 child: Container(
-                 
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SpaceHelper.verticalSpace(10.0),
                       SizedBox(
-                        height: 80.0,
+                        height: 100.0,
                         child: Row(
                           children: [
                             CachedNetworkImage(
                               imageUrl: "https://st4.depositphotos.com/1000423/23971/i/450/depositphotos_239719906-stock-photo-networking-as-global-concept.jpg",
-                              height: 80,
+                              height: 100,
                               width: 110,
                               fit: BoxFit.cover,
                             ),
@@ -99,8 +99,9 @@ class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
                                       )
                                     ],
                                   ),
-                                  SpaceHelper.verticalSpace(5.0),
+                                  SpaceHelper.verticalSpace(2.0),
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       const Icon(
                                         Icons.place,
@@ -116,7 +117,16 @@ class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
                                         ),
                                       )
                                     ],
-                                  )
+                                  ),
+                                  SpaceHelper.verticalSpace(5.0),
+                                  BaseButton(
+                                    height: 20,
+                                    width: 70,
+                                    onPress: (){}, 
+                                    title: "Chat", 
+                                    backgroundColor: colorDeepOrange, 
+                                    textStyle: textTheme.bodySmall?.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 10.0)
+                                    )
                                 ],
                               ),
                             )
@@ -128,7 +138,7 @@ class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
                         thickness: 0.5,
                       ),
                       Text(
-                        "About Company",
+                        "About Seller",
                         style: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 12.0),
                       ),
                       SpaceHelper.verticalSpace(5.0),
@@ -162,7 +172,7 @@ class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
                               },
                               child: Text(
                                 productReviewList[index1],
-                                style: textTheme.bodySmall?.copyWith(color:Colors.white , fontWeight: FontWeight.w400, fontSize: 12),
+                                style: textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 12),
                               ),
                             );
                           },
@@ -175,60 +185,50 @@ class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
                       index == 0
                           ? Wrap(
                               children: List.generate(
-                                10,
-                                (index) => Container(
-                                  padding: EdgeInsets.zero,
-                                  width: 100,
-                                  child: Card(
-                                    elevation: 4,
-                                    shadowColor: Colors.black,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                  5,
+                                  (index) => Column(
                                         children: [
-                                          Text(
-                                            "Fina Auto Loan",
-                                            style: textTheme.bodySmall?.copyWith(color: Colors.black, fontSize: 10),
+                                          Container(
+                                            height: 160,
+                                            child: DynamicPostCarCard(
+                                              image: 'https://imgd.aeplcdn.com/370x208/n/cw/ec/130591/fronx-exterior-right-front-three-quarter-109.jpeg?isig=0&q=80',
+                                              title: "Black toyota corolla le 2016",
+                                              price: "₦ 18000000?? ||'",
+                                              location: "Ojodu,Lagos",
+                                            ),
                                           ),
-                                          SpaceHelper.verticalSpace(5.0),
-                                          Text(
-                                            "% interest",
-                                            style: textTheme.bodySmall?.copyWith(color: Colors.grey, fontSize: 8),
-                                          ),
-                                          SpaceHelper.verticalSpace(5.0),
-                                          Text(
-                                            "35.00,70.00",
-                                            style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10),
-                                          ),
-                                          SpaceHelper.verticalSpace(5.0),
-                                          Text(
-                                            "12,24 Month",
-                                            style: textTheme.bodySmall?.copyWith(color: colorDeepGray, fontSize: 10),
-                                          ),
-                                          SpaceHelper.verticalSpace(5.0),
+                                          SpaceHelper.verticalSpace(10.0)
                                         ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                                      )),
                             )
                           : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Divider(thickness: 0.5,),
-                              Text("Rate Seller",style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12),),
-                              SpaceHelper.verticalSpace(10.0),
-                              CommentBox(title: "Type Here",borderRadius: 6.0,),
-                              SpaceHelper.verticalSpace(10.0),
-                              Row(
-                                children: List.generate(5, (index) => Icon(Icons.star,color: colorLightOrange,size: 13.0,)),
-                              )
-                              //Text("⭐⭐⭐⭐⭐",style: TextStyle(fontSize: 12.0),)
-                            ],
-                          )
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Divider(
+                                  thickness: 0.5,
+                                ),
+                                Text(
+                                  "Rate Seller",
+                                  style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 12),
+                                ),
+                                SpaceHelper.verticalSpace(10.0),
+                                CommentBox(
+                                  title: "Type Here",
+                                  borderRadius: 6.0,
+                                ),
+                                SpaceHelper.verticalSpace(10.0),
+                                Row(
+                                  children: List.generate(
+                                      5,
+                                      (index) => Icon(
+                                            Icons.star,
+                                            color: colorLightOrange,
+                                            size: 13.0,
+                                          )),
+                                )
+                                //Text("⭐⭐⭐⭐⭐",style: TextStyle(fontSize: 12.0),)
+                              ],
+                            )
                     ],
                   ),
                 ),
