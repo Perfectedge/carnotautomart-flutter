@@ -1,3 +1,4 @@
+import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class TextFontStyle {
@@ -30,6 +31,13 @@ class TextFontStyle {
     // fontSize: 18.0,
     fontSize: 20.0,
   );
+ static const titleSmall = TextStyle(
+    color: colorDeepGray,
+    fontWeight: FontWeight.normal,
+    // fontSize: 18.0,
+    fontSize: 10.0,
+  );
+
 
   static const labelLarge = TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22.0);
   // static const hintStyle =
@@ -47,7 +55,10 @@ class AppTextTheme {
       bodySmall: TextFontStyle.bodySmall,
       bodyLarge: TextFontStyle.bodyLarge,
       labelMedium: TextFontStyle.labelMedium,
-      labelLarge: TextFontStyle.labelLarge);
+      labelLarge: TextFontStyle.labelLarge,
+      titleSmall: TextFontStyle.titleSmall,
+      
+      );
 
   final darkTextTheme = TextTheme(
     displayLarge: TextFontStyle.displayLarge,
@@ -56,5 +67,6 @@ class AppTextTheme {
     bodyLarge: TextFontStyle.bodyLarge,
     labelMedium: TextFontStyle.labelMedium,
     labelLarge: TextFontStyle.labelLarge,
+    titleSmall: TextFontStyle.titleSmall,
   );
 }

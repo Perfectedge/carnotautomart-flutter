@@ -94,10 +94,7 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
                               children: [
                                 Text(
                                   "Vehicle Amount",
-                                  style: textTheme.bodySmall?.copyWith(
-                                    color: colorDeepGray,
-                                    fontSize: 10,
-                                  ),
+                                  style: textTheme.titleSmall
                                 ),
                                 loanComapre(context: context,buttonName: "Compare"),
                               ],
