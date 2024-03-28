@@ -21,21 +21,20 @@ class HomeController extends GetxController {
   RxList<BikeCarSpareParts> carData = <BikeCarSpareParts>[].obs;
   RxList<BikeCarSpareParts> bikeData = <BikeCarSpareParts>[].obs;
   RxList<BikeCarSpareParts> sparePartsData = <BikeCarSpareParts>[].obs;
+  RxBool isLoading = false.obs;
 
   getRecentHomePageData() async {
-    showLoader();
+    // showLoader();
+    isLoading.value = true;
     try {
       final response = await _repository.getHomePageRecentPost();
       if (response.status == true) {
-        Get.back();
         carData.addAll(response.data?.cars ?? []);
         bikeData.addAll(response.data?.bikes ?? []);
         sparePartsData.addAll(response.data?.spareParts ?? []);
-      } else {
-        Get.back();
       }
+      isLoading.value = false;
     } catch (e) {
-      Get.back();
       if (kDebugMode) {
         log('RecentHomePage Error Data: $e');
       }

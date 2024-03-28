@@ -6,6 +6,7 @@ import 'package:carnotautomart/ui/post%20details/post_details_screen.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/widget/base_button.dart';
+import 'package:carnotautomart/ui/widget/show_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,83 +40,84 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Container(
-      decoration: const BoxDecoration(color: Colors.white),
-      padding: const EdgeInsets.only(left: 10),
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SpaceHelper.verticalSpaceMedium,
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Welcome to Carnotautomart',
-                  style: textTheme.bodySmall?.copyWith(color: colorDarkAsh, letterSpacing: .3),
-                )),
-            SpaceHelper.verticalSpaceSmall,
-            //Title and See All
-            _titleAndSeeAll(textTheme, 'What would you like to do?', () {
-              widget.index(1);
-            }),
-            SpaceHelper.verticalSpaceSmall,
-            if (_homeController.homeServiceList.isNotEmpty) _serviceSection(textTheme),
-            SpaceHelper.verticalSpaceMedium,
-            _titleAndSeeAll(textTheme, 'Recently Posted Cars', () {
-              Get.to(() => const RecentCarBikeSparePartsScreen(
-                    vehicleType: 'car',
-                    appbarTitle: 'Recently Posted Car',
-                  ));
-            }),
-            SpaceHelper.verticalSpaceSmall,
-            Obx(() => _recentlyPostdItems(textTheme, _homeController.carData)),
-            SpaceHelper.verticalSpaceSmall,
-            //Title and See All
-            _titleAndSeeAll(textTheme, 'Recently Posted Motorbike', () {
-              Get.to(() => const RecentCarBikeSparePartsScreen(
-                    vehicleType: 'motorbike',
-                    appbarTitle: 'Recently Posted Motorbike',
-                  ));
-            }),
-            SpaceHelper.verticalSpaceSmall,
-            Obx(
-              () => _recentlyPostdItems(textTheme, _homeController.bikeData),
-            ),
-            SpaceHelper.verticalSpaceSmall,
-            //Title and See All
-            _titleAndSeeAll(textTheme, 'Recently Posted Spare Parts', () {
-              Get.to(() => const RecentCarBikeSparePartsScreen(vehicleType: 'spare-parts', appbarTitle: 'Recently Posted Spare Parts'));
-            }),
-            SpaceHelper.verticalSpaceSmall,
-            Obx(
-              () => _recentlyPostdItems(textTheme, _homeController.sparePartsData),
-            ),
+    return Obx(() {
+      return _homeController.isLoading.value
+          ? loaderWidget()
+          : Container(
+              decoration: const BoxDecoration(color: Colors.white),
+              padding: const EdgeInsets.only(left: 10),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SpaceHelper.verticalSpaceMedium,
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Welcome to Carnotautomart',
+                          style: textTheme.bodySmall?.copyWith(color: colorDarkAsh, letterSpacing: .3),
+                        )),
+                    SpaceHelper.verticalSpaceSmall,
+                    //Title and See All
+                    _titleAndSeeAll(textTheme, 'What would you like to do?', () {
+                      widget.index(1);
+                    }),
+                    SpaceHelper.verticalSpaceSmall,
+                    if (_homeController.homeServiceList.isNotEmpty) _serviceSection(textTheme),
+                    SpaceHelper.verticalSpaceMedium,
+                    _titleAndSeeAll(textTheme, 'Recently Posted Cars', () {
+                      Get.to(() => const RecentCarBikeSparePartsScreen(
+                            vehicleType: 'car',
+                            appbarTitle: 'Recently Posted Car',
+                          ));
+                    }),
+                    SpaceHelper.verticalSpaceSmall,
+                    _recentlyPostdItems(textTheme, _homeController.carData),
+                    SpaceHelper.verticalSpaceSmall,
+                    //Title and See All
+                    _titleAndSeeAll(textTheme, 'Recently Posted Motorbike', () {
+                      Get.to(() => const RecentCarBikeSparePartsScreen(
+                            vehicleType: 'motorbike',
+                            appbarTitle: 'Recently Posted Motorbike',
+                          ));
+                    }),
+                    SpaceHelper.verticalSpaceSmall,
+                    _recentlyPostdItems(textTheme, _homeController.bikeData),
 
-            SpaceHelper.verticalSpaceSmall,
-            Text(
-              'Get Financing For Your Car',
-              style: textTheme.bodyMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 16),
-            ),
-            SpaceHelper.verticalSpaceSmall,
-            Text(
-              'We can help you get your dream car on load',
-              style: textTheme.labelSmall?.copyWith(color: Colors.grey, fontWeight: FontWeight.normal, fontSize: 12, letterSpacing: 0),
-            ),
-            SpaceHelper.verticalSpaceSmall,
-            SizedBox(
-                width: 200,
-                child: BaseButton(
-                  onPress: () {},
-                  title: 'Get Started',
-                  backgroundColor: colorDeepOrange,
-                  textStyle: textTheme.labelMedium?.copyWith(color: Colors.white),
-                )),
-            SpaceHelper.verticalSpaceLarge,
-          ],
-        ),
-      ),
-    );
+                    SpaceHelper.verticalSpaceSmall,
+                    //Title and See All
+                    _titleAndSeeAll(textTheme, 'Recently Posted Spare Parts', () {
+                      Get.to(() => const RecentCarBikeSparePartsScreen(vehicleType: 'spare-parts', appbarTitle: 'Recently Posted Spare Parts'));
+                    }),
+                    SpaceHelper.verticalSpaceSmall,
+                    _recentlyPostdItems(textTheme, _homeController.sparePartsData),
+
+                    SpaceHelper.verticalSpaceSmall,
+                    Text(
+                      'Get Financing For Your Car',
+                      style: textTheme.bodyMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 16),
+                    ),
+                    SpaceHelper.verticalSpaceSmall,
+                    Text(
+                      'We can help you get your dream car on load',
+                      style: textTheme.labelSmall?.copyWith(color: Colors.grey, fontWeight: FontWeight.normal, fontSize: 12, letterSpacing: 0),
+                    ),
+                    SpaceHelper.verticalSpaceSmall,
+                    SizedBox(
+                        width: 200,
+                        child: BaseButton(
+                          onPress: () {},
+                          title: 'Get Started',
+                          backgroundColor: colorDeepOrange,
+                          textStyle: textTheme.labelMedium?.copyWith(color: Colors.white),
+                        )),
+                    SpaceHelper.verticalSpaceLarge,
+                  ],
+                ),
+              ),
+            );
+    });
   }
 
   _recentlyPostdItems(TextTheme textTheme, List<BikeCarSpareParts> dataItem) {

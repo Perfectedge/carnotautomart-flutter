@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'data/helper/helper_functions.dart';
 import 'data/local/pref_keys.dart';
 import 'ui/auth/auth_controller.dart';
 import 'ui/bottom_navigation/bottom_bar.dart';
@@ -73,6 +74,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: AppTextTheme().lightTextTheme,
           fontFamily: 'Roboto',
         ),
+        navigatorKey: navigatorKey,
         home: SliderDrawerAndBottomNavigation() //BottomBarScreen() //AllChomphonent() //SplashScreen() ,
 
         );

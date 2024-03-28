@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:flutter/widgets.dart';
 
 import 'app_bar.dart';
@@ -139,7 +141,7 @@ class SliderDrawerState extends State<SliderDrawer> {
 
   /// Close slider
   void closeSlider() => _animationDrawerController.reverse();
-  Color _appBarColor = Color(0xffffffff);
+  Color _appBarColor = const Color(0xffffffff);
 
   @override
   void initState() {
@@ -230,11 +232,10 @@ class SliderDrawerState extends State<SliderDrawer> {
     //Check use start dragging from left edge / right edge then enable dragging
     final rightSideWidthGesture = MediaQuery.of(context).size.width - WIDTH_GESTURE;
     if ((widget.slideDirection == SlideDirection.LEFT_TO_RIGHT && detail.localPosition.dx <= WIDTH_GESTURE) ||
-            (widget.slideDirection == SlideDirection.RIGHT_TO_LEFT &&
-                detail.localPosition.dx >= rightSideWidthGesture) /*&&
+            (widget.slideDirection == SlideDirection.RIGHT_TO_LEFT && detail.localPosition.dx >= rightSideWidthGesture) /*&&
         detail.localPosition.dy <= widget.appBarHeight*/
         ) {
-      this.setState(() {
+      setState(() {
         _isDragging = true;
       });
     }
@@ -281,9 +282,7 @@ class SliderDrawerState extends State<SliderDrawer> {
     }*/
 
     // Close Drawer : Slider Open -> Left/Right
-    if (isDrawerOpen &&
-        (widget.slideDirection == SlideDirection.LEFT_TO_RIGHT || widget.slideDirection == SlideDirection.RIGHT_TO_LEFT) &&
-        detail.delta.dx < 15) {
+    if (isDrawerOpen && (widget.slideDirection == SlideDirection.LEFT_TO_RIGHT || widget.slideDirection == SlideDirection.RIGHT_TO_LEFT) && detail.delta.dx < 15) {
       closeSlider();
     }
   }

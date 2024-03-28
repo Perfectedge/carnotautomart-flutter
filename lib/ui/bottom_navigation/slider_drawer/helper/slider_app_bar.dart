@@ -57,6 +57,6 @@ class SliderAppBar extends StatefulWidget {
 class _SliderAppBarState extends State<SliderAppBar> {
   @override
   Widget build(BuildContext context) {
-    return Offstage();
+    return const Offstage();
   }
 }
