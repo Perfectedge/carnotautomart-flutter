@@ -115,6 +115,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.favorite_border_sharp,
+                    color: Colors.white,
                   )),
             ),
             body: Padding(

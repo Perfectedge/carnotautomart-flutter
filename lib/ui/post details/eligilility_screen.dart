@@ -1,4 +1,3 @@
-
 import 'package:carnotautomart/ui/filter/filter_controller.dart';
 import 'package:carnotautomart/ui/post%20details/apply_for_loan.dart';
 import 'package:carnotautomart/ui/utils/app_colors.dart';
@@ -32,57 +31,55 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
     return Container(
-        decoration: const BoxDecoration(color: colorLightOrange),
-        child: SafeArea(
+      decoration: const BoxDecoration(color: colorLightOrange),
+      child: SafeArea(
           top: true,
           bottom: false,
-      child: Scaffold(
-          appBar: CarnotMartAppbar(
+          child: Scaffold(
+              appBar: CarnotMartAppbar(
                 title: 'Eligibility Question',
-                
               ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  textAlign: TextAlign.center,
-                  "Please answer a few questions to determine if you're eligible or not",
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorDeepGray,
-                    fontSize: 12,
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "Please answer a few questions to determine if you're eligible or not",
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorDeepGray,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  textAlign: TextAlign.center,
-                  "Question 1 of 5",
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorDeepOrange,
-                    fontSize: 12,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "Question 1 of 5",
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorDeepOrange,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: PageView(
-                  physics: NeverScrollableScrollPhysics(),
-                  onPageChanged: (value) {},
-                  controller: pageController,
-                  children: [
-                    radioButtonQuestion(context, "Are you 18 years and above ?"),
-                    radioButtonQuestion(context, "Are you a salary earner ?"),
-                    textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
-                    checkBoxButtonQuestion(context),
-                    submitBottonQuestion(context)
-                  ],
-                ),
-              ),
-            ],
-        
-          )  )),
+                  Expanded(
+                    child: PageView(
+                      physics: NeverScrollableScrollPhysics(),
+                      onPageChanged: (value) {},
+                      controller: pageController,
+                      children: [
+                        radioButtonQuestion(context, "Are you 18 years and above ?"),
+                        radioButtonQuestion(context, "Are you a salary earner ?"),
+                        textButtonQuestion(context: context, question: "If yes how much do you earn ?"),
+                        checkBoxButtonQuestion(context),
+                        submitBottonQuestion(context)
+                      ],
+                    ),
+                  ),
+                ],
+              ))),
     );
   }
 
@@ -160,19 +157,19 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
   }
 
   BaseButton nextButton({required BuildContext context, void Function()? onPress, String? title}) {
-    final textTheme= Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
     return BaseButton(
       height: 30.0,
       width: 250,
       onPress: onPress,
       title: title ?? "Next Question",
       backgroundColor: Colors.redAccent,
-      textStyle: textTheme.bodySmall?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),
+      textStyle: textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
     );
   }
 
   BaseButton previousButton({required BuildContext context, void Function()? onPress}) {
-    final textTheme= Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
     return BaseButton(
       borderColor: Colors.redAccent,
       isBorder: true,
@@ -181,7 +178,7 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
       onPress: onPress,
       title: "Previous Question",
       backgroundColor: Colors.transparent,
-      textStyle: textTheme.bodySmall?.copyWith(color: Colors.black,fontWeight: FontWeight.bold),
+      textStyle: textTheme.bodySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
     );
   }
 
@@ -422,6 +419,7 @@ class _EligibilityScreenState extends State<EligibilityScreen> {
                                   )),
                               TextButton(
                                   onPressed: () {
+                                    Get.back();
                                     Get.to(() => ApplyForLoan(), transition: Transition.downToUp, duration: Duration(milliseconds: 400));
                                   },
                                   child: Text(
