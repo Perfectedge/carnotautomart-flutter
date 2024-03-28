@@ -6,10 +6,12 @@ import 'package:carnotautomart/ui/utils/app_colors.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/common_method.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/documents.dart';
 import 'package:carnotautomart/ui/utils/common_method.dart/eligibbility.dart';
+import 'package:carnotautomart/ui/utils/common_method.dart/loan_compare.dart';
 import 'package:carnotautomart/ui/utils/helper/spacing_helper.dart';
 import 'package:carnotautomart/ui/widget/carnotmart_appbabr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class LoadProviderScreen extends StatefulWidget {
@@ -97,13 +99,7 @@ class _LoadProviderScreenState extends State<LoadProviderScreen> {
                                     fontSize: 10,
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: Text(
-                                    "Comapre",
-                                    style: textTheme.bodySmall?.copyWith(color: Colors.orange[900], fontWeight: FontWeight.normal, fontSize: 10.0),
-                                  ),
-                                ),
+                                loanComapre(context: context,buttonName: "Compare"),
                               ],
                             ),
                             SpaceHelper.verticalSpace(5.0),

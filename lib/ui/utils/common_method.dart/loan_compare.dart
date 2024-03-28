@@ -3,8 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Widget documents({required BuildContext context, required String buttonName,bool? isBackgroundWithBorder}) {
- 
+Widget loanComapre({required BuildContext context, required String buttonName,}) {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
@@ -47,9 +46,9 @@ Widget documents({required BuildContext context, required String buttonName,bool
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration: BoxDecoration(
-            color: colorLightOrange.withOpacity(.1), borderRadius: BorderRadius.circular(25), border: Border.all(color: colorLightOrange)),
+        
         child: Text(
+          
           buttonName, style: textTheme.bodySmall?.copyWith(color: colorDeepOrange, fontSize: 10)),
       ),
     );

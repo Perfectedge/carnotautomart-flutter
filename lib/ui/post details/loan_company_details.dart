@@ -151,6 +151,7 @@ class _LoanCompanyDetailsScreenState extends State<LoanCompanyDetailsScreen> {
                           shrinkWrap: true,
                           itemBuilder: (context, index1) {
                             return MaterialButton(
+                              splashColor: Colors.transparent,
                               //minWidth: 70,
                               shape: StadiumBorder(side: BorderSide(color: index == index1 ? Colors.transparent : colorLightOrange, width: 0.5)),
                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
